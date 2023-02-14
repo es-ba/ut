@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<!--html manifest='../../ut2016/ut2016.manifest' lang="es"-->
+<head>
+    <meta charset='utf8'>
+    <meta http-equiv="Content-Type" content="text/html">.
+    <link rel="stylesheet" type="text/css" href="grilla-ut/dialog-promise.css">
+    <link rel="stylesheet" type="text/css" href="grilla-ut/manual.css">
+    <link rel="stylesheet" type="text/css" href="grilla-ut/grilla-ut.css">
+</head>
+<body>
+<!--23/2/9div>
+ <a href="../../ut/ut2016.php?hacer=hoja_de_ruta" id="aheader">
+   <img class="logo_principal no_imprimir" id="logo_principal" src="../../ut2016/logo_app.png">
+ </a>
+</div-->
+<div id=div_destino_ut>
+</div>
+<script src="grilla-ut/polyfills-bro.js"></script>
+<script src="grilla-ut/best-globals.js"></script>
+<script src="grilla-ut/js-to-html.js"></script>
+<!-- <script src="detect-browser.js"></script> -->
+<script src="grilla-ut/typed-controls.js"></script>
+<script src="grilla-ut/dialog-promise.js"></script>
+<script src="grilla-ut/manual.js"></script>
+<!--230213 script src="../../tedede/comunes.js"></script>
+<script src="../../tedede/tedede.js"></script>
+<script src="../../encuestas/encuestas.js"></script>
+<script src="../../ut2016/dbo_ut2016.js"></script>
+<script src="../../ut2016/estructura_ut2016.js"></script-->
+<script src="grilla-ut/actividades_codigos.js"></script>  
+<script src="grilla-ut/grilla-ut.js"></script>
+
+<script>
+
+var variable_especial='actividades';
+var grillaUt = new GrillaUt();
+
+/*
+var pk_ud=JSON.parse(sessionStorage.getItem('pk_ud_navegacion'));//tomar identificacion del localStorage
+var id_ud=JSON.stringify(pk_ud);
+var ope_actual=JSON.parse(id_ud).tra_ope; //tomar de localstorage estructura
+var vheader=document.getElementById("aheader");
+var vimagen=document.getElementById("logo_principal");
+//23/2/9vheader.setAttribute("href","../../"+ope_actual+"/"+ope_actual+".php?hacer=hoja_de_ruta");
+//23/2/9vimagen.setAttribute("src","../../"+ope_actual+"/logo_app.png");
+localStorage.setItem('ope_actual',ope_actual);
+
+//var rta_ud=JSON.parse(localStorage.getItem("ud_"+id_ud));
+//23/2/9var datos_matriz=JSON.parse(rta_ud['var_'+variable_especial]||'[]');
+*/
+var datos_matriz=[{"desde":"00:00","hasta":"07:00","codigo":"922","detalle":null},{"desde":"07:00","hasta":"07:30","codigo":"911","detalle":null},{"desde":"07:30","hasta":"08:00","codigo":"31","detalle":null},{"desde":"08:00","hasta":"08:30","codigo":"921","detalle":null},{"desde":"08:30","hasta":"09:00","codigo":"14","detalle":null},{"desde":"09:00","hasta":"18:00","codigo":"1","detalle":"Declara que no paró a almorzar."},{"desde":"18:00","hasta":"18:30","codigo":"14","detalle":null},{"desde":"18:30","hasta":"19:00","codigo":"911","detalle":null},{"desde":"19:00","hasta":"20:00","codigo":"36","detalle":null},{"desde":"20:00","hasta":"22:00","codigo":"32","detalle":null},{"desde":"21:00","hasta":"21:30","codigo":"33","detalle":null},{"desde":"22:00","hasta":"23:00","codigo":"921","detalle":null},{"desde":"22:00","hasta":"22:30","codigo":"31","detalle":null},{"desde":"23:00","hasta":"24:00","codigo":"922","detalle":null}];
+
+grillaUt.cargar(datos_matriz);
+
+grillaUt.acomodar();
+
+window.addEventListener('load', function(){
+    var corYtotal=div_destino_ut.offsetTop;
+    //cargar_otras_rta();
+    grillaUt.desplegar('div_destino_ut',corYtotal);
+});
+
+
+</script>
+</body>
+</html>
