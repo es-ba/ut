@@ -27,15 +27,8 @@ var defPreguntasRescate=[
     {pre:'D2', "var":'d2'}
 ];
 
-if(typeof window == 'undefined'){
-    var jsToHtml = require('js-to-html');
-    var TypedControls=require('typed-controls.js');
-    //23/2/9 var estructura_ut=require('estructura_ut2016.js');
-}else{
-    var jsToHtml = window.jsToHtml;
-    var TypedControls=window.TypedControls;
-    var estructura_ut=window.preguntas;
-}
+var jsToHtml = require('js-to-html');
+var TypedControls=require('typed-controls.js');
 var html = jsToHtml.html;
 
 function recontarFilas(tabla){
@@ -72,7 +65,7 @@ function GrillaUt(){
             return tramo.desde || tramo.hasta || tramo.codigo || tramo.detalle;
         });
         var datos_matriz_json=JSON.stringify(tramos_a_grabar);
-        rta_ud['var_'+variable_especial]=datos_matriz_json;
+        //230213 rta_ud['var_'+variable_especial]=datos_matriz_json;
         //23/2/9 localStorage.setItem("ud_"+id_ud, JSON.stringify(rta_ud)); graba en el json del localstorage
     }
     
@@ -134,7 +127,7 @@ function GrillaUt(){
     }
     this.validarActividad = function validarActividad(actividad){
       //  return !!codigosActividad[actividad];
-        return !!actividades_codigos[actividad];
+        return !!actividades_codigos[actividad];        
     };
     this.estructuraTramo=[
         {nombre:'desde'  ,tipo:'tel' , completador:this.completarHora, validador:this.validarHoraYRango},
@@ -241,7 +234,7 @@ function GrillaUt(){
         this.acomodo.cargadoHasta=cargado_total;
     }
     this.habilitarRescate = function habilitarRescate(tramo){
-        tramo.rescatable=tramo.codigo && (rta_ud.var_d1==1 || rta_ud.var_d2==1) && actividades_codigos[tramo.codigo]&& actividades_codigos[tramo.codigo].rescatable ;
+        //230213 tramo.rescatable=tramo.codigo && (rta_ud.var_d1==1 || rta_ud.var_d2==1) && actividades_codigos[tramo.codigo]&& actividades_codigos[tramo.codigo].rescatable ;
         tramo.inputs.rescate.style.visibility=tramo.rescatable?'visible':'hidden';
     }
     this.desplegar = function desplegar(idDivDestino, corYtotal){
@@ -277,7 +270,7 @@ function GrillaUt(){
             var agregarPlaceholder=function(input, infoCampo){
                 if(infoCampo.actualizaPlaceholder){
                    // var infoActividad = codigosActividad[tramo.codigo];
-                   var infoActividad = actividades_codigos[tramo.codigo];
+                    var infoActividad = actividades_codigos[tramo.codigo];
                     tramo.inputs[infoCampo.actualizaPlaceholder].placeholder=(infoActividad)?infoActividad.abr:'';
                 }
             }
@@ -294,6 +287,7 @@ function GrillaUt(){
                     validarInput(tramo.inputs[infoCampo.nombre], infoCampo);
                 });
                 gu.habilitarRescate(tramo);
+                /* 230213
                 var save_rta_ud=rta_ud;
                 //23/2/9 para armado de pk?????
                 copia_ud.copia_enc=pk_ud.tra_enc;
@@ -305,6 +299,7 @@ function GrillaUt(){
                     rta_ud["var_"+infoCampo.nombre] = tramo[infoCampo.nombre];
                 });
                 id_ud=id_ud+'t'+i_tramo;
+                */
                 try{
                     //23/2/9 gu.estructuraTramo.forEach(function(infoCampo){
                         //23/2/9 consistir algo
@@ -313,11 +308,11 @@ function GrillaUt(){
                         //23/2/9 }   
                     //23/2/9 });   
                     recontarFilas(tablaTramos);
-                    rta_ud=save_rta_ud;
-                    id_ud=save_id_ud;   
+                    //230213 rta_ud=save_rta_ud;
+                    //230213 id_ud=save_id_ud;   
                 }catch(err){
-                    rta_ud=save_rta_ud;
-                    id_ud=save_id_ud;
+                    //230213 rta_ud=save_rta_ud;
+                    //230213 id_ud=save_id_ud;
                     throw err;
                 }
             }
@@ -389,9 +384,11 @@ function GrillaUt(){
         })
         document.getElementById('boton-cerrar').textContent=gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
         this.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
+        /*230213
         if(rta_ud["var_d1"] || rta_ud["var_d2"]){
             this.desplegar_rescate();
         }
+        */
     }
     this.desplegar_izquierda = function desplegar_izquierda(idDiv, corYtotal){
         var offsetSup=25;
@@ -518,7 +515,7 @@ function GrillaUt(){
                 var textoPregunta=preguntas[def.pre].pre_texto;
                 TypedControls.adaptElement(control,typeInfo);
                 control.addEventListener('update',function(){
-                    rta_ud["var_"+def.var]=this.getTypedValue();
+                    //230213 rta_ud["var_"+def.var]=this.getTypedValue();
                     if(controlesRescate.d1.getTypedValue()==1 && controlesRescate.d2.getTypedValue() || controlesRescate.d2.getTypedValue()==1){
                         cartelRescate.textContent='Encuestador, pregunte cuándo y corrija la grilla de actividades'
                     }else{
@@ -529,7 +526,7 @@ function GrillaUt(){
                     });
                 });
                 tablaRescate.appendChild(html.tr([html.td(textoPregunta), html.td([control])]).create());
-                control.setTypedValue(rta_ud["var_"+def.var]);
+                //230213 control.setTypedValue(rta_ud["var_"+def.var]);
             });
             if(!cartelRescate){
                 cartelRescate=html.span({id:'cartel-rescate'}).create();
@@ -576,13 +573,13 @@ function GrillaUt(){
             grabar_todo();
             
             
-            if(rta_ud["var_d1"] && rta_ud["var_d2"]){
-                if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
+            /*230213 if(rta_ud["var_d1"] && rta_ud["var_d2"]){
+                230209 if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
                     window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
                 }else{
                     history.go(-1);
-                }
-            }
+                //}
+            } */
         })
         
     }

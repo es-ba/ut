@@ -27,15 +27,9 @@ var defPreguntasRescate=[
     {pre:'D2', "var":'d2'}
 ];
 
-if(typeof window == 'undefined'){
-    var jsToHtml = require('js-to-html');
-    var TypedControls=require('typed-controls.js');
-    //23/2/9 var estructura_ut=require('estructura_ut2016.js');
-}else{
-    var jsToHtml = window.jsToHtml;
-    var TypedControls=window.TypedControls;
-    var estructura_ut=window.preguntas;
-}
+
+var jsToHtml = require('js-to-html');
+var TypedControls=require('typed-controls.js');
 var html = jsToHtml.html;
 
 function recontarFilas(tabla){

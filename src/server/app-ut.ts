@@ -56,6 +56,13 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             { type: 'js', src: 'client/ut.js' },
             { type: 'js', src: 'my-bypass-formulario.js' },
             { type: 'js', src: 'my-render-formulario.js' },
+            { type: 'js', src: 'grilla-ut.js' },
+            { type: 'js', src: 'manual.js' },
+            { type: 'js', src: 'my-render-formulario.js' },
+            { type: 'js', src: 'actividades_codigos.js' },
+            { type: 'js', src: 'grilla.js' },
+            { type: 'css', file: 'grilla-ut.css'},
+            { type: 'css', file: 'manual-ut.css'},
         ])
     }
     createResourcesForCacheJson(parameters){
@@ -100,6 +107,7 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             if(context.puede?.campo?.editar){
                 menu.push(
                     {menuType:'abrir_encuesta', name:'abrir_encuesta'},
+                    {menuType:'abrir_grilla', name:'abrir_grilla'},
                     //{menuType:'consistir_encuesta', name:'consistir_encuesta'},
                 )
                 menu.push(
