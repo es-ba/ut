@@ -436,7 +436,11 @@ function GrillaUt(){
                         if(infoActividad){
                             caja.style.backgroundColor=infoActividad.color || colorOtros;
                             caja.appendChild(html.br().create());
-                            caja.appendChild(html.img({"class": "ico-actividad", src:'img/act_'+tramo.codigo+'.png', alt:'...'}).create());
+                            // svgs_by_code
+                            let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo+'A']})]).create()
+                            svg.setAttribute("viewBox", "0 0 132 132");
+                            caja.appendChild(svg);
+
                             caja.appendChild(html.br().create());
                             caja.appendChild(html.span({"class": "abr-actividad"}, infoActividad.abr).create());
                         }else{
