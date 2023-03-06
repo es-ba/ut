@@ -335,7 +335,6 @@ function GrillaUt(
                     sessionStorage['pantalla-especial-modifico-db']=true;
                     var valor=this.getTypedValue();
                     var valorCompletado = infoCampo.completador(valor);
-                    grabar_todo();
                     if(valor!==valorCompletado){
                         this.setTypedValue(valorCompletado);
                     }
@@ -354,6 +353,7 @@ function GrillaUt(
                         recontarFilas(tablaTramos);
                     }
                     document.getElementById('boton-cerrar').textContent=gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+                    grabar_todo();
                 });
                 tramo.inputs[nombreVar]=input;
                 var celda=tr.insertCell(-1);
