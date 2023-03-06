@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /*jshint eqnull:true */
 /*jshint node:true */
 

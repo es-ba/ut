@@ -58,7 +58,6 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             { type: 'js', src: 'my-render-formulario.js' },
             { type: 'js', src: 'grilla-ut.js' },
             { type: 'js', src: 'manual.js' },
-            { type: 'js', src: 'my-render-formulario.js' },
             { type: 'js', src: 'actividades_codigos.js' },
             { type: 'js', src: 'grilla.js' },
             { type: 'css', file: 'grilla-ut.css'},
