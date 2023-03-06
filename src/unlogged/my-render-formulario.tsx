@@ -42,7 +42,7 @@ setLibreDespliegue((props:{
 })=>{
     const {casillero, formulario, forPk, key} = props;
     useLayoutEffect(() => {
-        var {respuestas, respuestasRaiz} = respuestasForPk(forPk);
+        var {respuestas} = respuestasForPk(forPk);
         //var grillaUt = new GrillaUt(()=>null)
         var grillaUt = new GrillaUt(
             (data:DataFromGrillaUTArray)=>{
@@ -50,7 +50,6 @@ setLibreDespliegue((props:{
                 persistirDatosByPass(getDatosByPass()); //async descontrolada
             }
         );
-        var {respuestas} = respuestasForPk(forPk);
         grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
         grillaUt.acomodar();
         var corYtotal=document.getElementById(casillero.id_casillero)!.offsetTop;
