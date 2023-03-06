@@ -52,7 +52,7 @@ setLibreDespliegue((props:{
         );
         grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
         grillaUt.acomodar();
-        var corYtotal=document.getElementById(casillero.id_casillero)!.offsetTop;
+        var corYtotal=document.getElementById(casillero.id_casillero!)!.offsetTop;
         //cargar_otras_rta();
         grillaUt.desplegar(casillero.id_casillero,corYtotal);
     });
