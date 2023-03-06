@@ -1,5 +1,5 @@
-import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, DatosHdrUaPpal, Formulario, Libre } from "dmencu/dist/unlogged/unlogged/tipos";
-import {getDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk, setPersistirDatosByPass, dispatchByPass, accion_registrar_respuesta} from "dmencu/dist/unlogged/unlogged/bypass-formulario";
+import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, DatosHdrUaPpal, Formulario, Libre, IdUnidadAnalisis, Respuestas } from "dmencu/dist/unlogged/unlogged/tipos";
+import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk} from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
 import {html} from "js-to-html";
 import * as React from "react";
@@ -32,14 +32,7 @@ setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:F
     }
 })
 
-type DataFromGrillaUT = {
-    desde:string
-    hasta:string
-    codigo:string
-    detalle:string|null
-}
-
-type DataFromGrillaUTArray = DataFromGrillaUT[]
+type DataFromGrillaUTArray = Respuestas[]
 
 setLibreDespliegue((props:{
     key:string
@@ -53,22 +46,14 @@ setLibreDespliegue((props:{
         //var grillaUt = new GrillaUt(()=>null)
         var grillaUt = new GrillaUt(
             (data:DataFromGrillaUTArray)=>{
-                respuestas['actividades']=[];
-                data.forEach((dataFromUT:DataFromGrillaUT, index:number)=>{
-                    respuestas['actividades'].push({});
-                    likeAr(dataFromUT).forEach((value:any, field:IdVariable)=>{
-                        //TODO Hacer andar dispatchByPass que ya hace el guardado pero por ahora falla
-                        //dispatchByPass(accion_registrar_respuesta, {forPk:{...props.forPk, formulario:"F:DA", actividad:index+1}, variable:field, respuesta:value});
-                        respuestas['actividades'][index][field] = value;
-                    })
-                })
+                respuestas['actividades' as IdUnidadAnalisis]= data;
+                persistirDatosByPass(getDatosByPass()); //async descontrolada
             }
         );
-        var datos_matriz=[{"desde":"00:00","hasta":"07:00","codigo":"922","detalle":null},{"desde":"07:00","hasta":"07:30","codigo":"911","detalle":null},{"desde":"07:30","hasta":"08:00","codigo":"31","detalle":null},{"desde":"08:00","hasta":"08:30","codigo":"921","detalle":null},{"desde":"08:30","hasta":"09:00","codigo":"14","detalle":null},{"desde":"09:00","hasta":"18:00","codigo":"1","detalle":"Declara que no paró a almorzar."},{"desde":"18:00","hasta":"18:30","codigo":"14","detalle":null},{"desde":"18:30","hasta":"19:00","codigo":"911","detalle":null},{"desde":"19:00","hasta":"20:00","codigo":"36","detalle":null},{"desde":"20:00","hasta":"22:00","codigo":"32","detalle":null},{"desde":"21:00","hasta":"21:30","codigo":"33","detalle":null},{"desde":"22:00","hasta":"23:00","codigo":"921","detalle":null},{"desde":"22:00","hasta":"22:30","codigo":"31","detalle":null},{"desde":"23:00","hasta":"24:00","codigo":"922","detalle":null}];
         var {respuestas} = respuestasForPk(forPk);
-        grillaUt.cargar(respuestas.actividades || []);
+        grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
         grillaUt.acomodar();
-        var corYtotal=document.getElementById(casillero.id_casillero).offsetTop;
+        var corYtotal=document.getElementById(casillero.id_casillero)!.offsetTop;
         //cargar_otras_rta();
         grillaUt.desplegar(casillero.id_casillero,corYtotal);
     });
