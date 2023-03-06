@@ -12,6 +12,7 @@
 #grilla-ut-zona-derecha{
     vertical-align:top;
     overflow: hidden;
+    max-width: 380px;
 }
 
 #grilla-ut-zona-izquierda{
@@ -38,31 +39,30 @@
     vertical-align:top;
 }
 #cartel-rescate{
-    font-family:Arial;
-    font-weight: bold
+    font-family: Arial Narrow;
 }
 #boton-cerrar{
     margin: 10px
 }
 .edit-desde{
-    width:55px;
-    font-size:120%;
+    width:42px;
+    font-size:70%;
 }
 .edit-hasta{
-    width:55px;
-    font-size:120%;
+    width:42px;
+    font-size:70%;
 }
 .edit-codigo{
-    width:40px;
-    font-size:120%;
+    width:30px;
+    font-size:70%;
 }
 .edit-rescate{
-    width:15px;
-    font-size:120%;
+    width:10px;
+    font-size:70%;
 }
 .edit-detalle{
-    width:270px;
-    font-size:120%;
+    width:200px;
+    font-size:70%;
 }
 
 .caja-fija{
@@ -95,3 +95,4 @@
 .consistencia_ayu{background-color:yellow; font-family:arial; font-size:70%}
 .inconsistencia:before{content:"Error: ";    font-weight:bold; text-decoration:underline; color:Red }
 .advertencia:before{content:"Advertencia: "; font-weight:bold; }
+
