@@ -1,10 +1,8 @@
-import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, DatosHdrUaPpal, Formulario, Libre, IdUnidadAnalisis, Respuestas } from "dmencu/dist/unlogged/unlogged/tipos";
+import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, Formulario, Libre, IdUnidadAnalisis, Respuestas } from "dmencu/dist/unlogged/unlogged/tipos";
 import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk} from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
-import {html} from "js-to-html";
 import * as React from "react";
 import { useLayoutEffect } from "react";
-import likeAr = require("like-ar");
 
 setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:ForPk)=>{
     //ajustar variables
