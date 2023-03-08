@@ -41,7 +41,8 @@
     width:380px; 
     max-width:380px; 
     height:733px; 
-    background-image:url(../img/0a24horas.png); 
+    /* background-image:url(../img/0a24horas.png);  */
+    background-image:url(../img/grilla.svg); 
     background-size: 380px 733px;
     background-repeat: no-repeat;
 }
