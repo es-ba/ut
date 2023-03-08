@@ -245,18 +245,18 @@ function GrillaUt(){
                 html.td({id:'grilla-ut-zona-derecha'}),
             ])
         ]);
-        document.getElementById(idDivDestino).appendChild(tabla.create());        
+        document.getElementById(idDivDestino)!.appendChild(tabla.create());        
         var renglones_tramos=[];
         renglones_tramos.push(html.tr([
             html.th({"class":"col-desde"  },'desde'        ),
             html.th({"class":"col-hasta"  },'hasta'        ),
-            html.th({"class":"col-codigo" },'c.act.'       ),
+            html.th({"class":"col-codigo" },'act'       ),
             html.th({"class":"col-rescate"},'R'            ),
             html.th({"class":"col-detalle"},'observaciones'),
         ]));
         var tablaTramos=html.table(renglones_tramos).create();
         var hastaDonde='';
-        document.getElementById('grilla-ut-zona-derecha').appendChild(tablaTramos);
+        document.getElementById('grilla-ut-zona-derecha')!.appendChild(tablaTramos);
         this.desplegarRenglon = function(tramo, i_tramo){
             var celdas=[];
             tramo.inputs={};
@@ -452,7 +452,7 @@ function GrillaUt(){
                     caja.style.top=correccionY + offsetSup+desde.renglon*medidas.pixelPorRenglon + 'px';
                     caja.style.height=(hasta.renglon-desde.renglon)*medidas.pixelPorRenglon +'px';
                     if(hasta.renglon-desde.renglon>1){
-                        caja.style.fontSize='100%';
+                        //caja.style.fontSize='100%';
                     }
 //                    caja.style.display='';
                     caja.style.display=propiedad;

@@ -13,6 +13,26 @@
     vertical-align:top;
     overflow: hidden;
     max-width: 380px;
+    font-size: 0.9em;
+}
+
+#grilla-ut-zona-derecha input{
+    width: 100%;
+}
+#grilla-ut-zona-derecha th.col-desde{
+    width: 15%
+}
+#grilla-ut-zona-derecha th.col-hasta{
+    width: 15%
+}
+#grilla-ut-zona-derecha th.col-codigo{
+    width: 12%
+}
+#grilla-ut-zona-derecha th.col-rescate{
+    width: 10%
+}
+#grilla-ut-zona-derecha th.col-detalle{
+    width: 48%
 }
 
 #grilla-ut-zona-izquierda{
@@ -44,6 +64,7 @@
 #boton-cerrar{
     margin: 10px
 }
+/*
 .edit-desde{
     width:42px;
     font-size:70%;
@@ -63,7 +84,7 @@
 .edit-detalle{
     width:200px;
     font-size:70%;
-}
+}*/
 
 .caja-fija{
     position:absolute;
@@ -75,11 +96,11 @@
     margin:0px;
     box-sizing:border-box;
     text-align:center;
-    font-size:70%;
+    font-size:0.8em;
 }
 
 .abr-actividad{
-    font-size:70%
+    font-size:0.65em;
 }
 
 .edit-warning{
