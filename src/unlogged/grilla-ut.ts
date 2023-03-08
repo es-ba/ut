@@ -87,7 +87,7 @@ function GrillaUt(
     var cortes=[
         //SETEO corY=0 para que se vea bien. Estaba en -10 y arruinaba la posición
         {id: 'caja1', desde:'00:00', hasta:'12:00', corX:15 , corY: -10},
-        {id: 'caja2', desde:'12:00', hasta:'24:00', corX:205, corY: -15-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
+        {id: 'caja2', desde:'12:00', hasta:'24:00', corX:205, corY: -10-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
     ]
     var novalidar=function(){return true;}
     var nocompletar=function(x){ return x;}
