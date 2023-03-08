@@ -442,7 +442,7 @@ function GrillaUt(
                             caja.style.backgroundColor=infoActividad.color || colorOtros;
                             caja.appendChild(html.br().create());
                             // svgs_by_code
-                            let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo+'A']})]).create()
+                            let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo]})]).create()
                             svg.setAttribute("viewBox", "0 0 132 132");
                             caja.appendChild(svg);
 
