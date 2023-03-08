@@ -105,7 +105,6 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             if(context.puede?.campo?.editar){
                 menu.push(
                     {menuType:'abrir_encuesta', name:'abrir_encuesta'},
-                    {menuType:'abrir_grilla', name:'abrir_grilla'},
                     //{menuType:'consistir_encuesta', name:'consistir_encuesta'},
                 )
                 menu.push(

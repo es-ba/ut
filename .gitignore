@@ -70,3 +70,6 @@ local-*
 
 /node_modules
 /src/server/%1
+
+#backups notepad++
+*.bak
