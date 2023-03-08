@@ -29,6 +29,8 @@ var defPreguntasRescate=[
 
 var jsToHtml = require('js-to-html');
 var TypedControls=require('typed-controls.js');
+var json4all = require('json4all');
+
 var html = jsToHtml.html;
 
 function recontarFilas(tabla){
@@ -49,7 +51,9 @@ function mostrar(mensaje){
 }
     
 
-function GrillaUt(){
+function GrillaUt(
+        grabarFun
+){
     var colorOtros='#49FFFF';
     var colorInvalido='#FFED66';
     var colorAgujero='rgba(255,0,0,0.5)'
@@ -65,6 +69,7 @@ function GrillaUt(){
             return tramo.desde || tramo.hasta || tramo.codigo || tramo.detalle;
         });
         var datos_matriz_json=JSON.stringify(tramos_a_grabar);
+        grabarFun(json4all.parse(datos_matriz_json));
         //230213 rta_ud['var_'+variable_especial]=datos_matriz_json;
         //23/2/9 localStorage.setItem("ud_"+id_ud, JSON.stringify(rta_ud)); graba en el json del localstorage
     }
@@ -331,7 +336,6 @@ function GrillaUt(){
                     sessionStorage['pantalla-especial-modifico-db']=true;
                     var valor=this.getTypedValue();
                     var valorCompletado = infoCampo.completador(valor);
-                    grabar_todo();
                     if(valor!==valorCompletado){
                         this.setTypedValue(valorCompletado);
                     }
@@ -350,6 +354,7 @@ function GrillaUt(){
                         recontarFilas(tablaTramos);
                     }
                     document.getElementById('boton-cerrar').textContent=gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+                    grabar_todo();
                 });
                 tramo.inputs[nombreVar]=input;
                 var celda=tr.insertCell(-1);

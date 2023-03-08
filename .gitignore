@@ -63,6 +63,7 @@ typings/
 # Local configs
 local-*
 *-local.*
+*.bak
 
 #don't version generated files
 /dist
