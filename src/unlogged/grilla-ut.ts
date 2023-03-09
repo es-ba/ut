@@ -54,7 +54,7 @@ function mostrar(mensaje){
 function GrillaUt(
         grabarFun
 ){
-    var colorOtros='#49FFFF';
+    var colorOtros='#49FFFF77';
     var colorInvalido='#FFED66';
     var colorAgujero='rgba(255,0,0,0.5)'
     var gu = this;
@@ -82,7 +82,7 @@ function GrillaUt(
         pixelAncho:120,
         minutosRenglon:10,
         cantAct:3,
-        separacionActividad:8,
+        separacionActividad:4,
     };
     var cortes=[
         //SETEO corY=0 para que se vea bien. Estaba en -10 y arruinaba la posición
@@ -400,11 +400,11 @@ function GrillaUt(
         var offsets={
             x_hora:0,
             x_min:25,
-            x_act:40,
+            x_act:12,
             x_act2:90,
             x_act3:140,
             x_fin: 190,
-            x_anchoActividad:50
+            x_anchoActividad:57
         }
         var separarHora = function separarHora(texto){
             var separado={};
@@ -420,7 +420,7 @@ function GrillaUt(
             var desde=separarHora(max(min(tramo.desde,hastaLimite),desdeLimite));
             var hasta=separarHora(max(min(tramo.hasta,hastaLimite),desdeLimite));
             if(!tramo[nombrecaja]){
-                tramo[nombrecaja] = html.div({"class":["caja-fija"]}).create();
+                tramo[nombrecaja] = html.div({"class":["caja-fija", 'act_'+tramo.codigo]}).create();
                 tramo[nombrecaja].style.display='none';
                 document.getElementById(idDiv).appendChild(tramo[nombrecaja]);
             }
@@ -439,7 +439,7 @@ function GrillaUt(
 //                        var infoActividad = codigosActividad[tramo.codigo];
                         var infoActividad = actividades_codigos[tramo.codigo];
                         if(infoActividad){
-                            caja.style.backgroundColor=infoActividad.color || colorOtros;
+                            // caja.style.backgroundColor=infoActividad.color+'77' || colorOtros;
                             caja.appendChild(html.br().create());
                             // svgs_by_code
                             let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo]})]).create()

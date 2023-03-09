@@ -13,7 +13,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A5DAF0"
+//   , "color": "#A5DAF0"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -32,7 +32,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#3DA5D7"
+//   , "color": "#3DA5D7"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -51,7 +51,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A5DAF0"
+//   , "color": "#A5DAF0"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -70,7 +70,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A5DAF0"
+//   , "color": "#A5DAF0"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -89,7 +89,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -108,7 +108,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -127,7 +127,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -146,7 +146,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -165,7 +165,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -184,7 +184,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -203,7 +203,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#ADD2AE"
+//   , "color": "#ADD2AE"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -222,7 +222,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#53B5A3"
+//   , "color": "#53B5A3"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -241,7 +241,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#53B5A3"
+//   , "color": "#53B5A3"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -260,7 +260,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#C6A7C0"
+//   , "color": "#C6A7C0"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -279,7 +279,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#C6A7C0"
+//   , "color": "#C6A7C0"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -298,7 +298,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A45FB5"
+//   , "color": "#A45FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -317,7 +317,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A45FB5"
+//   , "color": "#A45FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -336,7 +336,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A45FB5"
+//   , "color": "#A45FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -355,7 +355,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#A45FB5"
+//   , "color": "#A45FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -374,7 +374,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#B58FB5"
+//   , "color": "#B58FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -393,7 +393,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#B58FB5"
+//   , "color": "#B58FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -412,7 +412,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#B58FB5"
+//   , "color": "#B58FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -431,7 +431,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#B58FB5"
+//   , "color": "#B58FB5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -450,7 +450,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -469,7 +469,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -488,7 +488,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -507,7 +507,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -526,7 +526,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -545,7 +545,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -564,7 +564,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -583,7 +583,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": true
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -602,7 +602,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": true
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -621,7 +621,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": true
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -640,7 +640,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -659,7 +659,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -678,7 +678,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": true
   , "opcion_d23": false
   , "icono": null
-  , "color": "#E1E799"
+//   , "color": "#E1E799"
   , "rescatable": true
   , "act_cod_tlg": 1
   }
@@ -697,7 +697,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -716,7 +716,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -735,7 +735,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -754,7 +754,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -773,7 +773,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
@@ -792,7 +792,7 @@ var actividades_codigos={ "1":
   , "opcion_d22": false
   , "opcion_d23": false
   , "icono": null
-  , "color": "#AF85B5"
+//   , "color": "#AF85B5"
   , "rescatable": false
   , "act_cod_tlg": 1
   }
