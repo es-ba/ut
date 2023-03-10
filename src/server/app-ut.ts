@@ -158,6 +158,11 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                             {menuType:'table', name:'tipoc_tipoc' , label:'inclusiones de celdas'},
                             
                         ]},
+                        {menuType:'menu', name:'estados_acciones', label:'estados/acciones' menuContent:[
+                            {menuType:'table', name:'estados'},
+                            {menuType:'table', name:'acciones'},
+                            {menuType:'table', name:'estados_acciones'},
+                        ]},
                         {menuType:'table', name:'actividades_codigos' , label:'actividades del Diario'},
                         {menuType:'table', name:'parametros'},
                     ]},
