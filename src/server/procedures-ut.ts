@@ -28,15 +28,15 @@ setHdrQuery((quotedCondViv:string)=>{
                 'carga'         , t.area
             ) as tem, t.area,
             jsonb_build_object(
-                'tarea', tarea,
+                'tarea', t.tarea,
                 'fecha_asignacion', fecha_asignacion,
                 'asignado', asignado,
                 'main_form', main_form
             ) as tarea,
             min(fecha_asignacion) as fecha_asignacion
-            from tem t left join tareas_tem tt using (operativo, enc) left join tareas using (tarea)
+            from tem t left join tareas_tem tt using (operativo, enc) left join tareas ta on (t.tarea = ta.tarea)
             where ${quotedCondViv}
-            group by t.operativo, t.enc, t.json_encuesta, t.resumen_estado, dominio, nomcalle,sector,edificio, entrada, nrocatastral, piso,departamento,habitacion,casa,reserva,tt.carga_observaciones, cita, t.area, tarea, fecha_asignacion, asignado, main_form
+            group by t.operativo, t.enc, t.json_encuesta, t.resumen_estado, dominio, nomcalle,sector,edificio, entrada, nrocatastral, piso,departamento,habitacion,casa,reserva,tt.carga_observaciones, cita, t.area, t.tarea, fecha_asignacion, asignado, main_form
         )
         select jsonb_build_object(
                 'viviendas', ${jsono(
