@@ -1,7 +1,9 @@
 "use strict";
+
+import { TypedControl } from "typed-controls";
+
 /*jshint eqnull:true */
 /*jshint node:true */
-
 (function codenautasModuleDefinition(root, name, factory) {
     /* global define */
     /* istanbul ignore next */
@@ -22,6 +24,25 @@
 })(/*jshint -W040 */this, 'GrillaUt', function() {
 /*jshint +W040 */
 
+type Actividades_codigos = { 
+    codigo: Actividad
+    nombre_variable: string
+    texto: string
+    abr: string
+    detalle: string
+    imagen: string
+    exclusividad: boolean
+    grupo:string
+    obligatoriedad:boolean
+    opcion_d12: boolean
+    opcion_d13: boolean
+    opcion_d22: boolean
+    opcion_d23: boolean
+    icono: string
+    color: string
+    rescatable: boolean
+}
+
 var defPreguntasRescate=[
     {pre:'D1', "var":'d1'},
     {pre:'D2', "var":'d2'}
@@ -30,51 +51,107 @@ var defPreguntasRescate=[
 var jsToHtml = require('js-to-html');
 var TypedControls=require('typed-controls.js');
 var json4all = require('json4all');
+var likeAr = require('like-ar')
 
 var html = jsToHtml.html;
 
-function recontarFilas(tabla){
+function recontarFilas(tabla:HTMLTableElement){
     Array.prototype.forEach.call(tabla.childNodes, function(child, i){
         child.numeroOrdenFila=i;
     });
 }
 
-function O_map(object, callback){
-    return Object.keys(object).map(function(key, keysArray){
+var O_map = <T,V>(object:Record<string, T>, callback:(value:T, key:string, object:Record<string,T>)=>V) => {
+    return Object.keys(object).map(function(key){
         return callback(object[key], key, object);
     })
 }
 
-function mostrar(mensaje){
-    var lugar = document.getElementById('grilla-ut-zona-derecha').childNodes[0].childNodes[0].childNodes[4];
-    lugar.textContent=mensaje;
+var tramo: never
+var tramos: never
+
+type DosD = '00' | '01' | '02' | '10' | '20' 
+
+type Hora = `${DosD}:${DosD}` | '24:00'
+
+type Actividad = '1' | '411' | '412' | 'etc'
+
+// type Hora = '00:00' | '00:10' | '01:00' | '02:00' | 'etc'
+
+type Tramo = {
+    desde:Hora|null
+    hasta:Hora|null
+    rescate:string|null
+    codigo:Actividad|null
+    detalle:string|null
 }
-    
+
+type TramoExtendido = Tramo & {
+    inputs:Record<keyof Tramo, TypedControl<any>>
+    rescatable:boolean
+} & Record<CorteId,HTMLDivElement & Tramo>
+
+type EstructuraTramo = {
+    nombre:keyof Tramo
+    tipo:string
+    completador:(s:string|null)=>string|null
+    validador:(valor:Tramo[keyof Tramo], tramo:Tramo)=>boolean
+    actualizaPlaceholder?:keyof Tramo
+    tabindex?:boolean
+    rescate?:boolean
+}
+
+type IdColumna = 0|1|2|'agujero'
+type CorteId = 'caja1' | 'caja2'
+type Agujero = Partial< Tramo & Record<CorteId, HTMLElement> >
+
+type GruillaUtThis = {
+    tramos: Tramo[]
+    estructuraTramo: EstructuraTramo[]
+    renglonVacio: () => Tramo
+    separaHoraTexto: (horaNoSeparada:Hora) => {hora:DosD, minutos:DosD}
+    completarHora: (horaIncompleta:string|null) => Hora|null
+    validarHora: (hora:string) => boolean
+    validarHoraYRango: (hora:string|boolean|null, rango:Tramo) => boolean
+    validarActividad: (actividad:string|boolean|null) => boolean
+    cargar: (tramos:Tramo[]) => void
+    acomodar: () => void
+    acomodo: {
+        columnas:TramoExtendido[][],
+        agujeros:Agujero[],
+        cargadoHasta:Hora|null
+    }
+    habilitarRescate: (tramo:Partial<TramoExtendido>) => void
+    desplegar: (idDiv:string, corYtotal:number) => void
+    desplegarRenglon: (tramo:Partial<TramoExtendido>, i:number) => void
+    desplegar_izquierda: (idDiv:string, corYtotal:number) => void
+    desplegar_rescate: () => void
+}
 
 function GrillaUt(
-        grabarFun
+    grabarFun: (data:any) => void
 ){
     var colorOtros='#49FFFF77';
     var colorInvalido='#FFED66';
     var colorAgujero='rgba(255,0,0,0.5)'
-    var gu = this;
+    // @ts-expect-error es una variable global
+    var actividades_codigos: Record<Actividad, Actividades_codigos> = window.actividades_codigos;
+    // @ts-expect-error es una variable global
+    var actividades_svg: Record<Actividad, string> = window.actividades_svg;
+    // @ts-expect-error no conocemos el tipo de t his, así que vamos a usar gu
+    var gu: GruillaUtThis = this;
     function grabar_todo(){
-        var tramos_a_grabar=gu.tramos.map(function(tramo){
-            var tramo_puro={};
-            gu.estructuraTramo.forEach(function(infoCampo){
-                tramo_puro[infoCampo.nombre]=tramo[infoCampo.nombre];
-            });
-            return tramo_puro;
+        var tramos_a_grabar=gu.tramos.map(function(tramo:Tramo){
+            return likeAr(gu.renglonVacio()).map((_, key)=>tramo[key]).plain();
         }).filter(function(tramo){
             return tramo.desde || tramo.hasta || tramo.codigo || tramo.detalle;
         });
-        var datos_matriz_json=JSON.stringify(tramos_a_grabar);
+        var datos_matriz_json=json4all.stringify(tramos_a_grabar);
         grabarFun(json4all.parse(datos_matriz_json));
         //230213 rta_ud['var_'+variable_especial]=datos_matriz_json;
         //23/2/9 localStorage.setItem("ud_"+id_ud, JSON.stringify(rta_ud)); graba en el json del localstorage
     }
-    
-    gu.renglonVacio=function(){ return {desde:null, hasta:null, codigo:null, detalle:null}; };
+    gu.renglonVacio=function(){ return {desde:null, hasta:null, codigo:null, detalle:null, rescate:null}; };
     var medidas={
         horas:12,
         renglonesHora:6,
@@ -84,23 +161,23 @@ function GrillaUt(
         cantAct:3,
         separacionActividad:4,
     };
-    var cortes=[
+    var cortes = [
         //SETEO corY=0 para que se vea bien. Estaba en -10 y arruinaba la posición
-        {id: 'caja1', desde:'00:00', hasta:'12:00', corX:15 , corY: -10},
-        {id: 'caja2', desde:'12:00', hasta:'24:00', corX:205, corY: -10-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
+        {id: 'caja1' as CorteId, desde:'00:00' as Hora, hasta:'12:00' as Hora, corX:15 , corY: -10},
+        {id: 'caja2' as CorteId, desde:'12:00' as Hora, hasta:'24:00' as Hora, corX:205, corY: -10-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
     ]
     var novalidar=function(){return true;}
-    var nocompletar=function(x){ return x;}
-    this.separaHoraTexto=function(horaNoSeparada){
-        var indiceDosPuntos=horaNoSeparada.match(/:/).index;
-        var preDosPuntos=horaNoSeparada.substr(0,indiceDosPuntos)
-        var postDosPuntos=horaNoSeparada.substr(indiceDosPuntos+1,horaNoSeparada.length);
+    var nocompletar=function<T>(x:T){ return x;}
+    gu.separaHoraTexto=function(horaNoSeparada){
+        var indiceDosPuntos=horaNoSeparada.match(/:/)?.index ?? horaNoSeparada.length;
+        var preDosPuntos=horaNoSeparada.substr(0,indiceDosPuntos) as DosD;
+        var postDosPuntos=horaNoSeparada.substr(indiceDosPuntos+1,horaNoSeparada.length) as DosD;
         return {
             hora:preDosPuntos,
             minutos:postDosPuntos
         };
     }
-    this.completarHora = function completarHora(hora){
+    gu.completarHora = function completarHora(hora:string|null){
         if(hora==null) return null;
         if(!hora.match(/:/) && hora.match(/[,.;]/)){
             hora=hora.replace(/[,.;]/,':')
@@ -112,44 +189,45 @@ function GrillaUt(
                 hora=hora.substr(0,hora.length-2)+':'+hora.slice(-2);
             }
         }
-        var horaSeparada=gu.separaHoraTexto(hora);
+        var horaSeparada=gu.separaHoraTexto(hora as Hora);
         hora=(horaSeparada.hora.length==1)?'0'+hora:hora;
-        horaSeparada=gu.separaHoraTexto(hora);
+        horaSeparada=gu.separaHoraTexto(hora as Hora);
         hora=(horaSeparada.minutos.length==0)?hora+'00':hora;
         hora=(horaSeparada.minutos.length==1)?hora+'0':hora;
         hora=(horaSeparada.minutos.length>2)?horaSeparada.hora+':'+horaSeparada.minutos.substr(0,2):hora;
-        return hora;
+        return hora as Hora;
     };
-    this.validarHora = function validarHora(hora){
+    gu.validarHora = function validarHora(hora){
         var patt = new RegExp(/^([01]\d|2[0-3]):([0-5][0-9])$/);
         return patt.test(hora) || (hora=='24:00');
     };
-    this.validarHoraYRango = function (hora, registroConDesdeHasta){
+    gu.validarHoraYRango = function (hora, registroConDesdeHasta){
         var desde=registroConDesdeHasta.desde;
         var hasta=registroConDesdeHasta.hasta;
         var rangoInvalido = hasta != null && desde != null && hasta<=desde;
-        return this.validarHora(hora) && !rangoInvalido;
+        return this.validarHora(hora as string) && !rangoInvalido;
     }
-    this.validarActividad = function validarActividad(actividad){
+    gu.validarActividad = function validarActividad(actividad){
       //  return !!codigosActividad[actividad];
-        return !!actividades_codigos[actividad];        
+        return !!actividades_codigos[actividad as Actividad];        
     };
-    this.estructuraTramo=[
-        {nombre:'desde'  ,tipo:'tel' , completador:this.completarHora, validador:this.validarHoraYRango},
-        {nombre:'hasta'  ,tipo:'tel' , completador:this.completarHora, validador:this.validarHoraYRango},
-        {nombre:'codigo' ,tipo:'tel' , completador:nocompletar       , validador:this.validarActividad , actualizaPlaceholder:'detalle'},
-        {nombre:'rescate',tipo:'tel' , completador:nocompletar       , validador:novalidar             , tabindex:true, rescate:true},
-        {nombre:'detalle',tipo:'text', completador:nocompletar       , validador:novalidar             , tabindex:true},
+    gu.estructuraTramo=[
+        {nombre:'desde'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
+        {nombre:'hasta'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
+        {nombre:'codigo' ,tipo:'tel' , completador:nocompletar     , validador:gu.validarActividad , actualizaPlaceholder:'detalle'},
+        {nombre:'rescate',tipo:'tel' , completador:nocompletar     , validador:novalidar           , tabindex:true, rescate:true},
+        {nombre:'detalle',tipo:'text', completador:nocompletar     , validador:novalidar           , tabindex:true},
     ]
-    this.cargar = function cargar(tramos){
-        this.tramos = tramos;
+    gu.cargar = function cargar(tramos){
+        gu.tramos = tramos.map(tramo=>({...tramo})); // Necesitamos una copia porque la pantalla toca los tramos poniendo un montón de punteros
         if(!this.tramos.length || this.tramos[this.tramos.length-1].desde){
             //ESTO TRAE PROBLEMAS CON EL TEST QUE NO HACE QUE NO PASE EL TEST DE ACOMODAR RENGLÓN: NO CONTEMPLA ACOMODAR EL RENGLÓN VACÍO
             this.tramos.push(this.renglonVacio());
         }
     }
-    this.acomodar = function acomodar(){
-        var tramos = this.tramos;
+    gu.acomodar = function acomodar(){
+        var gu = this;
+        var tramos = this.tramos as TramoExtendido[];
     /* separa los tramos en una o más columnas de modo de que:
         1) cada tramo esté en alguna columna
         2) dentro de cada columna los tramos estén ordenados
@@ -158,11 +236,12 @@ function GrillaUt(
        además calcula los agujeros (rangos horarios sin tramos) y
        el fin del tramo que termina último
     */  
-        if(this.acomodo){
+        if(gu.acomodo){
             this.acomodo.agujeros.forEach(function(agujero){
                 cortes.forEach(function(corte){
-                    if(agujero[corte.id]){
-                        agujero[corte.id].parentNode.removeChild(agujero[corte.id]);
+                    var elementoDeCorte = agujero[corte.id]
+                    if(elementoDeCorte != null){
+                        elementoDeCorte.parentNode?.removeChild(elementoDeCorte);
                     }
                 });
             });
@@ -170,21 +249,21 @@ function GrillaUt(
         this.acomodo = {
             columnas:[],
             agujeros:[],
-            cargadoHasta:''
+            cargadoHasta:'' as Hora
         };
-        var ancho = function(c){
+        var ancho = function(c:string|null){
             if(c==null){
                 return 'zzzzzzzzzz';
             }
             while(c.length<10) c+=' ';
             return c;
         }
-        var invertir = function(t){
+        var invertir = function(t:string){
             return t.split('').map(function(letra){
                 return String.fromCharCode('|'.charCodeAt(0)-letra.charCodeAt(0));
             }).join('');
         }
-        var lindo = function(x){
+        var lindo = function(x:Tramo){
             return ancho(x.desde)+'/'+invertir(ancho(x.hasta))+'/'+x.codigo
         }
         tramos.sort(function(x,y){
@@ -198,9 +277,9 @@ function GrillaUt(
                 return 0;
             }
         })
-        this.acomodo.cargadoHasta=tramos[tramos.length-1].hasta;
+        this.acomodo.cargadoHasta = tramos[tramos.length-1].hasta;
         var columnas = this.acomodo.columnas;
-        columnas.push([tramos[0]]);
+        columnas.push([tramos[0] as TramoExtendido]);
         var actual;
         for(var i=1;i<tramos.length;i++){
             actual=tramos[i];
@@ -209,7 +288,7 @@ function GrillaUt(
             while (j<columnas.length){
                 var colj=columnas[j];
                 var cotacol=colj[colj.length-1];
-                if (actual.desde>= cotacol.hasta ){
+                if ( (actual.desde ?? 'z') >= (cotacol.hasta ?? 'z') ){
                     columnas[j].push(actual);
                     j=columnas.length;
                     ubicado=true;
@@ -220,29 +299,32 @@ function GrillaUt(
                 columnas.push([actual]);
             }
         }
-        var agujeros=[];
-        if (tramos[0].desde>'00:00'){
-            agujeros.push({desde:'00:00', hasta:tramos[0].desde});
+        var agujeros=[] as Agujero[];
+        var desde = tramos[0].desde;
+        if ( desde != null && desde > '00:00'){
+            agujeros.push({desde:'00:00', hasta: desde});
         };
-        var cargado_total=tramos[0].hasta;
+        var cargado_total = tramos[0].hasta ?? 'z' as Hora;
         for(var i=1;i<tramos.length;i++){
-            if (tramos[i].desde>cargado_total){
-                var agujero={};
-                agujero.desde=cargado_total;
-                agujero.hasta=tramos[i].desde;
+            if ( (tramos[i].desde ?? '') > cargado_total ){
+                var agujero = {} as Tramo;
+                agujero.desde = cargado_total;
+                agujero.hasta = tramos[i].desde;
                 agujeros.push(agujero);
             } 
-            cargado_total= cargado_total<tramos[i].hasta? tramos[i].hasta: cargado_total;
+            var hasta = tramos[i].hasta
+            cargado_total = hasta != null && cargado_total < hasta ? hasta : cargado_total;
         }
-        this.acomodo.agujeros= agujeros;
+        this.acomodo.agujeros = agujeros;
         
         this.acomodo.cargadoHasta=cargado_total;
     }
-    this.habilitarRescate = function habilitarRescate(tramo){
+    gu.habilitarRescate = function habilitarRescate(tramo){
         //230213 tramo.rescatable=tramo.codigo && (rta_ud.var_d1==1 || rta_ud.var_d2==1) && actividades_codigos[tramo.codigo]&& actividades_codigos[tramo.codigo].rescatable ;
-        tramo.inputs.rescate.style.visibility=tramo.rescatable?'visible':'hidden';
+        tramo.inputs!.rescate.style.visibility=tramo.rescatable?'visible':'hidden';
     }
-    this.desplegar = function desplegar(idDivDestino, corYtotal){
+    gu.desplegar = function desplegar(idDivDestino, corYtotal){
+        var gu = this;
         corYtotal=corYtotal||0;
         var tabla=html.table({id:'grilla-ut-tabla-externa'},[
             html.tr([
@@ -262,34 +344,35 @@ function GrillaUt(
         var tablaTramos=html.table(renglones_tramos).create();
         var hastaDonde='';
         document.getElementById('grilla-ut-zona-derecha')!.appendChild(tablaTramos);
-        this.desplegarRenglon = function(tramo, i_tramo){
+        gu.desplegarRenglon = function(tramo, i_tramo){
             var celdas=[];
-            tramo.inputs={};
-            var classToggle=function(input,clase, sacoAgrego ){
+            tramo.inputs = {} as TramoExtendido['inputs'];
+            var classToggle=function(input:HTMLInputElement, clase:string, sacoAgrego:boolean){
                 if(sacoAgrego){
                     input.classList.add(clase);
                 }else{
                     input.classList.remove(clase);
                 } 
             }
-            var agregarPlaceholder=function(input, infoCampo){
+            var agregarPlaceholder=function(_input:HTMLInputElement, infoCampo:EstructuraTramo){
                 if(infoCampo.actualizaPlaceholder){
                    // var infoActividad = codigosActividad[tramo.codigo];
-                    var infoActividad = actividades_codigos[tramo.codigo];
-                    tramo.inputs[infoCampo.actualizaPlaceholder].placeholder=(infoActividad)?infoActividad.abr:'';
+                    var infoActividad = actividades_codigos[tramo.codigo!];
+                    (tramo.inputs?.[infoCampo.actualizaPlaceholder] as unknown as HTMLInputElement).placeholder = infoActividad != null?infoActividad.abr:'';
                 }
             }
-            var validarInput=function validarInput(input, infoCampo){
-                if(input){
-                    var valor = input.getTypedValue();
-                    var invalido= valor==null?false: !infoCampo.validador.call(gu, valor, tramo);
+            var validarInput=function validarInput(control:TypedControl<any> | null, infoCampo:EstructuraTramo){
+                if(control != null){
+                    var valor = control.getTypedValue();
+                    var input = control as unknown as HTMLInputElement;
+                    var invalido = valor==null?false: !infoCampo.validador.call(gu, valor, tramo as Tramo);
                     classToggle(input,'edit-warning',invalido) 
                     agregarPlaceholder(input, infoCampo);
                 }
             }
             var validarTramo=function validarTramo(){
                 gu.estructuraTramo.forEach(function(infoCampo){
-                    validarInput(tramo.inputs[infoCampo.nombre], infoCampo);
+                    validarInput(tramo.inputs![infoCampo.nombre], infoCampo);
                 });
                 gu.habilitarRescate(tramo);
                 /* 230213
@@ -332,19 +415,21 @@ function GrillaUt(
                 }
                 TypedControls.adaptElement(input, {typeName:'text'});
                 input.setTypedValue(tramo[nombreVar]||null);
-                input.addEventListener('update',function(event){
+                input.addEventListener('update',function(){
                     sessionStorage['pantalla-especial-modifico-db']=true;
-                    var valor=this.getTypedValue();
+                    // @ts-expect-error this dentro de un typedControl
+                    var control:TypedControl<any> = this;
+                    var valor=control.getTypedValue();
                     var valorCompletado = infoCampo.completador(valor);
-                    if(valor!==valorCompletado){
-                        this.setTypedValue(valorCompletado);
+                    if(valor !== valorCompletado){
+                        control.setTypedValue(valorCompletado);
                     }
                     var valorAnterior=tramo[nombreVar];
-                    tramo[nombreVar]=valorCompletado;
+                    tramo[nombreVar] = valorCompletado as any;
                     validarTramo();
                     if(valorAnterior != valorCompletado && tramo.rescatable && !infoCampo.rescate){
-                        tramo.rescate='1';
-                        tramo.inputs.rescate.setTypedValue(tramo.rescate);
+                        tramo.rescate = '1';
+                        tramo.inputs!.rescate.setTypedValue(tramo.rescate);
                     }
                     gu.acomodar();
                     gu.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
@@ -353,10 +438,11 @@ function GrillaUt(
                         gu.desplegarRenglon(gu.tramos[nuevaPosicion], nuevaPosicion);
                         recontarFilas(tablaTramos);
                     }
-                    document.getElementById('boton-cerrar').textContent=gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+                    var elementoBotonCerrar = document.getElementById('boton-cerrar') as HTMLButtonElement
+                    if(elementoBotonCerrar) elementoBotonCerrar.textContent = gu.acomodo.cargadoHasta == '24:00'?'cerrar':'cerrar incompleto';
                     grabar_todo();
                 });
-                tramo.inputs[nombreVar]=input;
+                tramo.inputs![nombreVar]=input;
                 var celda=tr.insertCell(-1);
                 celda.className="col-"+nombreVar;
                 celda.appendChild(input);
@@ -368,26 +454,28 @@ function GrillaUt(
         recontarFilas(tablaTramos);
         tablaTramos.parentNode.appendChild(html.button({id:'boton-cerrar'},'cerrar...').create());
         var botonCerrar=document.getElementById('boton-cerrar');
-        botonCerrar.addEventListener('click',function(){
-            var partes=location.pathname.split('/');
-            partes.pop();
-            partes.pop();
-            partes.pop();
-            gu.desplegar_rescate();
-            var ruta=partes.join('/')+"/ut2016/ut2016.php";
-            var pk_nuevo_ud='{"tra_ope":"ut2016","tra_for":"I1","tra_mat":""}';
-            grabar_todo();
-            /*
-            if(rta_ud["var_d1"] || rta_ud["var_d2"]){
-                if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
-                    window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
-                }else{
-                    history.go(-1);
+        if(botonCerrar){
+            botonCerrar.addEventListener('click',function(){
+                var partes=location.pathname.split('/');
+                partes.pop();
+                partes.pop();
+                partes.pop();
+                gu.desplegar_rescate();
+                var ruta=partes.join('/')+"/ut2016/ut2016.php";
+                var pk_nuevo_ud='{"tra_ope":"ut2016","tra_for":"I1","tra_mat":""}';
+                grabar_todo();
+                /*
+                if(rta_ud["var_d1"] || rta_ud["var_d2"]){
+                    if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
+                        window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
+                    }else{
+                        history.go(-1);
+                    }
                 }
-            }
-            */
-        })
-        document.getElementById('boton-cerrar').textContent=gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+                */
+            })
+            botonCerrar.textContent = gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+        }
         this.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
         /*230213
         if(rta_ud["var_d1"] || rta_ud["var_d2"]){
@@ -395,7 +483,7 @@ function GrillaUt(
         }
         */
     }
-    this.desplegar_izquierda = function desplegar_izquierda(idDiv, corYtotal){
+    gu.desplegar_izquierda = function desplegar_izquierda(idDiv, corYtotal){
         var offsetSup=25;
         var offsets={
             x_hora:0,
@@ -406,23 +494,24 @@ function GrillaUt(
             x_fin: 190,
             x_anchoActividad:57
         }
-        var separarHora = function separarHora(texto){
-            var separado={};
-            separado.hora=Number(texto.split(':')[0]);
-            separado.min=Number(texto.split(':')[1]);
-            separado.renglon=(separado.hora*60+separado.min)/medidas.minutosRenglon;
+        var separarHora = function separarHora(texto:string){
+            var separado = {
+                hora: Number(texto.split(':')[0]),
+                min: Number(texto.split(':')[1]),
+                renglon: 0
+            };
+            separado.renglon = (separado.hora*60+separado.min)/medidas.minutosRenglon
             return separado;
         }
-        var max = function(a,b){return a>b?a:b; }
-        var min = function(a,b){return a<b?a:b; }
-        var colocarCaja = function colocarCaja(tramo, nombrecaja, desdeLimite, hastaLimite, i_columna, correcionX, correccionY, propiedad){
-        
-            var desde=separarHora(max(min(tramo.desde,hastaLimite),desdeLimite));
-            var hasta=separarHora(max(min(tramo.hasta,hastaLimite),desdeLimite));
-            if(!tramo[nombrecaja]){
+        var max = function<T>(a:T,b:T){return a>b?a:b; }
+        var min = function<T>(a:T,b:T){return a<b?a:b; }
+        var colocarCaja = function colocarCaja(tramo:TramoExtendido, nombrecaja:CorteId, desdeLimite:Hora, hastaLimite:Hora, i_columna:IdColumna, correcionX:number, correccionY:number, propiedad){        
+            var desde=separarHora(max(min(tramo.desde as Hora,hastaLimite),desdeLimite));
+            var hasta=separarHora(max(min(tramo.hasta as Hora,hastaLimite),desdeLimite));
+            if(!tramo[nombrecaja] || !document.body.contains(tramo[nombrecaja])){
                 tramo[nombrecaja] = html.div({"class":["caja-fija", 'act_'+tramo.codigo]}).create();
                 tramo[nombrecaja].style.display='none';
-                document.getElementById(idDiv).appendChild(tramo[nombrecaja]);
+                document.getElementById(idDiv)?.appendChild(tramo[nombrecaja]);
             }
             var caja = tramo[nombrecaja];
             if(desde.renglon<hasta.renglon){
@@ -437,12 +526,12 @@ function GrillaUt(
                         caja.style.left=correcionX + offsets.x_act+(i_columna>medidas.cantAct-1?2:i_columna)*offsets.x_anchoActividad + 'px';
                         caja.style.width=offsets.x_anchoActividad - medidas.separacionActividad + 'px';
 //                        var infoActividad = codigosActividad[tramo.codigo];
-                        var infoActividad = actividades_codigos[tramo.codigo];
+                        var infoActividad = actividades_codigos[tramo.codigo!];
                         if(infoActividad){
                             // caja.style.backgroundColor=infoActividad.color+'77' || colorOtros;
                             caja.appendChild(html.br().create());
                             // svgs_by_code
-                            let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo]})]).create()
+                            let svg = html.svg({"class": "ico-svg-actividad"}, [html.path({"d":actividades_svg[tramo.codigo!]})]).create()
                             svg.setAttribute("viewBox", "0 0 132 132");
                             caja.appendChild(svg);
 
@@ -481,18 +570,18 @@ function GrillaUt(
                     var propiedad='none';
                 }else{propiedad='';}
                 cortes.forEach(function(info){
-                    colocarCaja(tramo, info.id, info.desde, info.hasta, i_columna,  info.corX, info.corY+corYtotal,propiedad);
+                    colocarCaja(tramo, info.id, info.desde, info.hasta, i_columna as IdColumna,  info.corX, info.corY+corYtotal,propiedad);
                 });
             });
         });
         this.acomodo.agujeros.forEach(function(agujero){
             var propiedad='';
             cortes.forEach(function(info){
-                colocarCaja(agujero, info.id, info.desde, info.hasta, 'agujero',  info.corX, info.corY+corYtotal,propiedad);
+                colocarCaja(agujero as TramoExtendido, info.id, info.desde, info.hasta, 'agujero',  info.corX, info.corY+corYtotal,propiedad);
             });
         });
     };
-    this.desplegar_rescate=function(){
+    gu.desplegar_rescate=function(){
         var typeInfo={
             typeName:"enum",
             showOption: true,
@@ -509,7 +598,7 @@ function GrillaUt(
             var filaRescate=html.tr([html.td({colspan:2},[
                 tablaRescate
             ])]);
-            document.getElementById('grilla-ut-tabla-externa').appendChild(filaRescate.create());
+            document.getElementById('grilla-ut-tabla-externa')!.appendChild(filaRescate.create());
             var controlesRescate={};
             defPreguntasRescate.forEach(function(def){
                 var typeInfo={

@@ -7,7 +7,7 @@ db:
   user: ut_admin
   motor: postgresql
   host: localhost
-  database: ut_db
+  database: ut2023_db
   schema: base
   search_path: 
   - base

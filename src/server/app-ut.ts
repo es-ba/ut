@@ -2,7 +2,8 @@
 
 import * as dmencu from "./types-ut";
 import * as miniTools from "mini-tools";
-import {Context, MenuInfoBase, Request, Response, OptsClientPage, TableDefinition } from "./types-ut";
+import {Context, MenuInfoBase, Request, Response, OptsClientPage, TableDefinition, 
+        TableContext, MenuInfo, MenuDefinition, MenuInfoWScreen } from "./types-ut";
 import {defConfig} from "./def-config"
 import {procedures} from "./procedures-ut"
 
@@ -49,8 +50,6 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             miniTools.serveFile('dist/unlogged/grilla-ut/grilla-ut.html',{})(req,res);
         });
     }
-
-
     clientIncludes(req:Request, hideBEPlusInclusions:OptsClientPage){
         return super.clientIncludes(req, hideBEPlusInclusions).concat([
             { type: 'js', src: 'client/ut.js' },
@@ -63,9 +62,9 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             { type: 'css', file: 'manual-ut.css'},
         ])
     }
-    createResourcesForCacheJson(parameters){
+    createResourcesForCacheJson(parameters:Record<string,any>){
         var be = this;
-        var jsonResult = super.createResourcesForCacheJson(parameters);
+        var jsonResult:any = super.createResourcesForCacheJson(parameters);
         jsonResult.version = APP_DM_VERSION;
         jsonResult.appName = 'ut';
         jsonResult.cache=jsonResult.cache.concat([
@@ -88,8 +87,11 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             "background_color": coloresEntornos[miSufijo]
         }
     }
-    getMenu(context:Context){
-        let menu:MenuInfoBase[] = [];
+    getMenu(context?:Context){
+        let menu:MenuInfo[] = [];
+        // var menu2:MenuWScreen = {menuType:"demo", name:'pepe'};
+        // var x = menu2.menuType;
+        if(context == null) return {menu} satisfies MenuDefinition;
         if(this.config.server.policy=='web'){
             if(context.puede?.encuestas?.relevar){
                 if(this.config['client-setup'].ambiente=='demo' || this.config['client-setup'].ambiente=='test' || this.config['client-setup'].ambiente=='capa'){
@@ -109,7 +111,7 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                 )
                 menu.push(
                     {menuType:'menu', name:'recepcion', label:'recepción' ,menuContent:[
-                        {menuType:'table', name:'mis_areas', table:'areas', ff:{recepcionista:context.user.idper}},
+                        {menuType:'table', name:'mis_areas', table:'areas', ff:[{fieldName:'recepcionista', value:context.user.idper}]},
                         {menuType:'table', name:'mis_encuestadores'},
                         {menuType:'table', name:'areas'},
                         {menuType:'table', name:'tem_recepcion', label:'TEM'},
@@ -158,7 +160,7 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                             {menuType:'table', name:'tipoc_tipoc' , label:'inclusiones de celdas'},
                             
                         ]},
-                        {menuType:'menu', name:'estados_acciones', label:'estados/acciones' menuContent:[
+                        {menuType:'menu', name:'estados_acciones', label:'estados/acciones', menuContent:[
                             {menuType:'table', name:'estados'},
                             {menuType:'table', name:'acciones'},
                             {menuType:'table', name:'estados_acciones'},
@@ -176,7 +178,7 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                 ]
             }
         }       
-        return {menu};
+        return {menu} satisfies MenuDefinition;
     }
     prepareGetTables(){
         var be=this;
@@ -194,15 +196,13 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             personas_sup,
             */
         }
-
-        be.appendToTableDefinition('tem',function(tableDef:TableDefinition, context:Context){
-            tableDef.hiddenColumns=tableDef.hiddenColumns.filter(element => element !='semana');
+        be.appendToTableDefinition('tem',function(tableDef:TableDefinition, _context?:TableContext){
+            tableDef.hiddenColumns=tableDef.hiddenColumns?.filter(element => element !='semana');
            // console.log('camposhidden', tableDef.hiddenColumns )
             tableDef.fields.find((field)=>field.name=='semana')!.visible=true;
         });
-
-        be.appendToTableDefinition('tareas_tem',function(tableDef:TableDefinition, context:Context){
-            tableDef.hiddenColumns=tableDef.hiddenColumns.filter(element => element !='semana');
+        be.appendToTableDefinition('tareas_tem',function(tableDef:TableDefinition, _context?:TableContext){
+            tableDef.hiddenColumns=tableDef.hiddenColumns?.filter(element => element !='semana');
            // console.log('camposhidden', tableDef.hiddenColumns )
             tableDef.fields.push(
                 {name:'semana'               , typeName:'integer' , editable: false, inTable: false },
@@ -212,18 +212,22 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                 'select tareas.tarea, t.operativo, t.enc, t.area, t.semana '
             );
         })
-        be.appendToTableDefinition('inconsistencias',function(tableDef:TableDefinition, context:Context){
-            tableDef.sql.isTable=true;
-            tableDef.editable=tableDef.editable || context.puede?.encuestas.justificar;
+        be.appendToTableDefinition('inconsistencias',function(tableDef:TableDefinition, context?:TableContext){
+            tableDef.sql={...tableDef.sql, isTable:true};
+            tableDef.editable=tableDef.editable || context?.puede?.encuestas.justificar;
             tableDef.fields.forEach(function(field){
                 if(field.name=='pk_integrada'){
                     field.visible=false;
                 }
                 if(field.name=='justificacion'){
-                    field.editable=context.forDump || context.puede?.encuestas.justificar;
+                    field.editable=context?.forDump || context?.puede?.encuestas.justificar;
                 }
             })
         })
+        be.appendToTableDefinition('areas', function(tableDef){
+            tableDef.selfRefresh = true;
+            tableDef.refrescable = true;
+        });
     }
   }
 }

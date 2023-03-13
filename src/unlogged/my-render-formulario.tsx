@@ -1,8 +1,11 @@
-import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, Formulario, Libre, IdUnidadAnalisis, Respuestas } from "dmencu/dist/unlogged/unlogged/tipos";
-import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk} from "dmencu/dist/unlogged/unlogged/bypass-formulario";
+import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, Formulario, Libre, IdUnidadAnalisis, Respuestas,
+    Valor
+} from "dmencu/dist/unlogged/unlogged/tipos";
+import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk, 
+    registrarElemento, dispatchByPass, accion_registrar_respuesta
+} from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
 import * as React from "react";
-import { useLayoutEffect } from "react";
 
 setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:ForPk)=>{
     //ajustar variables
@@ -39,20 +42,40 @@ setLibreDespliegue((props:{
     forPk:ForPk
 })=>{
     const {casillero, formulario, forPk, key} = props;
-    useLayoutEffect(() => {
-        var {respuestas} = respuestasForPk(forPk);
-        //var grillaUt = new GrillaUt(()=>null)
-        var grillaUt = new GrillaUt(
-            (data:DataFromGrillaUTArray)=>{
-                respuestas['actividades' as IdUnidadAnalisis]= data;
-                persistirDatosByPass(getDatosByPass()); //async descontrolada
-            }
-        );
-        grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
-        grillaUt.acomodar();
-        var corYtotal=document.getElementById(casillero.id_casillero!)!.offsetTop;
-        //cargar_otras_rta();
-        grillaUt.desplegar(casillero.id_casillero,corYtotal);
-    },[casillero.id_casillero]);
-    return <div key={key} id={casillero.id_casillero}></div>
+    const id = casillero.id_casillero!;
+    registrarElemento({
+        id,
+        direct:true,
+        fun: function(respuestasAumentadas:Respuestas, feedbackForm: FormStructureState<IdVariable,Valor,IdFin>, elemento:HTMLDivElement,
+            feedbackAll:{
+                [formulario in PlainForPk]:FormStructureState<IdVariable,Valor,IdFin> // resultado del rowValidator para estado.forPk
+            },
+            estructura:Estructura
+        ){
+            var respuestas = respuestasAumentadas;
+            // if (elemento.grillaUt) return;
+            elemento.innerHTML = "" ;
+            var grillaUt = new GrillaUt(
+                (data:DataFromGrillaUTArray)=>{
+                    dispatchByPass(
+                        accion_registrar_respuesta, 
+                        {
+                            respuesta: data as Valor, 
+                            variable: 'actividades' as IdVariable, 
+                            forPk:props.forPk
+                        }
+                    );
+                    // respuestas['actividades' as IdUnidadAnalisis]= data;
+                    // persistirDatosByPass(getDatosByPass()); //async descontrolada
+                }
+            );
+            grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
+            grillaUt.acomodar();
+            var corYtotal=elemento.offsetTop;
+            //cargar_otras_rta();
+            grillaUt.desplegar(elemento.id,corYtotal);
+            // elemento.grillaUt = grillaUt;
+        }
+    });
+    return <div key={key} id={id}></div>
 })
