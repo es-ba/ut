@@ -10,7 +10,7 @@ import * as likeAr from "like-ar";
 setHdrQuery((quotedCondViv:string)=>{
     return `
     with viviendas as 
-        (select enc, t.json_encuesta as respuestas, t.resumen_estado as "resumenEstado", 
+        (select t.enc, t.json_encuesta as respuestas, t.resumen_estado as "resumenEstado", 
             jsonb_build_object(
                 'dominio'       , dominio       ,
                 'nomcalle'      , nomcalle      ,
@@ -28,15 +28,16 @@ setHdrQuery((quotedCondViv:string)=>{
                 'carga'         , t.area
             ) as tem, t.area,
             jsonb_build_object(
-                'tarea', t.tarea,
+                'tarea', tt.tarea,
                 'fecha_asignacion', fecha_asignacion,
                 'asignado', asignado,
                 'main_form', main_form
             ) as tarea,
             min(fecha_asignacion) as fecha_asignacion
-            from tem t left join tareas_tem tt using (operativo, enc) left join tareas ta on (t.tarea = ta.tarea)
+            from tem t left join tareas_tem tt on (t.operativo = tt.operativo and t.enc = tt.enc and t.tarea_actual = tt.tarea)
+                       left join tareas ta on t.tarea_actual = ta.tarea
             where ${quotedCondViv}
-            group by t.operativo, t.enc, t.json_encuesta, t.resumen_estado, dominio, nomcalle,sector,edificio, entrada, nrocatastral, piso,departamento,habitacion,casa,reserva,tt.carga_observaciones, cita, t.area, t.tarea, fecha_asignacion, asignado, main_form
+            group by t.operativo, t.enc, t.json_encuesta, t.resumen_estado, dominio, nomcalle,sector,edificio, entrada, nrocatastral, piso,departamento,habitacion,casa,reserva,tt.carga_observaciones, cita, t.area, tt.tarea, fecha_asignacion, asignado, main_form
         )
         select jsonb_build_object(
                 'viviendas', ${jsono(
