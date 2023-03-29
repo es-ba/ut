@@ -30,7 +30,8 @@ type Actividades_codigos = {
     texto: string
     abr: string
     detalle: string
-    imagen: string
+    imagen_path: string
+    imagen_show: string
     exclusividad: boolean
     grupo:string
     obligatoriedad:boolean
