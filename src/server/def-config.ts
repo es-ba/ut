@@ -48,6 +48,8 @@ install:
       - ../node_modules/dmencu/install/permite_modificar_tareas_tem_trg.sql
       - ../node_modules/dmencu/install/asignar_desasignar_tareas_tem_trg.sql
       - configuracion_sorteo_ut2022.sql
+      # -../node_modules/dmencu/install/determinar_tarea_proxima_trg.sql
+      - configuracion_sorteo_ut2022.sql  
 login:
   infoFieldList: [usuario, rol, idper]
   table: usuarios
