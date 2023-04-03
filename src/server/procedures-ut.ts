@@ -1,9 +1,8 @@
 "use strict";
 
-import { ProcedureDef, TableDefinition, Client, ProcedureContext, coreFunctionParameters } from "./types-ut";
+import { ProcedureDef, TableDefinition, Client, ProcedureContext, CoreFunctionParameters } from "./types-ut";
 import {json, jsono} from "pg-promise-strict";
 import { setHdrQuery, getOperativoActual } from "dmencu/dist/server/server/procedures-dmencu"
-import * as likeAr from "like-ar";
 
 //import { hogares } from "./table-hogares";
 
@@ -73,7 +72,7 @@ export const procedures : ProcedureDef[] = [
         ],
         roles:['subcoordinador','coordinador','admin'],
         progress:true,
-        coreFunction:async function(context:ProcedureContext, params: coreFunctionParameters){
+        coreFunction:async function(context:ProcedureContext, params: CoreFunctionParameters){
             if (!params.confirma){
                 throw new Error('No confirmó la limpieza')
             }

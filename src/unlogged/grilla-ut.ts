@@ -2,28 +2,6 @@
 
 import { TypedControl } from "typed-controls";
 
-/*jshint eqnull:true */
-/*jshint node:true */
-(function codenautasModuleDefinition(root, name, factory) {
-    /* global define */
-    /* istanbul ignore next */
-    if(typeof root.globalModuleName !== 'string'){
-        root.globalModuleName = name;
-    }
-    /* istanbul ignore next */
-    if(typeof exports === 'object' && typeof module === 'object'){
-        module.exports = factory();
-    }else if(typeof define === 'function' && define.amd){
-        define(factory);
-    }else if(typeof exports === 'object'){
-        exports[root.globalModuleName] = factory();
-    }else{
-        root[root.globalModuleName] = factory();
-    }
-    root.globalModuleName = null;
-})(/*jshint -W040 */this, 'GrillaUt', function() {
-/*jshint +W040 */
-
 type Actividades_codigos = { 
     codigo: Actividad
     nombre_variable: string
@@ -49,10 +27,80 @@ var defPreguntasRescate=[
     {pre:'D2', "var":'d2'}
 ];
 
-var jsToHtml = require('js-to-html');
-var TypedControls=require('typed-controls.js');
-var json4all = require('json4all');
-var likeAr = require('like-ar')
+// para no repetir los textos porque son siempre iguales, si no lo son no usar esta variable
+var textosDeCuidado = {
+    pregunta: "¿Cuál fue el motivo del cuidado?",
+    personal: "personal",
+    salud: "razones de salud",
+    escolar: "apoyo escolar",
+    traslados: "traslados",
+    otro: "algún otro tipo"
+}
+
+type PreguntaActividad = {
+    pregunta: string
+    opciones: {opcion:string, texto:string}[]
+}
+
+var preguntasActividad: Record<string, PreguntaActividad> = {
+    "4":{
+        pregunta: "¿Cuido a una persona...",
+        opciones: [
+            {opcion: "1", texto: "con discapacidad?"},
+            {opcion: "2", texto: "de 0 a 13 años de edad?"},
+            {opcion: "3", texto: "de 14 a 64 años de edad?"},
+            {opcion: "4", texto: "de 65 años de edad o más?"}
+        ]
+    },
+    "41":{
+        pregunta: textosDeCuidado.pregunta,
+        opciones: [
+            {opcion: "1", texto: textosDeCuidado.personal},
+            {opcion: "2", texto: textosDeCuidado.salud},
+            {opcion: "3", texto: textosDeCuidado.escolar},
+            {opcion: "4", texto: textosDeCuidado.traslados},
+            {opcion: "9", texto: textosDeCuidado.otro},
+        ]
+    },
+    "42":{
+        pregunta: textosDeCuidado.pregunta,
+        opciones: [
+            {opcion: "1", texto: textosDeCuidado.personal},
+            {opcion: "2", texto: textosDeCuidado.salud},
+            {opcion: "3", texto: textosDeCuidado.traslados},
+            {opcion: "9", texto: textosDeCuidado.otro},
+        ]
+    },
+    "43":{
+        pregunta: textosDeCuidado.pregunta,
+        opciones: [
+            {opcion: "1", texto: textosDeCuidado.personal},
+            {opcion: "2", texto: textosDeCuidado.salud},
+            {opcion: "3", texto: textosDeCuidado.traslados},
+            {opcion: "9", texto: textosDeCuidado.otro},
+        ]
+    },
+    "44":{
+        pregunta: textosDeCuidado.pregunta,
+        opciones: [
+            {opcion: "1", texto: textosDeCuidado.personal},
+            {opcion: "2", texto: textosDeCuidado.salud},
+            {opcion: "3", texto: textosDeCuidado.traslados},
+            {opcion: "9", texto: textosDeCuidado.otro},
+        ]
+    },
+}
+
+import * as jsToHtml from 'js-to-html';
+import * as TypedControls from 'typed-controls';
+import * as json4all from 'json4all';
+import * as likeAr from 'like-ar';
+
+declare global {
+    interface HTMLTableRowElement{
+        numeroOrdenFila:number
+    }
+}
 
 var html = jsToHtml.html;
 
@@ -128,6 +176,72 @@ type GruillaUtThis = {
     desplegar_izquierda: (idDiv:string, corYtotal:number) => void
     desplegar_rescate: () => void
 }
+
+class PantallaAyuda{
+    elemento: HTMLDivElement
+    id = 'pantalla-ayuda-grilla'
+    ocultando:boolean = false
+    constructor(){
+        this.elemento = html.div({id:this.id}).create();
+        this.elemento.style.display = "none";
+        this.elemento.style.position = "fixed";
+        this.elemento.style.width = "360px";
+        this.elemento.style.height = "90%";
+        this.elemento.style.top = "64px";
+        this.elemento.style.left = "12px";
+        this.elemento.style.margin = "6px";
+        this.elemento.style.background = "white";
+        this.elemento.style.border = "1px solid gray";
+    }
+    colocar(){
+        var existente = document.getElementById(this.id);
+        if (existente) {
+            existente.parentNode?.removeChild(existente);
+        }
+        document.body.appendChild(this.elemento);
+    }
+    mostrar(input:TypedControl<string>){
+        var valor = input.getTypedValue();
+        var preguntaActividad = preguntasActividad[valor];
+        if(preguntaActividad != null){
+            this.ocultando = false;
+            this.elemento.innerHTML = "";
+            this.elemento.appendChild(html.div([
+                html.p(preguntaActividad.pregunta),
+                ...(preguntaActividad.opciones.map( o =>{
+                    var opcion = 
+                    html.p([
+                        html.span(o.opcion),
+                        html.span(" - "),
+                        html.span(o.texto),
+                    ]).create();
+                    opcion.addEventListener('mousedown', ()=>{
+                        this.ocultando = false;
+                    })
+                    opcion.addEventListener('click', ()=>{
+                        input.setTypedValue(valor + o.opcion);
+                        input.focus();
+                    })
+                    return opcion
+                }))
+            ]).create())
+            this.elemento.style.display = "block";
+        } else {
+            this.ocultar()
+        }
+    }
+    ocultar(){
+        this.ocultando = true;
+        setTimeout(()=>{
+            if(this.ocultando){
+                this.elemento.style.display = "none";
+            }
+        },500)
+    }
+}
+
+var pantallaAyuda = new PantallaAyuda();
+pantallaAyuda.colocar();
 
 function GrillaUt(
     grabarFun: (data:any) => void
@@ -409,13 +523,26 @@ function GrillaUt(
             tr.className="renglon_variable";
             gu.estructuraTramo.forEach(function(infoCampo){
                 var nombreVar=infoCampo.nombre;
-                var input=null;
-                input = html.input({type:infoCampo.tipo, "class":"edit-"+nombreVar}).create();
+                var input = html.input({type:infoCampo.tipo, "class":"edit-"+nombreVar}).create() as unknown as TypedControl<string>;
                 if(infoCampo.tabindex){
-                    input.tabIndex='-1';
+                    input.tabIndex=-1;
                 }
                 TypedControls.adaptElement(input, {typeName:'text'});
                 input.setTypedValue(tramo[nombreVar]||null);
+                if(nombreVar == 'codigo'){
+                    input.addEventListener('focus',function(){
+                        pantallaAyuda.mostrar(input);
+                    })
+                    input.addEventListener('change',function(){
+                        pantallaAyuda.mostrar(input);
+                    })
+                    input.addEventListener('input',function(){
+                        pantallaAyuda.mostrar(input);
+                    })
+                    input.addEventListener('blur',function(){
+                        pantallaAyuda.ocultar();
+                    })
+                }
                 input.addEventListener('update',function(){
                     sessionStorage['pantalla-especial-modifico-db']=true;
                     // @ts-expect-error this dentro de un typedControl
@@ -453,7 +580,7 @@ function GrillaUt(
         }
         this.tramos.forEach(this.desplegarRenglon);
         recontarFilas(tablaTramos);
-        tablaTramos.parentNode.appendChild(html.button({id:'boton-cerrar'},'cerrar...').create());
+        tablaTramos.parentNode!.appendChild(html.button({id:'boton-cerrar'},'cerrar...').create());
         var botonCerrar=document.getElementById('boton-cerrar');
         if(botonCerrar){
             botonCerrar.addEventListener('click',function(){
@@ -686,9 +813,7 @@ function GrillaUt(
 
 GrillaUt.defPreguntasRescate=defPreguntasRescate;
 
-return GrillaUt;
-
-});
+window.GrillaUt = GrillaUt;
 
 window.addEventListener('keypress',function(event){
     if((event.key=='?' || event.key=='¿' || event.keyCode==63 || event.keyCode==191)  && event.target.parentNode.className=='col-codigo'){
