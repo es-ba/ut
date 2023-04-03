@@ -26,62 +26,7 @@ var esNoReaSup = (respuestas:Respuestas)=>{
         esNoReaSup=resnorea.esvalor;
     return {codNoReaSup,esNoReaSup}
 }; 
-/* de operativo PREJU
-var esRealizada = (respuestas:Respuestas)=>{
-    //TODO GENERALIZAR
-    var esRea = false;
-    var codRea:number|null= null;
-    if(!respuestas['identif' as IdVariable]){
-        return {codRea, esRea}
-    }else if(respuestas['identif' as IdVariable]==2 ||respuestas['resid_hog' as IdVariable]==2||respuestas['contact' as IdVariable]==2){
-        codRea = 2;
-        esRea = false;
-    }else{
-        var reahs: number[]=[] ;
-        var respuestasHs = respuestas['hogares'];
-        if(respuestasHs){
-            for(let respuestasH of respuestasHs){
-                var reah:number;
-                var selec:number;
-                if(respuestasH['entrea' ] != 1||respuestasH['prejue1']==2||respuestasH['tp']==0){
-                    reah=2;
-                }else{
-                    selec=respuestasH['cr_num_miembro']
-                    if(respuestasH['personas'] && respuestasH.personas[selec-1] ){
-                        var respuestasP = respuestasH.personas[selec-1];
-                        var resp_entrea_ind = respuestasP['entreaind' as IdVariable ];
-                        if(resp_entrea_ind==null){ //queremos contemplar el undefined
-                            reah = 3;
-                        }else{
-                            reah = Number(resp_entrea_ind);
-                        }
-                    }else{
-                        reah = 3;
-                    }
-                }
-                reahs.push(reah);
-            }
-            if (reahs.every(rh=>rh==1)){
-                codRea = 1;
-                esRea = true;
-            }else if(reahs.every(rh=>rh==2)){
-                codRea = 2;
-                esRea = false;
-            }else if(reahs.every(rh=>rh==1||rh==3)){
-                codRea = 3;
-                esRea = false;
-            }else{
-                codRea = 4;
-                esRea = false;
-            }
-        } else{
-            codRea = 3;
-            esRea = false;
-        }
-    }
-    return {codRea,esRea}
-};
-*/
+
 var esRealizada = (respuestas:Respuestas)=>{
     //TODO GENERALIZAR 
     //determinar si fin_1, fin_2, fin_3 se van a tener en cuenta para la rea y cuales de sus valores
