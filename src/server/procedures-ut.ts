@@ -145,5 +145,19 @@ export const procedures : ProcedureDef[] = [
             return (`Listo. Limpieza realizada en la persona ${params.persona} del hogar ${params.hogar} encuesta ${params.enc}. Por favor consista la encuesta`)
         }        
     },
-    
+    {
+        action:'traer_actividades',
+        parameters:[
+        ],
+        roles:['admin'],
+        progress:true,
+        coreFunction:async function(context:ProcedureContext, params: CoreFunctionParameters){
+            var result = await context.client.query(
+                `select *
+                    from actividades_codigos order by codigo::text`,
+                [ ]
+            ).fetchAll(); 
+            return result.rows;
+        }    
+    }
 ];

@@ -4,22 +4,21 @@ import { TypedControl } from "typed-controls";
 
 type Actividades_codigos = { 
     codigo: Actividad
-    nombre_variable: string
     texto: string
     abr: string
     detalle: string
-    imagen_path: string
-    imagen_show: string
+    //imagen_ver: string
     exclusividad: boolean
-    grupo:string
     obligatoriedad:boolean
     opcion_d12: boolean
     opcion_d13: boolean
     opcion_d22: boolean
     opcion_d23: boolean
-    icono: string
     color: string
     rescatable: boolean
+    imagen_path: string
+    nombre_variable: string
+    grupo:string
 }
 
 var defPreguntasRescate=[
