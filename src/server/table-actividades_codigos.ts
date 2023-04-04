@@ -12,15 +12,12 @@ export function actividades_codigos(context:TableContext):TableDefinition {
         editable:puedeEditar,
         fields:[
             {name:'codigo'          , typeName: 'integer'  , editable: true, nullable: false },
-            {name:'nombre_variable' , typeName: 'text'     , editable: true, /*nullable: false */},
             {name:'texto'           , typeName: 'text'     , editable: true, nullable: false },
             {name:'abr'             , typeName: 'text'     , editable: true, nullable: false , label:'abr (para Tarjeta)'},
             {name:'detalle'         , typeName: 'text'     , editable: true, nullable: false },
-            {name:'imagen_path'     , typeName: 'text'     , editable: true                  },
-            {name:'imagen_show'     , typeName: 'text'     , editable:false   , inTable:false , clientSide:'verActividadSvg'},            
+            {name:'imagen_ver'      , typeName: 'text'     , editable:false   , inTable:false , clientSide:'verActividadSvg'},            
             //{name:'imagen_file'     , typeName: 'text'     , editable: true,/* nullable: false*/ },
             {name:'exclusividad'    , typeName: 'boolean'  , editable: true, nullable: false },
-            {name:'grupo'           , typeName: 'text'     , editable: true,/* nullable: false*/ },
             {name:'obligatoriedad'  , typeName: 'boolean'  , editable: true, nullable: false },
             {name:'opcion_d12'      , typeName: 'boolean'  , editable: true, nullable: false },
             {name:'opcion_d13'      , typeName: 'boolean'  , editable: true, nullable: false },
@@ -28,12 +25,15 @@ export function actividades_codigos(context:TableContext):TableDefinition {
             {name:'opcion_d23'      , typeName: 'boolean'  , editable: true, nullable: false },
             {name:'color'           , typeName: 'text'     , editable: true, nullable: false },
             {name:'rescatable'      , typeName: 'boolean'  , editable: true, nullable: false },
+            {name:'imagen_path'     , typeName: 'text'     , editable: true                  },
+            {name:'nombre_variable' , typeName: 'text'     , editable: true, /*nullable: false */},
+            {name:'grupo'           , typeName: 'text'     , editable: true,/* nullable: false*/ },
         ],
         primaryKey:['codigo'],
         constraints:[
             {consName:'grupos considerados',constraintType:'check', expr:"grupo in ('D','F','M')"},
         ],
-        //clientSide:'actividadesRow'
+        clientSide:'actividadesRow'
     };
 }
 
