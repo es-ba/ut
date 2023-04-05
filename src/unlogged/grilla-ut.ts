@@ -38,7 +38,8 @@ var textosDeCuidado = {
 
 type PreguntaActividad = {
     pregunta: string
-    opciones: {opcion:string, texto:string}[]
+    opciones: {opcion:string, texto:string, aclaracion?:string}[]
+    rescate?: {codigo:string, texto:string, aclaracion?:string}[]
 }
 
 var preguntasActividad: Record<string, PreguntaActividad> = {
@@ -49,6 +50,10 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "2", texto: "de 0 a 13 años de edad?"},
             {opcion: "3", texto: "de 14 a 64 años de edad?"},
             {opcion: "4", texto: "de 65 años de edad o más?"}
+        ],
+        rescate: [
+            {codigo: "10", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"},
+            {codigo: "51", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"}
         ]
     },
     "41":{
@@ -88,6 +93,140 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "9", texto: textosDeCuidado.otro},
         ]
     },
+    // /* comentar desde la siguiente línea si no se quiere ver la propuesta extendida
+    "":{
+        pregunta: "¿Qué hizo desde esa hora?",
+        opciones:[
+            {opcion:"1", texto: "trabajar para un patrón o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
+            {opcion:"2", texto: "trabajar para autoconsumo o uso propio del hogar"},
+            {opcion:"3", texto: "actividades para el hogar o la vivienda"},
+            {opcion:"4", texto: "cuidado a peronas del hogar"},
+            {opcion:"5", texto: "ayuda a otros hogares o trabajo voluntario"},
+            {opcion:"6", texto: "aprendizaje o estudio", aclaracion: "incluye el viaje"},
+            {opcion:"7", texto: "vida social, eventos culturales, deporte"},
+            {opcion:"8", texto: "esparcimiento individual"},
+            {opcion:"9", texto: "aseo, salud, descanso, dormir y otros"},
+            {opcion:"0", texto: "viajes y traslados", aclaracion: "debe registrarse en la actividad relacionada"}
+        ]
+    },
+    "1":{
+        pregunta: "¿Qué hizo?",
+        opciones: [
+            {opcion: "0", texto: "Trabajar para un patrón o por cuenta propia"},
+            {opcion: "3", texto: "Buscar trabajo"},
+            {opcion: "4", texto: "Viajar para ir y volver al trabajo"},
+        ],
+        rescate: [
+            {codigo: "2", texto: "si el trabajo es para autoconsumo o para uso propio del hogar"},
+            {codigo: "51", texto: "si cuida a personas de otro hogar de forma no remunerada"},
+        ]
+    },
+    "3":{
+        pregunta: "¿Qué hizo?",
+        opciones: [
+            {opcion: "1", texto: "Preparar y servir la comida"},
+            {opcion: "2", texto: "Limpiar la vivienda"},
+            {opcion: "3", texto: "Lavar, planchar o arreglar la ropa"},
+            {opcion: "4", texto: "Hacer reparaciones y mantenimiento de la vivienda"},
+            {opcion: "5", texto: "Hacer pagos y trámites del hogar"},
+            {opcion: "6", texto: "Hacer compras para el hogar"},
+            {opcion: "7", texto: "Cuidar mascotas y plantas"},
+        ],
+        rescate: [
+            {codigo: "4", texto: "si cuidó personas del hogar"},
+            {codigo: "2", texto: "si cultivó, crió o fabricó algo para el hogar"},
+        ]
+    },
+    "5":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "1", texto:"Ayuda a otros hogares (trabajo no remunerado para otros hogares)", aclaracion: "ej: cuidado a personas o tareas domésticas en otro hogar"},
+            {opcion: "4", texto:"Trabajo voluntario ", aclaracion: "en instituciones, comunidades, etc"},
+        ]
+    },
+    "6":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "1", texto: "Aprendizaje y estudio"}, 
+            {opcion: "2", texto: "Traslados para aprendizaje y estudio"}, 
+        ]
+    },
+    "7":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "11", texto: "Reunirse con familiares o amigos"},
+            {opcion: "12", texto: "Participar de celebraciones comunitarias, políticas o religiosas"},
+            {opcion: "2", texto: "Eventos culturales y deportivos"},
+            {opcion: "3", texto: "Actividades artísticas, juegos o entretenimientos"},
+            {opcion: "4", texto: "Deporte y ejercicio físico"},
+        ]
+    },
+    "71":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "1", texto: "Reunirse con familiares o amigos"},
+            {opcion: "2", texto: "Participar de celebraciones comunitarias, políticas o religiosas"},
+        ]
+    },
+    "8":{
+        pregunta: "¿Qué hizo?",
+        opciones: [
+            {opcion: "1", texto:"Lectura de libros, revistas, etc."},
+            {opcion: "2", texto:"Ver televisión "},
+            {opcion: "3", texto:"Escuchar música o radio"},
+            {opcion: "4", texto:"Usar computadora, tableta o celular"},
+        ]
+    },
+    "9":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "11", texto:"Aseo y arreglo personal"},
+            {opcion: "12", texto:"Cuidados personales de salud"},
+            {opcion: "19", texto:"Viajar para cuidar su salud"},
+            {opcion: "14", texto:"Descanso, relajación, otras actividades personales"},
+            {opcion: "21", texto:"Comer, beber, ir al baño."},
+            {opcion: "22", texto:"Dormir"},
+            {opcion: "99", texto:"Otro", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+        ]
+    },
+    "91":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "1", texto:"Aseo y arreglo personal"},
+            {opcion: "2", texto:"Cuidados personales de salud"},
+            {opcion: "9", texto:"Viajar para cuidar su salud"},
+            {opcion: "4", texto:"Descanso, relajación, otras actividades personales"},
+        ]
+    },
+    "92":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "1", texto:"Comer, beber, ir al baño."},
+            {opcion: "2", texto:"Dormir"},
+        ]
+    },
+    "99":{
+        pregunta: "¿Qué hizo?",
+        opciones: [ 
+            {opcion: "9", texto:"Otro", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+        ]
+    },
+    "0":{
+        pregunta: "las actividades viaje o traslado deben consignarse en los códigos de las actividades correspondientes",
+        opciones: [ 
+        ],
+        rescate: [
+            {codigo: "14", texto: "viajar para ir y volver al trabajo"},
+            {codigo: "2", texto: "relacionado a trabajar para autoconsumo o uso propio del hogar"},
+            {codigo: "3", texto: "relacionado a actividades para el hogar o la vivienda"},
+            {codigo: "4", texto: "relacionado a cuidado a peronas del hogar"},
+            {codigo: "5", texto: "relacionado a ayuda a otros hogares o trabajo voluntario"},
+            {codigo: "62", texto: "traslados para aprendizaje y estudio"},
+            {codigo: "7", texto: "relacionado a vida social, eventos culturales, deporte"},
+            {codigo: "8", texto: "relacionado a esparcimiento individual"},
+            {codigo: "9", texto: "relacionado a aseo, salud, descanso, dormir y otros"},
+        ]
+    }
 }
 
 import * as jsToHtml from 'js-to-html';
@@ -201,7 +340,7 @@ class PantallaAyuda{
     }
     mostrar(input:TypedControl<string>){
         var valor = input.getTypedValue();
-        var preguntaActividad = preguntasActividad[valor];
+        var preguntaActividad = preguntasActividad[valor||""];
         if(preguntaActividad != null){
             this.ocultando = false;
             this.elemento.innerHTML = "";
@@ -213,16 +352,41 @@ class PantallaAyuda{
                         html.span(o.opcion),
                         html.span(" - "),
                         html.span(o.texto),
+                        ...(o.aclaracion ? [
+                            html.span([" ", html.small(o.aclaracion)])
+                        ] : [])
                     ]).create();
                     opcion.addEventListener('mousedown', ()=>{
                         this.ocultando = false;
                     })
                     opcion.addEventListener('click', ()=>{
-                        input.setTypedValue(valor + o.opcion);
+                        input.setTypedValue((valor||"") + o.opcion);
                         input.focus();
                     })
                     return opcion
-                }))
+                })), 
+                ...( preguntaActividad.rescate ? [
+                    html.p("ATENCIÓN, cambie el código por"),
+                    ...(preguntaActividad.rescate.map( o =>{
+                        var opcion = 
+                        html.p([
+                            html.span(o.codigo),
+                            html.span(" - "),
+                            html.span(o.texto),
+                            ...(o.aclaracion ? [
+                                html.span([" ", html.small(o.aclaracion)])
+                            ] : [])
+                        ]).create();
+                        opcion.addEventListener('mousedown', ()=>{
+                            this.ocultando = false;
+                        })
+                        opcion.addEventListener('click', ()=>{
+                            input.setTypedValue(o.codigo);
+                            input.focus();
+                        })
+                        return opcion
+                    })), 
+                    ] : [])
             ]).create())
             this.elemento.style.display = "block";
         } else {
