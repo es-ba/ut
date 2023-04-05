@@ -1,5 +1,6 @@
 // ver client.ts
 import {html} from "js-to-html";
+import { Actividades_codigos } from "../unlogged/grilla-ut";
 
 myOwn.clientSides.verActividadSvg={
     prepare: (_depot, _fieldName)=>{},
@@ -40,7 +41,7 @@ myOwn.wScreens.generar_manual=async function(){
     var columnas=['codigo','detalle','imagen'];
     var tabla_thead=html.tr(columnas.map(cl=>{return html.th(cl)})).create();
    
-    var act_tbody=html.tbody(rActividades.map((actividad)=>{
+    var act_tbody=html.tbody(rActividades.map((actividad:Actividades_codigos)=>{
         return(
             html.tr([
                 html.td({class:"span codigo_act"}, actividad.codigo),

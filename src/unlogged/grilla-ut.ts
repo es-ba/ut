@@ -2,7 +2,7 @@
 
 import { TypedControl } from "typed-controls";
 
-type Actividades_codigos = { 
+export type Actividades_codigos = { 
     codigo: Actividad
     texto: string
     abr: string
