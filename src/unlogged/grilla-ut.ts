@@ -100,7 +100,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion:"1", texto: "trabajar para un patrón o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
             {opcion:"2", texto: "trabajar para autoconsumo o uso propio del hogar"},
             {opcion:"3", texto: "actividades para el hogar o la vivienda"},
-            {opcion:"4", texto: "cuidado a peronas del hogar"},
+            {opcion:"4", texto: "cuidado a personas del hogar"},
             {opcion:"5", texto: "ayuda a otros hogares o trabajo voluntario"},
             {opcion:"6", texto: "aprendizaje o estudio", aclaracion: "incluye el viaje"},
             {opcion:"7", texto: "vida social, eventos culturales, deporte"},
@@ -690,7 +690,7 @@ function GrillaUt(
                     var valor=control.getTypedValue();
                     var valorCompletado = infoCampo.completador(valor);
                     if(valor !== valorCompletado){
-                        control.setTypedValue(valorCompletado);
+                        setTimeout(() => control.setTypedValue(valorCompletado, true), 100);
                     }
                     var valorAnterior=tramo[nombreVar];
                     tramo[nombreVar] = valorCompletado as any;
