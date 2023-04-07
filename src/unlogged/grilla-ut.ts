@@ -679,6 +679,8 @@ function GrillaUt(
                     input.tabIndex=-1;
                 }
                 TypedControls.adaptElement(input, {typeName:'text'});
+                // @ts-expect-error apaga la lupa
+                input.ponerLupa = ()=>{ input.lupa = input.lupa ?? html.span().create() }
                 input.setTypedValue(tramo[nombreVar]||null);
                 if(nombreVar == 'codigo'){
                     input.addEventListener('focus',function(){
