@@ -250,3 +250,20 @@
 .caja-fija.act_443 {
     background-color: #4AF70077;
 }
+
+p[leer-pregunta=si]{
+    font-weight: bold;
+    color: blue;
+}
+
+.grilla-actividades{
+    display: none;
+    position: fixed;
+    width: 360px;
+    height: 90%;
+    top: 64px;
+    left: 12px;
+    padding: 6px;
+    background: white;
+    border: 1px solid gray;
+}

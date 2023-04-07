@@ -95,7 +95,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     },
     // /* comentar desde la siguiente línea si no se quiere ver la propuesta extendida
     "":{
-        pregunta: "¿Qué hizo desde esa hora?",
+        pregunta: "¿Qué hizo?",
         opciones:[
             {opcion:"1", texto: "trabajar para un patrón o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
             {opcion:"2", texto: "trabajar para autoconsumo o uso propio del hogar"},
@@ -286,6 +286,7 @@ type EstructuraTramo = {
     actualizaPlaceholder?:keyof Tramo
     tabindex?:boolean
     rescate?:boolean
+    titulo?:string
 }
 
 type IdColumna = 0|1|2|'agujero'
@@ -319,27 +320,21 @@ class PantallaAyuda{
     elemento: HTMLDivElement
     id = 'pantalla-ayuda-grilla'
     ocultando:boolean = false
+    // @ts-expect-error el valor se setea en colocar
+    gu: GruillaUtThis
     constructor(){
-        this.elemento = html.div({id:this.id}).create();
-        this.elemento.style.display = "none";
-        this.elemento.style.position = "fixed";
-        this.elemento.style.width = "360px";
-        this.elemento.style.height = "90%";
-        this.elemento.style.top = "64px";
-        this.elemento.style.left = "12px";
-        this.elemento.style.margin = "6px";
-        this.elemento.style.background = "white";
-        this.elemento.style.border = "1px solid gray";
+        this.elemento = html.div({id:this.id, class:"grilla-actividades"}).create();
     }
-    colocar(){
+    colocar(grilla:GruillaUtThis){
+        this.gu = grilla;
         var existente = document.getElementById(this.id);
         if (existente) {
             existente.parentNode?.removeChild(existente);
         }
         document.body.appendChild(this.elemento);
     }
-    mostrarOpcion(input:TypedControl<string>, valor:string, o:{opcion?:string, codigo?:string, texto:string, aclaracion?:string}){
-        var opcion = html.p([
+    mostrarOpcion(input:TypedControl<string>, valor:string, o:{opcion?:string, codigo?:string, texto:string, aclaracion?:string}, i_tramo:number){
+        var opcion = html.p({class:"grilla-opcion"}, [
             html.span(o.codigo ?? o.opcion),
             html.span(" - "),
             html.span(o.texto),
@@ -353,21 +348,42 @@ class PantallaAyuda{
         opcion.addEventListener('click', ()=>{
             var nuevoValor = o.codigo ?? (valor ?? "") + o.opcion
             input.setTypedValue(nuevoValor, true);
-            this.mostrar(input);
+            this.mostrar(input, i_tramo);
         })
         return opcion
     }
-    mostrar(input:TypedControl<string>){
+    mostrar(input:TypedControl<string>, i_tramo:number){
         var valor = input.getTypedValue();
         var preguntaActividad = preguntasActividad[valor||""];
+        var tramo = this.gu.tramos[i_tramo];
         if(preguntaActividad != null){
+            var seccionContinuadora:HTMLElement[] = []
+            var textoPregunta = valor ? preguntaActividad.pregunta : (
+                !tramo.desde ? "Hasta las " + this.gu.acomodo.cargadoHasta + ", ¿realizó alguna otra actividad? ¿cuál?" :
+                !tramo.hasta ? "Desde las " + tramo.desde + " ¿qué acividad realizó?" : 
+                "Desde las " + tramo.desde + " hasta las " + tramo.hasta + " ¿qué acividad realizó?"
+            )
+            var elementoPregunta = html.p({class:"grilla-pregunta", $attrs:{"leer-pregunta":"si"}}, textoPregunta).create();
+            if(!tramo.desde && this.gu.acomodo.cargadoHasta && !valor){
+                var continuadora = html.p({class:"grilla-opcion"}, "No, no realizó otra actividad simultáneamente hasta esa hora").create();
+                continuadora.addEventListener('mousedown', (event) => {
+                    event.preventDefault();
+                });
+                continuadora.addEventListener('click', () => {
+                    (tramo as TramoExtendido).inputs.desde.setTypedValue(this.gu.acomodo.cargadoHasta, true);
+                    elementoPregunta.textContent = "Desde las " + this.gu.acomodo.cargadoHasta + " ¿qué actividad realizó?"
+                    continuadora.style.visibility = "hidden";
+                })
+                seccionContinuadora.push(continuadora)
+            }
             this.elemento.innerHTML = "";
             this.elemento.appendChild(html.div([
-                html.p(preguntaActividad.pregunta),
-                ...(preguntaActividad.opciones.map( o => this.mostrarOpcion(input, valor, o) )), 
-                ...( preguntaActividad.rescate ? [
+                elementoPregunta,
+                ...seccionContinuadora,
+                ...(preguntaActividad.opciones.map( o => this.mostrarOpcion(input, valor, o, i_tramo) )), 
+                ...(preguntaActividad.rescate ? [
                     html.p("ATENCIÓN, cambie el código por"),
-                    ...(preguntaActividad.rescate.map( o => this.mostrarOpcion(input, valor, o) ))
+                    ...(preguntaActividad.rescate.map( o => this.mostrarOpcion(input, valor, o, i_tramo) ))
                     ] : [])
             ]).create())
             this.elemento.style.display = "block";
@@ -379,9 +395,6 @@ class PantallaAyuda{
         this.elemento.style.display = "none";
     }
 }
-
-var pantallaAyuda = new PantallaAyuda();
-pantallaAyuda.colocar();
 
 function GrillaUt(
     grabarFun: (data:any) => void
@@ -467,11 +480,11 @@ function GrillaUt(
         return !!actividades_codigos[actividad as Actividad];        
     };
     gu.estructuraTramo=[
+        {nombre:'codigo' ,tipo:'tel' , completador:nocompletar     , validador:gu.validarActividad , actualizaPlaceholder:'detalle', titulo: 'act'},
+        {nombre:'rescate',tipo:'tel' , completador:nocompletar     , validador:novalidar           , tabindex:true, rescate:true, titulo: 'R'},
         {nombre:'desde'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
         {nombre:'hasta'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
-        {nombre:'codigo' ,tipo:'tel' , completador:nocompletar     , validador:gu.validarActividad , actualizaPlaceholder:'detalle'},
-        {nombre:'rescate',tipo:'tel' , completador:nocompletar     , validador:novalidar           , tabindex:true, rescate:true},
-        {nombre:'detalle',tipo:'text', completador:nocompletar     , validador:novalidar           , tabindex:true},
+        {nombre:'detalle',tipo:'text', completador:nocompletar     , validador:novalidar           , tabindex:true, titulo: 'observaciones'},
     ]
     gu.cargar = function cargar(tramos){
         gu.tramos = tramos.map(tramo=>({...tramo})); // Necesitamos una copia porque la pantalla toca los tramos poniendo un montón de punteros
@@ -580,6 +593,8 @@ function GrillaUt(
     }
     gu.desplegar = function desplegar(idDivDestino, corYtotal){
         var gu = this;
+        var pantallaAyuda = new PantallaAyuda();
+        pantallaAyuda.colocar(gu);
         corYtotal=corYtotal||0;
         var tabla=html.table({id:'grilla-ut-tabla-externa'},[
             html.tr([
@@ -589,13 +604,9 @@ function GrillaUt(
         ]);
         document.getElementById(idDivDestino)!.appendChild(tabla.create());        
         var renglones_tramos=[];
-        renglones_tramos.push(html.tr([
-            html.th({"class":"col-desde"  },'desde'        ),
-            html.th({"class":"col-hasta"  },'hasta'        ),
-            html.th({"class":"col-codigo" },'act'       ),
-            html.th({"class":"col-rescate"},'R'            ),
-            html.th({"class":"col-detalle"},'observaciones'),
-        ]));
+        renglones_tramos.push(html.tr(
+            gu.estructuraTramo.map(c => html.th({"class":"col-"+c.nombre  }, c.titulo ?? c.nombre ))
+        ));
         var tablaTramos=html.table(renglones_tramos).create();
         var hastaDonde='';
         document.getElementById('grilla-ut-zona-derecha')!.appendChild(tablaTramos);
@@ -671,13 +682,13 @@ function GrillaUt(
                 input.setTypedValue(tramo[nombreVar]||null);
                 if(nombreVar == 'codigo'){
                     input.addEventListener('focus',function(){
-                        pantallaAyuda.mostrar(input);
+                        pantallaAyuda.mostrar(input, i_tramo);
                     })
                     input.addEventListener('change',function(){
-                        pantallaAyuda.mostrar(input);
+                        pantallaAyuda.mostrar(input, i_tramo);
                     })
                     input.addEventListener('input',function(){
-                        pantallaAyuda.mostrar(input);
+                        pantallaAyuda.mostrar(input, i_tramo);
                     })
                     input.addEventListener('blur',function(){
                         pantallaAyuda.ocultar();
@@ -745,6 +756,18 @@ function GrillaUt(
             botonCerrar.textContent = gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
         }
         this.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
+        var ultimoTramo:TramoExtendido = gu.tramos[gu.tramos.length-1] as TramoExtendido;
+        if (!ultimoTramo.desde && gu.tramos.length < 2){
+            ultimoTramo.inputs.desde.setTypedValue('00:00')
+            ultimoTramo.desde = '00:00';
+        } 
+        if (!ultimoTramo.codigo) {
+            ultimoTramo.inputs.codigo.focus();
+        } else if (!ultimoTramo.desde) {
+            ultimoTramo.inputs.desde.focus();
+        } else if (!ultimoTramo.hasta) {
+            ultimoTramo.inputs.hasta.focus();
+        }
         /*230213
         if(rta_ud["var_d1"] || rta_ud["var_d2"]){
             this.desplegar_rescate();
@@ -773,11 +796,11 @@ function GrillaUt(
         }
         var max = function<T>(a:T,b:T){return a>b?a:b; }
         var min = function<T>(a:T,b:T){return a<b?a:b; }
-        var colocarCaja = function colocarCaja(tramo:TramoExtendido, nombrecaja:CorteId, desdeLimite:Hora, hastaLimite:Hora, i_columna:IdColumna, correcionX:number, correccionY:number, propiedad){        
+        var colocarCaja = function colocarCaja(tramo:TramoExtendido, nombrecaja:CorteId, desdeLimite:Hora, hastaLimite:Hora, i_columna:IdColumna, correcionX:number, correccionY:number, propiedad:string){        
             var desde=separarHora(max(min(tramo.desde as Hora,hastaLimite),desdeLimite));
             var hasta=separarHora(max(min(tramo.hasta as Hora,hastaLimite),desdeLimite));
             if(!tramo[nombrecaja] || !document.body.contains(tramo[nombrecaja])){
-                tramo[nombrecaja] = html.div({"class":["caja-fija", 'act_'+tramo.codigo]}).create();
+                tramo[nombrecaja] = html.div({class:"caja-fija act_"+tramo.codigo}).create() as HTMLDivElement & Tramo;
                 tramo[nombrecaja].style.display='none';
                 document.getElementById(idDiv)?.appendChild(tramo[nombrecaja]);
             }
