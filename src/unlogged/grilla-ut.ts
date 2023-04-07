@@ -338,6 +338,25 @@ class PantallaAyuda{
         }
         document.body.appendChild(this.elemento);
     }
+    mostrarOpcion(input:TypedControl<string>, valor:string, o:{opcion?:string, codigo?:string, texto:string, aclaracion?:string}){
+        var opcion = html.p([
+            html.span(o.codigo ?? o.opcion),
+            html.span(" - "),
+            html.span(o.texto),
+            ...(o.aclaracion ? [
+                html.span([" ", html.small(o.aclaracion)])
+            ] : [])
+        ]).create();
+        opcion.addEventListener('mousedown', (event)=>{
+            event.preventDefault();
+        })
+        opcion.addEventListener('click', ()=>{
+            var nuevoValor = o.codigo ?? (valor ?? "") + o.opcion
+            input.setTypedValue(nuevoValor, true);
+            this.mostrar(input);
+        })
+        return opcion
+    }
     mostrar(input:TypedControl<string>){
         var valor = input.getTypedValue();
         var preguntaActividad = preguntasActividad[valor||""];
@@ -345,48 +364,10 @@ class PantallaAyuda{
             this.elemento.innerHTML = "";
             this.elemento.appendChild(html.div([
                 html.p(preguntaActividad.pregunta),
-                ...(preguntaActividad.opciones.map( o =>{
-                    var opcion = 
-                    html.p([
-                        html.span(o.opcion),
-                        html.span(" - "),
-                        html.span(o.texto),
-                        ...(o.aclaracion ? [
-                            html.span([" ", html.small(o.aclaracion)])
-                        ] : [])
-                    ]).create();
-                    opcion.addEventListener('mousedown', (event)=>{
-                        event.preventDefault();
-                    })
-                    opcion.addEventListener('click', ()=>{
-                        var nuevoValor = (valor||"") + o.opcion
-                        input.setTypedValue(nuevoValor, true);
-                        this.mostrar(input);
-                    })
-                    return opcion
-                })), 
+                ...(preguntaActividad.opciones.map( o => this.mostrarOpcion(input, valor, o) )), 
                 ...( preguntaActividad.rescate ? [
                     html.p("ATENCIÓN, cambie el código por"),
-                    ...(preguntaActividad.rescate.map( o =>{
-                        var opcion = 
-                        html.p([
-                            html.span(o.codigo),
-                            html.span(" - "),
-                            html.span(o.texto),
-                            ...(o.aclaracion ? [
-                                html.span([" ", html.small(o.aclaracion)])
-                            ] : [])
-                        ]).create();
-                        opcion.addEventListener('mousedown', (event)=>{
-                            event.preventDefault();
-                        })
-                        opcion.addEventListener('click', ()=>{
-                            var nuevoValor = o.codigo
-                            input.setTypedValue(nuevoValor, true);
-                            this.mostrar(input);
-                        })
-                        return opcion
-                    })), 
+                    ...(preguntaActividad.rescate.map( o => this.mostrarOpcion(input, valor, o) ))
                     ] : [])
             ]).create())
             this.elemento.style.display = "block";
