@@ -342,7 +342,6 @@ class PantallaAyuda{
         var valor = input.getTypedValue();
         var preguntaActividad = preguntasActividad[valor||""];
         if(preguntaActividad != null){
-            this.ocultando = false;
             this.elemento.innerHTML = "";
             this.elemento.appendChild(html.div([
                 html.p(preguntaActividad.pregunta),
@@ -356,12 +355,13 @@ class PantallaAyuda{
                             html.span([" ", html.small(o.aclaracion)])
                         ] : [])
                     ]).create();
-                    opcion.addEventListener('mousedown', ()=>{
-                        this.ocultando = false;
+                    opcion.addEventListener('mousedown', (event)=>{
+                        event.preventDefault();
                     })
                     opcion.addEventListener('click', ()=>{
-                        input.setTypedValue((valor||"") + o.opcion);
-                        input.focus();
+                        var nuevoValor = (valor||"") + o.opcion
+                        input.setTypedValue(nuevoValor, true);
+                        this.mostrar(input);
                     })
                     return opcion
                 })), 
@@ -377,12 +377,13 @@ class PantallaAyuda{
                                 html.span([" ", html.small(o.aclaracion)])
                             ] : [])
                         ]).create();
-                        opcion.addEventListener('mousedown', ()=>{
-                            this.ocultando = false;
+                        opcion.addEventListener('mousedown', (event)=>{
+                            event.preventDefault();
                         })
                         opcion.addEventListener('click', ()=>{
-                            input.setTypedValue(o.codigo);
-                            input.focus();
+                            var nuevoValor = o.codigo
+                            input.setTypedValue(nuevoValor, true);
+                            this.mostrar(input);
                         })
                         return opcion
                     })), 
@@ -394,12 +395,7 @@ class PantallaAyuda{
         }
     }
     ocultar(){
-        this.ocultando = true;
-        setTimeout(()=>{
-            if(this.ocultando){
-                this.elemento.style.display = "none";
-            }
-        },500)
+        this.elemento.style.display = "none";
     }
 }
 

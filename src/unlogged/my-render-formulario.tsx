@@ -53,7 +53,7 @@ setLibreDespliegue((props:{
             estructura:Estructura
         ){
             var respuestas = respuestasAumentadas;
-            // if (elemento.grillaUt) return;
+            if (elemento.grillaUt) return;
             elemento.innerHTML = "" ;
             var grillaUt = new GrillaUt(
                 (data:DataFromGrillaUTArray)=>{
@@ -74,7 +74,7 @@ setLibreDespliegue((props:{
             var corYtotal=elemento.offsetTop;
             //cargar_otras_rta();
             grillaUt.desplegar(elemento.id,corYtotal);
-            // elemento.grillaUt = grillaUt;
+            elemento.grillaUt = grillaUt;
         }
     });
     return <div key={key} id={id}></div>
