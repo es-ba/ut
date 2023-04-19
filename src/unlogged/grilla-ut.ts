@@ -676,7 +676,7 @@ function GrillaUt(
                 var nombreVar=infoCampo.nombre;
                 var input = html.input({type:infoCampo.tipo, "class":"edit-"+nombreVar}).create() as unknown as TypedControl<string>;
                 if(infoCampo.tabindex){
-                    input.tabIndex=-1;
+                    //input.tabIndex=-1;
                 }
                 TypedControls.adaptElement(input, {typeName:'text'});
                 // @ts-expect-error apaga la lupa
