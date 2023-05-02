@@ -810,6 +810,7 @@ function GrillaUt(
                 tramo[nombrecaja].className = cajaClassName
             }
             var caja = tramo[nombrecaja];
+            caja.removeAttribute('style');
             if(desde.renglon<hasta.renglon){
                 if(caja.desde != tramo.desde ||caja.hasta != tramo.hasta || caja.codigo != tramo.codigo){
                     if(i_columna==='agujero'){
