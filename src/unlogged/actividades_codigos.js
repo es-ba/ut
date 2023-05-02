@@ -1,10 +1,10 @@
 var actividades_codigos={
-  "10": {
+  "11": {
       "abr": "Trabajar para un patrón o por cuenta propia",
       "color": "#A5DAF0",
       "grupo": "M",
       "texto": "Trabajar para un patrón o por cuenta propia",
-      "codigo": 10,
+      "codigo": 11,
       "detalle": "Se toma en cuenta sólo la población ocupada en la producción de bienes y servicios con valor en el mercado. Incluye a asalariados, patrones o empleadores, cuentapropistas, trabajadores familiares no remunerados. Incluye también las capacitaciones y cursos realizados como parte de la actividad laboral.",
       "opcion_d12": false,
       "opcion_d13": false,
