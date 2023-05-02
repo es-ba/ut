@@ -119,7 +119,7 @@
 .inconsistencia:before{content:"Error: ";    font-weight:bold; text-decoration:underline; color:Red }
 .advertencia:before{content:"Advertencia: "; font-weight:bold; }
 
-.caja-fija.act_1 {
+.caja-fija.act_11 {
     background-color: #96D8EC99;
 }
 .caja-fija.act_13 {
