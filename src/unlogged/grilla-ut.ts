@@ -801,10 +801,13 @@ function GrillaUt(
         var colocarCaja = function colocarCaja(tramo:TramoExtendido, nombrecaja:CorteId, desdeLimite:Hora, hastaLimite:Hora, i_columna:IdColumna, correcionX:number, correccionY:number, propiedad:string){        
             var desde=separarHora(max(min(tramo.desde as Hora,hastaLimite),desdeLimite));
             var hasta=separarHora(max(min(tramo.hasta as Hora,hastaLimite),desdeLimite));
+            var cajaClassName = "caja-fija act_"+tramo.codigo
             if(!tramo[nombrecaja] || !document.body.contains(tramo[nombrecaja])){
-                tramo[nombrecaja] = html.div({class:"caja-fija act_"+tramo.codigo}).create() as HTMLDivElement & Tramo;
+                tramo[nombrecaja] = html.div({class:cajaClassName}).create() as HTMLDivElement & Tramo;
                 tramo[nombrecaja].style.display='none';
                 document.getElementById(idDiv)?.appendChild(tramo[nombrecaja]);
+            }else{
+                tramo[nombrecaja].className = cajaClassName
             }
             var caja = tramo[nombrecaja];
             if(desde.renglon<hasta.renglon){
@@ -843,8 +846,6 @@ function GrillaUt(
                     }
 //                    caja.style.display='';
                     caja.style.display=propiedad;
-                    caja.desde = tramo.desde;
-                    caja.desde = tramo.desde;
                     caja.desde = tramo.desde;
                 }
                 caja.style.display=propiedad;
