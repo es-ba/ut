@@ -112,7 +112,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "1":{
         pregunta: "¿Qué hizo?",
         opciones: [
-            {opcion: "0", texto: "Trabajar para un patrón o por cuenta propia"},
+            {opcion: "1", texto: "Trabajar para un patrón o por cuenta propia"},
             {opcion: "3", texto: "Buscar trabajo"},
             {opcion: "4", texto: "Viajar para ir y volver al trabajo"},
         ],
