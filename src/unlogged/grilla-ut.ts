@@ -52,7 +52,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "4", texto: "de 65 años de edad o más?"}
         ],
         rescate: [
-            {codigo: "10", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"},
+            {codigo: "11", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"},
             {codigo: "51", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"}
         ]
     },

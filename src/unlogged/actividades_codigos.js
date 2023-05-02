@@ -1,10 +1,10 @@
 var actividades_codigos={
-  "1": {
+  "10": {
       "abr": "Trabajar para un patrón o por cuenta propia",
-      //"color": "#A5DAF0",
+      "color": "#A5DAF0",
       "grupo": "M",
       "texto": "Trabajar para un patrón o por cuenta propia",
-      "codigo": 1,
+      "codigo": 10,
       "detalle": "Se toma en cuenta sólo la población ocupada en la producción de bienes y servicios con valor en el mercado. Incluye a asalariados, patrones o empleadores, cuentapropistas, trabajadores familiares no remunerados. Incluye también las capacitaciones y cursos realizados como parte de la actividad laboral.",
       "opcion_d12": false,
       "opcion_d13": false,
@@ -18,7 +18,7 @@ var actividades_codigos={
   },
   "2": {
       "abr": "Trabajar para consumo propio del hogar",
-      //"color": "#3DA5D7",
+      "color": "#3DA5D7",
       "grupo": "M",
       "texto": "Trabajar para consumo o uso propio del hogar",
       "codigo": 2,
@@ -35,7 +35,7 @@ var actividades_codigos={
   },
   "13": {
       "abr": "Buscar trabajo",
-      //"color": "#A5DAF0",
+      "color": "#A5DAF0",
       "grupo": "M",
       "texto": "Buscar trabajo",
       "codigo": 13,
@@ -52,7 +52,7 @@ var actividades_codigos={
   },
   "14": {
       "abr": "Viajar para ir y volver al trabajo",
-      //"color": "#A5DAF0",
+      "color": "#A5DAF0",
       "grupo": "F",
       "texto": "Viajar para ir y volver al trabajo",
       "codigo": 14,
@@ -69,7 +69,7 @@ var actividades_codigos={
   },
   "31": {
       "abr": "Preparar y servir la comida",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Preparar y servir la comida",
       "codigo": 31,
@@ -86,7 +86,7 @@ var actividades_codigos={
   },
   "32": {
       "abr": "Limpiar la casa",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "D",
       "texto": "Limpiar la vivienda",
       "codigo": 32,
@@ -103,7 +103,7 @@ var actividades_codigos={
   },
   "33": {
       "abr": "Lavar, planchar o arreglar la ropa",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Lavar, planchar o arreglar la ropa",
       "codigo": 33,
@@ -120,7 +120,7 @@ var actividades_codigos={
   },
   "34": {
       "abr": "Hacer reparaciones menores y mantenimiento de la vivienda",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Hacer reparaciones y mantenimiento de la vivienda",
       "codigo": 34,
@@ -137,7 +137,7 @@ var actividades_codigos={
   },
   "35": {
       "abr": "Hacer pagos y trámites del hogar",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Hacer pagos y trámites del hogar",
       "codigo": 35,
@@ -154,7 +154,7 @@ var actividades_codigos={
   },
   "36": {
       "abr": "Hacer compras para el hogar",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Hacer compras para el hogar",
       "codigo": 36,
@@ -171,7 +171,7 @@ var actividades_codigos={
   },
   "37": {
       "abr": "Cuidar mascotas y plantas",
-      //"color": "#ADD2AE",
+      "color": "#ADD2AE",
       "grupo": "M",
       "texto": "Cuidar mascotas y plantas",
       "codigo": 37,
@@ -188,7 +188,7 @@ var actividades_codigos={
   },
   "51": {
       "abr": "Ayudar a otros hogares",
-      //"color": "#53B5A3",
+      "color": "#53B5A3",
       "grupo": "M",
       "texto": "Ayuda a otros hogares (trabajo no remunerado para otros hogares)",
       "codigo": 51,
@@ -205,7 +205,7 @@ var actividades_codigos={
   },
   "54": {
       "abr": "Hacer trabajos voluntarios",
-      //"color": "#53B5A3",
+      "color": "#53B5A3",
       "grupo": "M",
       "texto": "Trabajo voluntario",
       "codigo": 54,
@@ -222,7 +222,7 @@ var actividades_codigos={
   },
   "61": {
       "abr": "Estudiar",
-      //"color": "#C6A7C0",
+      "color": "#C6A7C0",
       "grupo": "M",
       "texto": "Aprendizaje y estudio",
       "codigo": 61,
@@ -239,7 +239,7 @@ var actividades_codigos={
   },
   "62": {
       "abr": "Viajar para estudiar",
-      //"color": "#C6A7C0",
+      "color": "#C6A7C0",
       "grupo": "F",
       "texto": "Traslados para aprendizaje y estudio",
       "codigo": 62,
@@ -256,7 +256,7 @@ var actividades_codigos={
   },
   "72": {
       "abr": "Asistir a eventos o espectáculos",
-      //"color": "#A45FB5",
+      "color": "#A45FB5",
       "grupo": "M",
       "texto": "Eventos culturales y deportivos",
       "codigo": 72,
@@ -273,7 +273,7 @@ var actividades_codigos={
   },
   "73": {
       "abr": "Realizar actividades artísticas, juegos o entretenimientos",
-      //"color": "#A45FB5",
+      "color": "#A45FB5",
       "grupo": "M",
       "texto": "Actividades artísticas, juegos o entretenimientos",
       "codigo": 73,
@@ -290,7 +290,7 @@ var actividades_codigos={
   },
   "74": {
       "abr": "Hacer deportes o ejercicios físicos",
-      //"color": "#A45FB5",
+      "color": "#A45FB5",
       "grupo": "M",
       "texto": "Deporte y ejercicio físico",
       "codigo": 74,
@@ -307,7 +307,7 @@ var actividades_codigos={
   },
   "81": {
       "abr": "Leer libros o revistas",
-      //"color": "#B58FB5",
+      "color": "#B58FB5",
       "grupo": "M",
       "texto": "Lectura de libros, revistas, etc.",
       "codigo": 81,
@@ -324,7 +324,7 @@ var actividades_codigos={
   },
   "82": {
       "abr": "Ver televisión",
-      //"color": "#B58FB5",
+      "color": "#B58FB5",
       "grupo": "M",
       "texto": "Ver televisión",
       "codigo": 82,
@@ -341,7 +341,7 @@ var actividades_codigos={
   },
   "83": {
       "abr": "Escuchar radio",
-      //"color": "#B58FB5",
+      "color": "#B58FB5",
       "grupo": "M",
       "texto": "Escuchar música o radio",
       "codigo": 83,
@@ -358,7 +358,7 @@ var actividades_codigos={
   },
   "84": {
       "abr": "Usar computadora, tableta o celular",
-      //"color": "#B58FB5",
+      "color": "#B58FB5",
       "grupo": "M",
       "texto": "Usar computadora, tableta o celular",
       "codigo": 84,
@@ -375,7 +375,7 @@ var actividades_codigos={
   },
   "411": {
       "abr": "Cuidado personal a componentes del hogar, de 0 a 13 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Cuidado personal a componentes del hogar, de 0 a 13 años",
       "codigo": 411,
@@ -392,7 +392,7 @@ var actividades_codigos={
   },
   "412": {
       "abr": "Cuidados temporales de salud a componentes del hogar, de 0 a 13 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Cuidados temporales de salud a componentes del hogar, de 0 a 13 años",
       "codigo": 412,
@@ -409,7 +409,7 @@ var actividades_codigos={
   },
   "413": {
       "abr": "Apoyo escolar y/o de aprendizaje a componentes del hogar, de 0 a 13 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Apoyo escolar y/o de aprendizaje a componentes del hogar, de 0 a 13 años",
       "codigo": 413,
@@ -426,7 +426,7 @@ var actividades_codigos={
   },
   "414": {
       "abr": "Acompañamiento y traslados a componentes del hogar, de 0 a 13 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "F",
       "texto": "Acompañamiento y traslados a componentes del hogar, de 0 a 13 años",
       "codigo": 414,
@@ -443,7 +443,7 @@ var actividades_codigos={
   },
   "419": {
       "abr": "Otras actividades de cuidado y apoyo a componentes del hogar, de 0 a 13 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": null,
       "texto": "Otras actividades de cuidado y apoyo a componentes del hogar, de 0 a 13 años",
       "codigo": 419,
@@ -460,7 +460,7 @@ var actividades_codigos={
   },
   "421": {
       "abr": "Apoyo personal a componentes del hogar, de 14 a 64 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Apoyo personal a componentes del hogar, de 14 a 64 años",
       "codigo": 421,
@@ -477,7 +477,7 @@ var actividades_codigos={
   },
   "422": {
       "abr": "Cuidados temporales de salud a componentes del hogar, de 14 a 64 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Cuidados temporales de salud a componentes del hogar, de 14 a 64 años",
       "codigo": 422,
@@ -494,7 +494,7 @@ var actividades_codigos={
   },
   "423": {
       "abr": "Acompañamiento y traslados a componentes del hogar, de 14 a 64 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "F",
       "texto": "Acompañamiento y traslados a componentes del hogar, de 14 a 64 años",
       "codigo": 423,
@@ -511,7 +511,7 @@ var actividades_codigos={
   },
   "429": {
       "abr": "Otras actividades de cuidado y apoyo a componentes del hogar, de 14 a 64 años",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": null,
       "texto": "Otras actividades de cuidado y apoyo a componentes del hogar, de 14 a 64 años",
       "codigo": 429,
@@ -528,7 +528,7 @@ var actividades_codigos={
   },
   "431": {
       "abr": "Apoyo personal a componentes del hogar de 65 años o más",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Apoyo personal a componentes del hogar de 65 años o más",
       "codigo": 431,
@@ -545,7 +545,7 @@ var actividades_codigos={
   },
   "432": {
       "abr": "Cuidados temporales de salud a componentes del hogar de 65 años o más.",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Cuidados temporales de salud a componentes del hogar de 65 años o más.",
       "codigo": 432,
@@ -562,7 +562,7 @@ var actividades_codigos={
   },
   "433": {
       "abr": "Acompañamiento y traslados a  miembros del hogar de 65 años o más",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "F",
       "texto": "Acompañamiento y traslados a componentes del hogar de 65 años o más.",
       "codigo": 433,
@@ -579,7 +579,7 @@ var actividades_codigos={
   },
   "439": {
       "abr": "Otras actividades de cuidado y apoyo a componentes del hogar, de 65 años o más",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": null,
       "texto": "Otras actividades de cuidado y apoyo a componentes del hogar, de 65 años o más",
       "codigo": 439,
@@ -596,7 +596,7 @@ var actividades_codigos={
   },
   "441": {
       "abr": "Apoyo personal a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Apoyo personal a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
       "codigo": 441,
@@ -613,7 +613,7 @@ var actividades_codigos={
   },
   "442": {
       "abr": "Cuidados de salud a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "M",
       "texto": "Cuidados de salud a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
       "codigo": 442,
@@ -630,7 +630,7 @@ var actividades_codigos={
   },
   "443": {
       "abr": "Acompañamiento y traslados a  componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": "F",
       "texto": "Acompañamiento y traslados a  componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
       "codigo": 443,
@@ -647,7 +647,7 @@ var actividades_codigos={
   },
   "449": {
       "abr": "Otras actividades de cuidado y apoyo a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
-      //"color": "#E1E799",
+      "color": "#E1E799",
       "grupo": null,
       "texto": "Otras actividades de cuidado y apoyo a componentes del hogar con discapacidad o dependencia permanente (todas las edades)",
       "codigo": 449,
@@ -664,7 +664,7 @@ var actividades_codigos={
   },
   "711": {
       "abr": "Reunirse con familiares o amigos",
-      //"color": "#A45FB5",
+      "color": "#A45FB5",
       "grupo": "M",
       "texto": "Reunirse con familiares o amigos",
       "codigo": 711,
@@ -681,7 +681,7 @@ var actividades_codigos={
   },
   "712": {
       "abr": "Participar de celebraciones comunitarias, políticas, religiosas, etc",
-      //"color": "#A45FB5",
+      "color": "#A45FB5",
       "grupo": "M",
       "texto": "Participar de celebraciones comunitarias, políticas o religiosas",
       "codigo": 712,
@@ -698,7 +698,7 @@ var actividades_codigos={
   },
   "911": {
       "abr": "Higiene, arreglo personal, etc.",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Aseo y arreglo personal",
       "codigo": 911,
@@ -715,7 +715,7 @@ var actividades_codigos={
   },
   "912": {
       "abr": "Cuidar su salud (tratamientos, terapias, etc.)",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Cuidados personales de salud",
       "codigo": 912,
@@ -732,7 +732,7 @@ var actividades_codigos={
   },
   "914": {
       "abr": "Descansar o realizar otras actividades personales",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Descanso, relajación, otras actividades personales",
       "codigo": 914,
@@ -749,7 +749,7 @@ var actividades_codigos={
   },
   "919": {
       "abr": "Viajar por cuidados de la salud",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "F",
       "texto": "Viajar para cuidar su salud",
       "codigo": 919,
@@ -766,7 +766,7 @@ var actividades_codigos={
   },
   "921": {
       "abr": "Comer y beber",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Comer, beber, ir al baño.",
       "codigo": 921,
@@ -783,7 +783,7 @@ var actividades_codigos={
   },
   "922": {
       "abr": "Dormir",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Dormir",
       "codigo": 922,
@@ -800,7 +800,7 @@ var actividades_codigos={
   },
   "999": {
       "abr": "Realizar otras actividades",
-      //"color": "#AF85B5",
+      "color": "#AF85B5",
       "grupo": "M",
       "texto": "Otro",
       "codigo": 999,
@@ -822,7 +822,7 @@ var actividades_svg = {
     "13B": "M45.73 40.58l0 -4.17c0,-0.32 0.12,-0.61 0.33,-0.81l0.01 0c0.21,-0.21 0.5,-0.34 0.81,-0.34l15.45 0c0.31,0 0.6,0.13 0.81,0.34l0.01 0c0.21,0.2 0.33,0.49 0.33,0.81l0 4.17 6.43 0 0 -4.17c0,-2.07 -0.86,-3.97 -2.23,-5.35l0 0c-1.37,-1.38 -3.27,-2.23 -5.35,-2.23l-15.45 0c-2.08,0 -3.98,0.85 -5.35,2.23l0 0c-1.37,1.38 -2.23,3.28 -2.23,5.35l0 4.17 -6.45 0c-4.31,0 -7.82,3.52 -7.82,7.82l0 24.82c0,4.3 3.51,7.81 7.82,7.81l43.51 0c4.3,0 7.82,-3.51 7.82,-7.81l0 -24.82c0,-4.3 -3.52,-7.82 -7.82,-7.82l-30.63 0zm46.29 37.47c-1.8,2.9 -3.92,5.57 -6.32,7.97 -7.96,7.96 -18.95,12.88 -31.1,12.88 -12.14,0 -23.13,-4.92 -31.09,-12.88 -7.95,-7.95 -12.87,-18.95 -12.87,-31.09 0,-12.14 4.92,-23.13 12.87,-31.09 7.96,-7.96 18.95,-12.88 31.09,-12.88 12.15,0 23.14,4.92 31.1,12.88 7.95,7.96 12.87,18.95 12.87,31.09 0,8.48 -2.4,16.4 -6.55,23.12l6.96 6.97c5.82,-8.58 9.23,-18.93 9.23,-30.09 0,-14.8 -6,-28.2 -15.7,-37.9 -9.7,-9.7 -23.1,-15.7 -37.91,-15.7 -14.8,0 -28.2,6 -37.9,15.7 -9.7,9.7 -15.7,23.1 -15.7,37.9 0,14.8 6,28.21 15.7,37.91 9.7,9.7 23.1,15.7 37.9,15.7 11.49,0 22.14,-3.62 30.87,-9.77l29.08 29.08c3.76,3.76 9.86,3.76 13.63,0 3.76,-3.76 3.76,-9.87 0,-13.63l-36.16 -36.17z",
     "14": "M20.15 78.58l13.82 0 0 -29.86 2.44 0 0 18.2 0 11.66 -22.51 0 0 31.82 22.51 0 0 11.96c0,2.66 2.17,4.83 4.83,4.83l0 0c2.66,0 4.83,-2.17 4.83,-4.83l0 -39.67 0 -3.74c0,-0.92 0.76,-1.68 1.68,-1.68l0.01 0c0.92,0 1.68,0.76 1.68,1.68l0 3.74 0 39.67c0,2.66 2.17,4.83 4.83,4.83l0 0c2.66,0 4.83,-2.17 4.83,-4.83l0 -39.67 0 -15.77 0 -18.2 0 -2.69 25.84 -25.83c1.77,-1.77 1.77,-4.67 0,-6.44l0 0c-1.77,-1.77 -4.67,-1.77 -6.44,0l-21.76 21.76 -22.77 0 0 0c-4.82,0 -8.75,3.94 -8.75,8.75l0 26.8 -1.21 0c-2.12,0 -3.86,1.74 -3.86,3.86l0 3.65zm79.15 -77.58l29.96 0 0 16.54 -29.96 0 0 -16.54zm-6.34 0l4.49 0 0 24.06 -4.49 0 0 -24.06zm0 29.52l4.49 0 0 3.32 -4.49 0 0 -3.32zm0 100.48l4.49 0 0 -92.33 -4.49 0 0 92.33zm-82.18 -52.42l-3.16 0c-2.69,0 -4.88,2.2 -4.88,4.89l0 22.05c0,2.69 2.19,4.88 4.88,4.88l3.16 0 0 -31.82zm36.12 -65.78c-5.04,0 -9.12,4.09 -9.12,9.13 0,5.04 4.08,9.12 9.12,9.12 5.04,0 9.13,-4.08 9.13,-9.12 0,-5.04 -4.09,-9.13 -9.13,-9.13z",
     "14B": "M23.66 78.58l13.82 0 0 -29.86 2.44 0 0 29.86 -22.5 0 0 31.82 22.5 0 0 11.96c0,6.36 9.66,6.36 9.66,0l0 -39.67c0,-2.45 -0.55,-5.42 1.69,-5.42 2.23,0 1.68,2.98 1.68,5.42l0 39.67c0,6.36 9.66,6.36 9.66,0l0 -76.33 25.84 -25.83c4.24,-4.25 -2.2,-10.68 -6.44,-6.44l-21.76 21.76c-7.59,0 -15.18,0 -22.77,0 -4.81,0 -8.75,3.94 -8.75,8.75l0 26.8c-5.68,0 -5.07,3.16 -5.07,7.51zm72.81 52.42l4.49 0c0,-37.82 0,-75.64 0,-113.46 10.61,0 14.18,0 24.79,0l0 -16.54c-12.1,0 -17.18,0 -29.28,0 0,43.33 0,86.67 0,130zm-82.18 -52.42c-2.68,0 -8.04,-0.42 -8.04,4.89l0 22.05c0,5.31 5.36,4.88 8.04,4.88l0 -31.82zm36.13 -65.78c-12.02,0 -12.02,18.25 0,18.25 12.01,0 12.01,-18.25 0,-18.25z",
-    "1": "M82.27 63.36c-3.33,0 -6.03,2.7 -6.03,6.03 0,3.33 2.7,6.03 6.03,6.03 3.33,0 6.03,-2.7 6.03,-6.03 0,-3.33 -2.7,-6.03 -6.03,-6.03zm27.25 31.67l-7.9 0 7.9 0zm-7.9 0l0.43 -0.84c3.97,-7.86 6.26,-17.11 6.26,-27.02 0,-2.18 -0.08,-4.32 -0.25,-6.43 -9.49,-5.98 -19.02,-10.27 -28.71,-9.1 0.88,1.6 1.54,3.43 1.91,5.55 -14.83,-7.87 -26.29,-4.93 -33.88,-19.72 -0.89,14.75 -8.82,23.63 -23.64,26.77 -0.03,0.97 -0.05,1.94 -0.05,2.93 0,6.24 0.9,12.21 2.57,17.75 6.65,8.2 15.84,12.65 27.78,13.04 0.31,0.01 0.2,0.06 0.34,-0.22 1.5,-2.87 5.68,-4.94 10.61,-4.94 6.19,0 11.2,3.26 11.2,7.28 0,4.01 -5.01,7.27 -11.2,7.27 -4.93,0 -9.12,-2.07 -10.61,-4.95 -0.12,-0.22 -0.03,-0.17 -0.28,-0.2 -8.77,-1.02 -16.32,-2.99 -22.82,-5.53 7.64,13.37 20.34,22.12 34.72,22.12 14.96,0 28.1,-9.47 35.62,-23.76zm22.7 -40.52l0.01 0.43c3.99,1.22 6.91,4.95 6.91,9.33l0 15.7c0,5.37 -4.39,9.77 -9.76,9.77l-10.26 0c-0.4,1.08 -0.82,2.15 -1.27,3.2 -0.15,0.57 -0.27,1.14 -0.36,1.68l-0.07 0.41c-1.07,7.59 3.79,12.34 11.81,15.58 -2.8,0.08 -5.05,0.49 -6.32,1.34 2.36,5.39 7.52,7.76 13.21,9.57 -14.3,11.85 -37.62,12.89 -52.48,1.43 -3.14,0.72 -6.4,1.1 -9.74,1.1 -3.34,0 -6.6,-0.38 -9.74,-1.1 -14.86,11.46 -38.18,10.42 -52.48,-1.43 5.69,-1.81 10.85,-4.18 13.21,-9.57 -1.27,-0.85 -3.52,-1.26 -6.32,-1.34 8.73,-3.53 13.72,-8.84 11.38,-17.67 -0.45,-1.05 -0.87,-2.12 -1.27,-3.2l-10.26 0c-5.37,0 -9.76,-4.4 -9.76,-9.77l0 -15.7c0,-4.38 2.92,-8.11 6.91,-9.33 0.52,-29.9 20.59,-53.94 58.33,-53.94 37.74,0 57.49,23.95 58.32,53.51l-5.94 0c-0.7,-26.32 -18.58,-47.4 -52.38,-47.4 -33.8,0 -51.68,21.08 -52.38,47.4l4.9 0c2.39,-12.37 7.99,-23.02 16.69,-30.32 13.22,-11.11 36.69,-13.08 51.99,-6.05 13.67,6.27 22.93,19.02 26.28,36.37l10.84 0zm-74.4 8.85c-3.33,0 -6.03,2.7 -6.03,6.03 0,3.33 2.7,6.03 6.03,6.03 3.33,0 6.03,-2.7 6.03,-6.03 0,-3.33 -2.7,-6.03 -6.03,-6.03z",
+    "11": "M82.27 63.36c-3.33,0 -6.03,2.7 -6.03,6.03 0,3.33 2.7,6.03 6.03,6.03 3.33,0 6.03,-2.7 6.03,-6.03 0,-3.33 -2.7,-6.03 -6.03,-6.03zm27.25 31.67l-7.9 0 7.9 0zm-7.9 0l0.43 -0.84c3.97,-7.86 6.26,-17.11 6.26,-27.02 0,-2.18 -0.08,-4.32 -0.25,-6.43 -9.49,-5.98 -19.02,-10.27 -28.71,-9.1 0.88,1.6 1.54,3.43 1.91,5.55 -14.83,-7.87 -26.29,-4.93 -33.88,-19.72 -0.89,14.75 -8.82,23.63 -23.64,26.77 -0.03,0.97 -0.05,1.94 -0.05,2.93 0,6.24 0.9,12.21 2.57,17.75 6.65,8.2 15.84,12.65 27.78,13.04 0.31,0.01 0.2,0.06 0.34,-0.22 1.5,-2.87 5.68,-4.94 10.61,-4.94 6.19,0 11.2,3.26 11.2,7.28 0,4.01 -5.01,7.27 -11.2,7.27 -4.93,0 -9.12,-2.07 -10.61,-4.95 -0.12,-0.22 -0.03,-0.17 -0.28,-0.2 -8.77,-1.02 -16.32,-2.99 -22.82,-5.53 7.64,13.37 20.34,22.12 34.72,22.12 14.96,0 28.1,-9.47 35.62,-23.76zm22.7 -40.52l0.01 0.43c3.99,1.22 6.91,4.95 6.91,9.33l0 15.7c0,5.37 -4.39,9.77 -9.76,9.77l-10.26 0c-0.4,1.08 -0.82,2.15 -1.27,3.2 -0.15,0.57 -0.27,1.14 -0.36,1.68l-0.07 0.41c-1.07,7.59 3.79,12.34 11.81,15.58 -2.8,0.08 -5.05,0.49 -6.32,1.34 2.36,5.39 7.52,7.76 13.21,9.57 -14.3,11.85 -37.62,12.89 -52.48,1.43 -3.14,0.72 -6.4,1.1 -9.74,1.1 -3.34,0 -6.6,-0.38 -9.74,-1.1 -14.86,11.46 -38.18,10.42 -52.48,-1.43 5.69,-1.81 10.85,-4.18 13.21,-9.57 -1.27,-0.85 -3.52,-1.26 -6.32,-1.34 8.73,-3.53 13.72,-8.84 11.38,-17.67 -0.45,-1.05 -0.87,-2.12 -1.27,-3.2l-10.26 0c-5.37,0 -9.76,-4.4 -9.76,-9.77l0 -15.7c0,-4.38 2.92,-8.11 6.91,-9.33 0.52,-29.9 20.59,-53.94 58.33,-53.94 37.74,0 57.49,23.95 58.32,53.51l-5.94 0c-0.7,-26.32 -18.58,-47.4 -52.38,-47.4 -33.8,0 -51.68,21.08 -52.38,47.4l4.9 0c2.39,-12.37 7.99,-23.02 16.69,-30.32 13.22,-11.11 36.69,-13.08 51.99,-6.05 13.67,6.27 22.93,19.02 26.28,36.37l10.84 0zm-74.4 8.85c-3.33,0 -6.03,2.7 -6.03,6.03 0,3.33 2.7,6.03 6.03,6.03 3.33,0 6.03,-2.7 6.03,-6.03 0,-3.33 -2.7,-6.03 -6.03,-6.03z",
     "1B": "M103.81 36.59l-6.77 0c-1.62,-5.23 -4,-9.95 -6.97,-13.89 -5.92,-7.88 -14.16,-12.75 -23.31,-12.75 -9.15,0 -17.38,4.87 -23.3,12.75 -2.97,3.94 -5.36,8.66 -6.97,13.89l-1.55 0c0.38,-8.21 3.86,-15.6 9.3,-21.04 5.76,-5.76 13.72,-9.33 22.52,-9.33 8.8,0 16.76,3.57 22.53,9.33 5.44,5.44 8.92,12.83 9.29,21.04l5.23 0c-0.38,-9.65 -4.45,-18.35 -10.83,-24.73 -6.71,-6.71 -15.98,-10.86 -26.22,-10.86 -10.24,0 -19.51,4.15 -26.22,10.86 -6.38,6.38 -10.45,15.08 -10.83,24.73 -4.25,0.02 -7.72,3.5 -7.72,7.75l0 12.44c0,4.26 3.48,7.75 7.75,7.75l5.72 0c1.53,6.77 4.32,12.84 8,17.74 5.92,7.87 14.15,12.74 23.3,12.74 9.15,0 17.39,-4.87 23.31,-12.74 2.09,-2.79 3.89,-5.95 5.34,-9.41l-5.7 0c-1.1,2.28 -2.38,4.39 -3.8,6.29 -4.95,6.57 -11.72,10.64 -19.15,10.64 -7.43,0 -14.2,-4.07 -19.14,-10.64 -4.8,-6.38 -7.87,-15.08 -8.23,-24.79l2.97 1.8c-0.85,-10.54 -2.37,-18.78 3.03,-21.67 5.2,2.7 12.68,4.45 20.99,4.32 8.18,-0.12 15.6,-1.87 20.8,-4.45l0.08 0.13c5.42,2.88 3.9,11.12 3.05,21.67l3.84 -2.32c-0.11,4.21 -0.73,8.24 -1.79,11.98 -1.39,0.8 -2.85,1.51 -4.39,2.14 -4.61,1.88 -9.89,3.02 -15.67,3.58 -0.86,-1.04 -2.16,-1.71 -3.62,-1.71l-4.3 0c-2.57,0 -4.68,2.11 -4.68,4.68l0 0c0,2.58 2.11,4.68 4.68,4.68l4.3 0c1.78,0 3.34,-1 4.13,-2.47 6.17,-0.6 11.85,-1.83 16.9,-3.86l5.7 0 0.2 -0.49c0.42,-1.03 0.81,-2.08 1.16,-3.16 2.07,-1.36 3.98,-2.91 5.71,-4.68l1.31 0c4.26,0 7.75,-3.49 7.75,-7.75l0 -12.44c0,-4.25 -3.48,-7.73 -7.73,-7.75zm-102.37 94.41l129.12 0c0,-18.07 -21.76,-32.85 -39.82,-32.85l-49.48 0c-18.06,0 -39.82,14.78 -39.82,32.85z",
     "1C": "M1.44 131l129.12 0c0,-18.07 -21.76,-32.85 -39.82,-32.85l-49.48 0c-18.06,0 -39.82,14.78 -39.82,32.85zm102.37 -94.41c4.25,0.02 7.73,3.5 7.73,7.75l0 12.44c0,4.26 -3.49,7.75 -7.75,7.75 -2.84,0 -5.68,0 -8.52,0 -8.45,3.97 -13.27,6.07 -22.97,7.01 -0.86,-1.04 -2.16,-1.71 -3.62,-1.71l-4.3 0c-2.57,0 -4.68,2.11 -4.68,4.68l0 0c0,2.58 2.11,4.68 4.68,4.68l4.3 0c1.78,0 3.34,-1 4.13,-2.47 10.31,-1 15.14,-2.95 23.96,-7.51 -1.6,4.9 -3.89,9.32 -6.7,13.06 -5.92,7.87 -14.16,12.74 -23.31,12.74 -9.15,0 -17.38,-4.87 -23.3,-12.74 -3.68,-4.9 -6.47,-10.97 -8,-17.74l-5.72 0c-4.27,0 -7.75,-3.49 -7.75,-7.75l0 -12.44c0,-4.25 3.47,-7.73 7.72,-7.75 0.38,-9.65 4.45,-18.35 10.83,-24.73 6.71,-6.71 15.98,-10.86 26.22,-10.86 10.24,0 19.51,4.15 26.22,10.86 6.38,6.38 10.45,15.08 10.83,24.73l-5.23 0c-0.37,-8.21 -3.85,-15.6 -9.29,-21.04 -5.77,-5.76 -13.73,-9.33 -22.53,-9.33 -8.8,0 -16.76,3.57 -22.52,9.33 -5.44,5.44 -8.92,12.83 -9.3,21.04l1.55 0c1.61,-5.23 4,-9.95 6.97,-13.89 5.92,-7.88 14.15,-12.75 23.3,-12.75 9.15,0 17.39,4.87 23.31,12.75 2.97,3.94 5.35,8.66 6.97,13.89l6.77 0z",
     "2": "M62.68 76.9c3.33,0 6.06,2.73 6.06,6.07l0 37.73 2.79 0 0 -4.14 5.59 0 0 -3.08 9.72 0 0 -49.48 -28.4 0 0 -5.58 19.06 0 0 -5.3 20.12 0 4.81 -21.76 7.8 0 2.99 21.76 0 5.3 7.6 0 0 5.58 -28.4 0 0 49.48 9.73 0 0 3.08 5.58 0 0 4.14 6.07 0 0 10.3 -48.33 0 0 -0.88c-4.01,2.1 -8.86,-0.84 -8.86,-5.38l0 -34.75 -5.19 0 0 39.28 -4.24 0 0 -35.04 -30.42 0 0 35.23 -5.58 0 0 -96.84 5.58 0 0 34.37 12.85 -32.64 1.53 1c-2.5,3.12 -1.38,7.78 2.15,9.43l11.6 5.34 5.05 26.2c4.24,0 8.49,0 12.74,0l0 0.58zm16.44 -25.74c6.14,-1.12 11.46,-0.88 11.04,-6.01 -0.36,-2.17 -2.43,-3.66 -4.6,-3.3l-11.02 2.23 -18.42 0 -18.42 -8.47c-4.87,-2.28 -8.18,5 -3.47,7.21 3,1.42 19.11,9.3 21.16,9.26l21.13 -0.01c0.98,0.02 1.89,-0.32 2.6,-0.91zm12.73 -21.81l0 8.85 -10.88 0 0 -9.2c-5.69,-2.13 -4.13,-10.58 1.9,-10.58l26.48 0c7.2,0 7.2,10.93 0,10.93l-17.5 0zm-44.47 -28.35c-8.32,0 -15.07,6.74 -15.07,15.06 0,8.32 6.75,15.07 15.07,15.07 8.32,0 15.06,-6.75 15.06,-15.07 0,-8.32 -6.74,-15.06 -15.06,-15.06z",
