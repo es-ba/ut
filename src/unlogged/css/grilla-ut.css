@@ -283,3 +283,7 @@ p[leer-pregunta=si]{
     background: white;
     border: 1px solid gray;
 }
+
+.atencion-ayuda-diario{
+    font-weight:bold;
+}

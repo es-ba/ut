@@ -382,7 +382,7 @@ class PantallaAyuda{
                 ...seccionContinuadora,
                 ...(preguntaActividad.opciones.map( o => this.mostrarOpcion(input, valor, o, i_tramo) )), 
                 ...(preguntaActividad.rescate ? [
-                    html.p("ATENCIÓN, cambie el código por"),
+                    html.p({class:'atencion-ayuda-diario'},"ATENCIÓN, cambie el código por"),
                     ...(preguntaActividad.rescate.map( o => this.mostrarOpcion(input, valor, o, i_tramo) ))
                     ] : [])
             ]).create())
