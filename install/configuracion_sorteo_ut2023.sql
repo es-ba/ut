@@ -95,4 +95,4 @@ UPDATE operativos
             "sorteado_mostrar": [{"source":"nombre_sup", "target":"nombre_miembro_sel_sup"}]
         }
     }'
-where operativo = 'UT_2022';
+where operativo = 'UT_2023';

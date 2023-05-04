@@ -3,24 +3,24 @@ set search_path=base;
 --set role ut_owner;
 /* EN DISCON 
 INSERT INTO BASE.areas (operativo, area)
-  select 'UT_2022', area
+  select 'UT_2023', area
     from BASE.areas
-    where operativo='UT_2022';
+    where operativo='UT_2023';
 insert into base.tem (operativo, area,enc)
-  select 'UT_2022', area,enc
+  select 'UT_2023', area,enc
     from BASE.tem
     where operativo='PREJU_2022'
     order by area,enc; 
 insert into tareas (tarea, nombre, rol_asignante, main_form, registra_estado_en_tem, operativo)
-  select tarea, nombre, rol_asignante, main_form,registra_estado_en_tem, 'UT_2022'
+  select tarea, nombre, rol_asignante, main_form,registra_estado_en_tem, 'UT_2023'
     from base.tareas
     where operativo='PREJU_2022';
 insert into tareas_areas
-  select 'UT_2022', tarea, area
+  select 'UT_2023', tarea, area
     from tareas_areas
     where operativo='PREJU_2022';
 insert into tareas_tem(tarea, operativo,enc)
-    select tarea, 'UT_2022',enc
+    select tarea, 'UT_2023',enc
     from tareas_tem
     where operativo='PREJU_2022';
     
@@ -44,7 +44,7 @@ insert into tareas_areas(operativo, tarea, area, asignado, asignante, obs_asigna
             from areas a ,(select t.operativo, t.tarea 
                 from tareas t join parametros p on unico_registro and t.operativo=p.operativo
             )t
-            where a.operativo= t.operativo and a.operativo='UT_2022'
+            where a.operativo= t.operativo and a.operativo='UT_2023'
         ) n
         --where not exists (select 1 from tareas_areas t where t.operativo= n.operativo and t.tarea=n.tarea and t.area=n.area)
         order by 1,2,3;
