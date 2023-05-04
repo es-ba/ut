@@ -49,7 +49,7 @@ install:
       - ../node_modules/dmencu/install/asignar_desasignar_tareas_tem_trg.sql
       - ../node_modules/dmencu/install/determinar_tarea_proxima_trg.sql
       - ../node_modules/dmencu/install/inicial_update_varcal_por_encuesta.sql
-      - configuracion_sorteo_ut2022.sql  
+      - configuracion_sorteo_ut2023.sql  
 login:
   infoFieldList: [usuario, rol, idper]
   table: usuarios
