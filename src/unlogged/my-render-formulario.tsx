@@ -6,6 +6,8 @@ import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOpe
 } from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
 import * as React from "react";
+import { useDispatch } from "react-redux"; 
+import { dispatchers } from "dmencu/dist/unlogged/unlogged/redux-formulario";
 
 setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:ForPk)=>{
     //ajustar variables
@@ -43,6 +45,7 @@ setLibreDespliegue((props:{
 })=>{
     const {casillero, formulario, forPk, key} = props;
     const id = casillero.id_casillero!;
+    const dispatch = useDispatch();
     registrarElemento({
         id,
         direct:true,
@@ -67,6 +70,9 @@ setLibreDespliegue((props:{
                     );
                     // respuestas['actividades' as IdUnidadAnalisis]= data;
                     // persistirDatosByPass(getDatosByPass()); //async descontrolada
+                },
+                ()=>{
+                    dispatch(dispatchers.VOLVER_DE_FORMULARIO({magnitudRetroceso:1}))
                 }
             );
             grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);

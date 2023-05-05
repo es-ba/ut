@@ -397,7 +397,8 @@ class PantallaAyuda{
 }
 
 function GrillaUt(
-    grabarFun: (data:any) => void
+    grabarFun: (data:any) => void,
+    cerrarFun: () => void
 ){
     var colorOtros='#49FFFF77';
     var colorInvalido='#FFED66';
@@ -737,23 +738,7 @@ function GrillaUt(
         var botonCerrar=document.getElementById('boton-cerrar');
         if(botonCerrar){
             botonCerrar.addEventListener('click',function(){
-                var partes=location.pathname.split('/');
-                partes.pop();
-                partes.pop();
-                partes.pop();
-                gu.desplegar_rescate();
-                var ruta=partes.join('/')+"/ut2016/ut2016.php";
-                var pk_nuevo_ud='{"tra_ope":"ut2016","tra_for":"I1","tra_mat":""}';
-                grabar_todo();
-                /*
-                if(rta_ud["var_d1"] || rta_ud["var_d2"]){
-                    if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
-                        window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
-                    }else{
-                        history.go(-1);
-                    }
-                }
-                */
+                cerrarFun();
             })
             botonCerrar.textContent = gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
         }
@@ -928,19 +913,8 @@ function GrillaUt(
             var botonCerrar=document.getElementById('boton-cerrar');
             document.getElementById('tabla-rescate').appendChild(html.tr([html.td({colspan:2},[botonCerrar,cartelRescate])]).create());
             botonCerrar.addEventListener('click',function(){
-                gu.desplegar_rescate();
-                var partes=location.pathname.split('/');
-                partes.pop();
-                partes.pop();
-                partes.pop();
-                var ruta=partes.join('/')+"/ut2016/ut2016.php";
-                var pk_nuevo_ud='{"tra_ope":"ut2016","tra_for":"I1","tra_mat":""}';
-                grabar_todo();
-                if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
-                    window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
-                }else{
-                    history.go(-1);
-                }
+                //aún no sé desde donde se llama
+                cerrarFun();
             })
             
         }
