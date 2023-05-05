@@ -17,7 +17,7 @@ import { visitas_sup         } from './table-visitas_sup';
 import { hogares_sup         } from './table-hogares_sup';
 import { personas_sup        } from './table-personas_sup';
 */
-const APP_DM_VERSION="#23-01-01";
+const APP_DM_VERSION="#23-05-05";
 
 export type Constructor<T> = new(...args: any[]) => T;
 export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base:T){
@@ -69,7 +69,13 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
         jsonResult.appName = 'ut';
         jsonResult.cache=jsonResult.cache.concat([
             "my-render-formulario.js",
-            'my-bypass-formulario.js'
+            'my-bypass-formulario.js',
+            'grilla-ut.js',
+            'manual.js',
+            'actividades_codigos.js',
+            'css/grilla-ut.css',
+            'css/manual-ut.css',
+            'img/grilla.svg'
         ])
         return jsonResult
     }
