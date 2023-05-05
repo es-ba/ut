@@ -7,7 +7,7 @@ function dialogManual(){
         mainElement.style.marginTop=0;
         mainElement.style.top=0;
         var elementosCodigos=mainElement.querySelectorAll('.codigo_act');
-        document.getElementById('boton-cerrar').textContent='DIAG21';
+        //document.getElementById('boton-cerrar').textContent='DIAG21';
         Array.prototype.forEach.call(elementosCodigos, function(elemento){
             elemento.onclick=function(){
                 done(elemento.textContent.trim());
