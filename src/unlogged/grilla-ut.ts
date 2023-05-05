@@ -928,25 +928,8 @@ function GrillaUt(
         var botonCerrar=document.getElementById('boton-cerrar');
         document.getElementById('div-rescate').appendChild(botonCerrar)
         botonCerrar.addEventListener('click',function(){
-            gu.desplegar_rescate();
-            /*23/2/9 
-            var partes=location.pathname.split('/');
-            partes.pop();
-            partes.pop();
-            partes.pop();
-            var ruta=partes.join('/')+"/ut2016/ut2016.php";
-            var pk_nuevo_ud='{"tra_ope":"ut2016","tra_for":"I1","tra_mat":""}';
-            */
-            grabar_todo();
-            
-            
-            /*230213 if(rta_ud["var_d1"] && rta_ud["var_d2"]){
-                230209 if(/OS 7/i.test(navigator.userAgent) || /OS 8/i.test(navigator.userAgent) || /OS 9/i.test(navigator.userAgent) || /OS 10/i.test(navigator.userAgent)){
-                    window.location.href=ruta+'?hacer=desplegar_formulario&todo='+pk_nuevo_ud;
-                }else{
-                    history.go(-1);
-                //}
-            } */
+            //aún no sé desde donde se llama
+            cerrarFun();
         })
         
     }
