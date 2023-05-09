@@ -482,7 +482,7 @@ function GrillaUt(
     };
     gu.estructuraTramo=[
         {nombre:'codigo' ,tipo:'tel' , completador:nocompletar     , validador:gu.validarActividad , actualizaPlaceholder:'detalle', titulo: 'act'},
-        {nombre:'rescate',tipo:'tel' , completador:nocompletar     , validador:novalidar           , tabindex:true, rescate:true, titulo: 'R'},
+        //{nombre:'rescate',tipo:'tel' , completador:nocompletar     , validador:novalidar           , tabindex:true, rescate:true, titulo: 'R'},
         {nombre:'desde'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
         {nombre:'hasta'  ,tipo:'tel' , completador:gu.completarHora, validador:gu.validarHoraYRango},
         {nombre:'detalle',tipo:'text', completador:nocompletar     , validador:novalidar           , tabindex:true, titulo: 'observaciones'},
@@ -590,7 +590,7 @@ function GrillaUt(
     }
     gu.habilitarRescate = function habilitarRescate(tramo){
         //230213 tramo.rescatable=tramo.codigo && (rta_ud.var_d1==1 || rta_ud.var_d2==1) && actividades_codigos[tramo.codigo]&& actividades_codigos[tramo.codigo].rescatable ;
-        tramo.inputs!.rescate.style.visibility=tramo.rescatable?'visible':'hidden';
+        //tramo.inputs!.rescate.style.visibility=tramo.rescatable?'visible':'hidden';
     }
     gu.desplegar = function desplegar(idDivDestino, corYtotal){
         var gu = this;
