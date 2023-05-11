@@ -68,3 +68,4 @@ CREATE TRIGGER validar_tareas_tem_trg
    EXECUTE PROCEDURE validar_tareas_tem_trg();   
 
 update estados set permite_editar_encuesta = false where operativo= 'UT_2023' and estado = 'AC';
+update estados set permite_editar_encuesta = false where operativo= 'UT_2023' and estado = 'C';
