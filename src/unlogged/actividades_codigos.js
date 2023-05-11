@@ -1,9 +1,9 @@
 var actividades_codigos={
   "11": {
-      "abr": "Trabajar para un patrón o por cuenta propia",
+      "abr": "Trabajar para un patrón/a o por cuenta propia",
       "color": "#A5DAF0",
       "grupo": "M",
-      "texto": "Trabajar para un patrón o por cuenta propia",
+      "texto": "Trabajar para un patrón/a o por cuenta propia",
       "codigo": 11,
       "detalle": "Se toma en cuenta sólo la población ocupada en la producción de bienes y servicios con valor en el mercado. Incluye a asalariados, patrones o empleadores, cuentapropistas, trabajadores familiares no remunerados. Incluye también las capacitaciones y cursos realizados como parte de la actividad laboral.",
       "opcion_d12": false,
@@ -85,7 +85,7 @@ var actividades_codigos={
       "nombre_variable": "UT5"
   },
   "32": {
-      "abr": "Limpiar la casa",
+      "abr": "Limpiar la vivienda",
       "color": "#ADD2AE",
       "grupo": "D",
       "texto": "Limpiar la vivienda",
@@ -802,7 +802,7 @@ var actividades_codigos={
       "abr": "Realizar otras actividades",
       "color": "#AF85B5",
       "grupo": "M",
-      "texto": "Otro",
+      "texto": "Realizar otras actividades",
       "codigo": 999,
       "detalle": "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (Acompañar con una descripción de la actividad)",
       "opcion_d12": false,
