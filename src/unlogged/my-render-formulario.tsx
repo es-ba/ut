@@ -1,5 +1,8 @@
 import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, Formulario, Libre, IdUnidadAnalisis, Respuestas,
-    Valor
+    Valor,
+    Estructura,
+    PlainForPk,
+    IdFin
 } from "dmencu/dist/unlogged/unlogged/tipos";
 import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk, 
     registrarElemento, dispatchByPass, accion_registrar_respuesta
@@ -8,6 +11,7 @@ import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulari
 import * as React from "react";
 import { useDispatch } from "react-redux"; 
 import { dispatchers } from "dmencu/dist/unlogged/unlogged/redux-formulario";
+import { FormStructureState } from "row-validator";
 
 setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:ForPk)=>{
     //ajustar variables
@@ -46,42 +50,68 @@ setLibreDespliegue((props:{
     const {casillero, formulario, forPk, key} = props;
     const id = casillero.id_casillero!;
     const dispatch = useDispatch();
-    registrarElemento({
-        id,
-        direct:true,
-        fun: function(respuestasAumentadas:Respuestas, feedbackForm: FormStructureState<IdVariable,Valor,IdFin>, elemento:HTMLDivElement,
-            feedbackAll:{
-                [formulario in PlainForPk]:FormStructureState<IdVariable,Valor,IdFin> // resultado del rowValidator para estado.forPk
-            },
-            estructura:Estructura
-        ){
-            var respuestas = respuestasAumentadas;
-            if (elemento.grillaUt) return;
-            elemento.innerHTML = "" ;
-            var grillaUt = new GrillaUt(
-                (data:DataFromGrillaUTArray)=>{
-                    dispatchByPass(
-                        accion_registrar_respuesta, 
-                        {
-                            respuesta: data as Valor, 
-                            variable: 'actividades' as IdVariable, 
-                            forPk:props.forPk
-                        }
-                    );
-                    // respuestas['actividades' as IdUnidadAnalisis]= data;
-                    // persistirDatosByPass(getDatosByPass()); //async descontrolada
+    if(id == 'MODULO_1'){
+        registrarElemento({
+            id,
+            direct:true,
+            fun: function(respuestasAumentadas:Respuestas, _feedbackForm: FormStructureState<IdVariable,Valor,IdFin>, elemento:HTMLDivElement,
+                _feedbackAll:{
+                    [formulario in PlainForPk]:FormStructureState<IdVariable,Valor,IdFin> // resultado del rowValidator para estado.forPk
                 },
-                ()=>{
-                    dispatch(dispatchers.VOLVER_DE_FORMULARIO({magnitudRetroceso:1}))
-                }
-            );
-            grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
-            grillaUt.acomodar();
-            var corYtotal=elemento.offsetTop;
-            //cargar_otras_rta();
-            grillaUt.desplegar(elemento.id,corYtotal);
-            elemento.grillaUt = grillaUt;
-        }
-    });
+                _estructura:Estructura
+            ){
+                var respuestas = respuestasAumentadas;
+                if (elemento.grillaUt) return;
+                elemento.innerHTML = "" ;
+                var grillaUt = new GrillaUt(
+                    (data:DataFromGrillaUTArray)=>{
+                        dispatchByPass(
+                            accion_registrar_respuesta, 
+                            {
+                                respuesta: data as unknown as Valor, 
+                                variable: 'actividades' as IdVariable, 
+                                forPk:props.forPk
+                            }
+                        );
+                        dispatchByPass(
+                            accion_registrar_respuesta, 
+                            {
+                                respuesta: grillaUt.acomodo.cargadoHasta=='24:00'?1:null, 
+                                variable: 'modulo_1' as IdVariable, 
+                                forPk:props.forPk
+                            }
+                        );
+                        dispatchByPass(
+                            accion_registrar_respuesta, 
+                            {
+                                respuesta: grillaUt.acomodo.agujeros.length?null:1, 
+                                variable: 'diario_sin_errores' as IdVariable, 
+                                forPk:props.forPk
+                            }
+                        );
+                        dispatchByPass(
+                            accion_registrar_respuesta, 
+                            {
+                                respuesta: data.length?1:null, 
+                                variable: 'diario_comenzado' as IdVariable, 
+                                forPk:props.forPk
+                            }
+                        );
+                        
+                        
+                    },
+                    ()=>{
+                        dispatch(dispatchers.VOLVER_DE_FORMULARIO({magnitudRetroceso:1}))
+                    }
+                );
+                grillaUt.cargar(respuestas['actividades' as IdUnidadAnalisis] || []);
+                grillaUt.acomodar();
+                var corYtotal=elemento.offsetTop;
+                //cargar_otras_rta();
+                grillaUt.desplegar(elemento.id,corYtotal);
+                elemento.grillaUt = grillaUt;
+            }
+        });
+    }
     return <div key={key} id={id}></div>
 })

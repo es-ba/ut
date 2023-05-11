@@ -314,6 +314,7 @@ type GruillaUtThis = {
     desplegarRenglon: (tramo:Partial<TramoExtendido>, i:number) => void
     desplegar_izquierda: (idDiv:string, corYtotal:number) => void
     desplegar_rescate: () => void
+    getMensajeBotonCerrar:()=>string
 }
 
 class PantallaAyuda{
@@ -721,7 +722,7 @@ function GrillaUt(
                         recontarFilas(tablaTramos);
                     }
                     var elementoBotonCerrar = document.getElementById('boton-cerrar') as HTMLButtonElement
-                    if(elementoBotonCerrar) elementoBotonCerrar.textContent = gu.acomodo.cargadoHasta == '24:00'?'cerrar':'cerrar incompleto';
+                    if(elementoBotonCerrar) elementoBotonCerrar.textContent = gu.getMensajeBotonCerrar();
                     grabar_todo();
                 });
                 tramo.inputs![nombreVar]=input;
@@ -740,7 +741,7 @@ function GrillaUt(
             botonCerrar.addEventListener('click',function(){
                 cerrarFun();
             })
-            botonCerrar.textContent = gu.acomodo.cargadoHasta=='24:00'?'cerrar':'cerrar incompleto';
+            botonCerrar.textContent = gu.getMensajeBotonCerrar();
         }
         this.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
         var ultimoTramo:TramoExtendido = gu.tramos[gu.tramos.length-1] as TramoExtendido;
@@ -932,6 +933,15 @@ function GrillaUt(
             cerrarFun();
         })
         
+    }
+    gu.getMensajeBotonCerrar=()=>{
+        let mensaje = "cerrar";
+        if(gu.acomodo.agujeros.length){
+            mensaje+=' con tramos faltantes';
+        }else if(gu.acomodo.cargadoHasta != '24:00'){
+            mensaje+=' incompleto';
+        }
+        return mensaje
     }
 }
 
