@@ -314,7 +314,9 @@ type GruillaUtThis = {
     desplegarRenglon: (tramo:Partial<TramoExtendido>, i:number) => void
     desplegar_izquierda: (idDiv:string, corYtotal:number) => void
     desplegar_rescate: () => void
-    getMensajeBotonCerrar:()=>string
+    setMensajeYEstiloBotonCerrar:(button:HTMLButtonElement)=>void
+    mostrarManualAyuda:(input:TypedControl<string>)=>void
+    ocultarManualAyuda:()=>void
 }
 
 class PantallaAyuda{
@@ -687,6 +689,7 @@ function GrillaUt(
                 if(nombreVar == 'codigo'){
                     input.addEventListener('focus',function(){
                         pantallaAyuda.mostrar(input, i_tramo);
+                        gu.mostrarManualAyuda(input);
                     })
                     input.addEventListener('change',function(){
                         pantallaAyuda.mostrar(input, i_tramo);
@@ -695,6 +698,7 @@ function GrillaUt(
                         pantallaAyuda.mostrar(input, i_tramo);
                     })
                     input.addEventListener('blur',function(){
+                        gu.ocultarManualAyuda(input);
                         pantallaAyuda.ocultar();
                     })
                 }
@@ -722,7 +726,7 @@ function GrillaUt(
                         recontarFilas(tablaTramos);
                     }
                     var elementoBotonCerrar = document.getElementById('boton-cerrar') as HTMLButtonElement
-                    if(elementoBotonCerrar) elementoBotonCerrar.textContent = gu.getMensajeBotonCerrar();
+                    gu.setMensajeYEstiloBotonCerrar(elementoBotonCerrar);
                     grabar_todo();
                 });
                 tramo.inputs![nombreVar]=input;
@@ -735,14 +739,13 @@ function GrillaUt(
         }
         this.tramos.forEach(this.desplegarRenglon);
         recontarFilas(tablaTramos);
-        tablaTramos.parentNode!.appendChild(html.button({id:'boton-cerrar'},'cerrar...').create());
-        var botonCerrar=document.getElementById('boton-cerrar');
-        if(botonCerrar){
-            botonCerrar.addEventListener('click',function(){
-                cerrarFun();
-            })
-            botonCerrar.textContent = gu.getMensajeBotonCerrar();
-        }
+        let botonCerrar = html.button({id:'boton-cerrar'},'').create();
+        gu.setMensajeYEstiloBotonCerrar(botonCerrar);
+        tablaTramos.parentNode!.appendChild(botonCerrar);
+        tablaTramos.parentNode!.appendChild(html.button({id:'boton-manual-ayuda', class:'btn btn-info', style:'display:none'},'?').create());
+        botonCerrar.addEventListener('click',function(){
+            cerrarFun();
+        })
         this.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
         var ultimoTramo:TramoExtendido = gu.tramos[gu.tramos.length-1] as TramoExtendido;
         if (!ultimoTramo.desde && gu.tramos.length < 2){
@@ -934,14 +937,38 @@ function GrillaUt(
         })
         
     }
-    gu.getMensajeBotonCerrar=()=>{
+    gu.setMensajeYEstiloBotonCerrar=(button:HTMLButtonElement)=>{
+        var className = 'btn btn-success';
         let mensaje = "cerrar";
         if(gu.acomodo.agujeros.length){
             mensaje+=' con tramos faltantes';
+            className='btn btn-danger';
         }else if(gu.acomodo.cargadoHasta != '24:00'){
             mensaje+=' incompleto';
+            className='btn btn-warning';
         }
-        return mensaje
+        button.className = className;
+        button.innerHTML = mensaje;
+        return button
+    }
+    gu.mostrarManualAyuda=(input:TypedControl<string>)=>{
+        let botonManualAyuda = document.getElementById('boton-manual-ayuda')!
+        botonManualAyuda.addEventListener('mousedown', (event)=>{
+            event.preventDefault();
+        })
+        botonManualAyuda.style.display='';
+        botonManualAyuda.onclick=()=>{
+            dialogManual().then(function(codigo){
+                if(codigo){
+                    input.setTypedValue(codigo);
+                    var updateEvent=new Event('update');
+                    input.dispatchEvent(updateEvent);
+                }
+            });
+        }
+    }
+    gu.ocultarManualAyuda=()=>{
+        document.getElementById('boton-manual-ayuda')!.style.display='none';
     }
 }
 
