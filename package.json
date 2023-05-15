@@ -11,21 +11,18 @@
     "dist"
   ],
   "dependencies": {
-    "dmencu":"^0.3.41"
+    "dmencu": "^0.3.42"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.1.4",
     "@types/qrcode": "^1.5.0",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.22",
     "@types/yazl": "~2.4.2",
     "discrepances": "~0.2.8",
-    "mixin-patch": "~0.4.0",
+    "mixin-patch": "~0.4.1",
     "pg-triggers": "~0.3.2",
     "types.d.ts": "~0.6.13",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">= 16.14.0"
