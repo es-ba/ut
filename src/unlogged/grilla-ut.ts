@@ -46,10 +46,10 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "4":{
         pregunta: "¿Cuido a una persona...",
         opciones: [
-            {opcion: "1", texto: "con discapacidad?"},
-            {opcion: "2", texto: "de 0 a 13 años de edad?"},
-            {opcion: "3", texto: "de 14 a 64 años de edad?"},
-            {opcion: "4", texto: "de 65 años de edad o más?"}
+            {opcion: "4", texto: "con discapacidad?"},
+            {opcion: "1", texto: "de 0 a 13 años de edad?"},
+            {opcion: "2", texto: "de 14 a 64 años de edad?"},
+            {opcion: "3", texto: "de 65 años de edad o más?"}
         ],
         rescate: [
             {codigo: "11", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"},
@@ -97,7 +97,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "":{
         pregunta: "¿Qué hizo?",
         opciones:[
-            {opcion:"1", texto: "trabajar para un patrón o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
+            {opcion:"1", texto: "trabajar para un patrón/a o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
             {opcion:"2", texto: "trabajar para autoconsumo o uso propio del hogar"},
             {opcion:"3", texto: "actividades para el hogar o la vivienda"},
             {opcion:"4", texto: "cuidado a personas del hogar"},
@@ -112,7 +112,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "1":{
         pregunta: "¿Qué hizo?",
         opciones: [
-            {opcion: "1", texto: "Trabajar para un patrón o por cuenta propia"},
+            {opcion: "1", texto: "Trabajar para un patrón/a o por cuenta propia"},
             {opcion: "3", texto: "Buscar trabajo"},
             {opcion: "4", texto: "Viajar para ir y volver al trabajo"},
         ],
@@ -184,9 +184,9 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "12", texto:"Cuidados personales de salud"},
             {opcion: "19", texto:"Viajar para cuidar su salud"},
             {opcion: "14", texto:"Descanso, relajación, otras actividades personales"},
-            {opcion: "21", texto:"Comer, beber, ir al baño."},
+            {opcion: "21", texto:"Comer, beber, ir al baño"},
             {opcion: "22", texto:"Dormir"},
-            {opcion: "99", texto:"Otro", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+            {opcion: "99", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
         ]
     },
     "91":{
@@ -201,14 +201,14 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "92":{
         pregunta: "¿Qué hizo?",
         opciones: [ 
-            {opcion: "1", texto:"Comer, beber, ir al baño."},
+            {opcion: "1", texto:"Comer, beber, ir al baño"},
             {opcion: "2", texto:"Dormir"},
         ]
     },
     "99":{
         pregunta: "¿Qué hizo?",
         opciones: [ 
-            {opcion: "9", texto:"Otro", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+            {opcion: "9", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
         ]
     },
     "0":{
