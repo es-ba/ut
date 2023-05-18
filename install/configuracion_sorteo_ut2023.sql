@@ -6,12 +6,12 @@ UPDATE operativos
             "unidad_analisis_padre": "hogares",
             "expr_incompletitud": {
                 "3":{"dominio": 3, "expr": "not(nombre) or blanco(edad)"},
-                "5":{"dominio": 5, "expr": "not(nombre) or blanco(edad) or (edad >= 18 and edad <=79 and not(lp))"}
+                "5":{"dominio": 5, "expr": "not(nombre) or blanco(edad) or (edad >= 14 and not(lp))"}
             },
             "disparador": "sorteo",
             "filtro": {
-                "3":{"dominio": 3, "expr": "edad>=18 and edad <=79"},
-                "5":{"dominio": 5, "expr": "edad>=18 and edad <=79 and lp = 1"}
+                "3":{"dominio": 3, "expr": "edad>=14"},
+                "5":{"dominio": 5, "expr": "edad>=14 and lp = 1"}
             },
             "orden": [
                 {"variable":"edad" , "orden":-1}
@@ -58,8 +58,8 @@ UPDATE operativos
             },
             "disparador": "sorteo_sup",
             "filtro": {
-                "3":{"dominio": 3, "expr": "edad_sup>=18 and edad_sup <=79"},
-                "5":{"dominio": 5, "expr": "edad_sup>=18 and edad_sup <=79"}
+                "3":{"dominio": 3, "expr": "edad_sup>=14"},
+                "5":{"dominio": 5, "expr": "edad_sup>=14"}
             },
             "orden": [
                 {"variable":"edad_sup" , "orden":-1}
