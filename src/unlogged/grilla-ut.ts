@@ -435,8 +435,8 @@ function GrillaUt(
     };
     var cortes = [
         //SETEO corY=0 para que se vea bien. Estaba en -10 y arruinaba la posición
-        {id: 'caja1' as CorteId, desde:'00:00' as Hora, hasta:'12:00' as Hora, corX:15 , corY: -10},
-        {id: 'caja2' as CorteId, desde:'12:00' as Hora, hasta:'24:00' as Hora, corX:205, corY: -10-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
+        {id: 'caja1' as CorteId, desde:'00:00' as Hora, hasta:'12:00' as Hora, corX:16 , corY: -10},
+        {id: 'caja2' as CorteId, desde:'12:00' as Hora, hasta:'24:00' as Hora, corX:203, corY: -10-medidas.horas*medidas.renglonesHora*medidas.pixelPorRenglon},
     ]
     var novalidar=function(){return true;}
     var nocompletar=function<T>(x:T){ return x;}
@@ -804,13 +804,13 @@ function GrillaUt(
                 if(caja.desde != tramo.desde ||caja.hasta != tramo.hasta || caja.codigo != tramo.codigo){
                     if(i_columna==='agujero'){
                         //caja.textContent='agujero'
-                        caja.style.left=correcionX + offsets.x_act - medidas.separacionActividad/2 + 'px'; 
-                        caja.style.width=offsets.x_anchoActividad * medidas.cantAct + 'px';
+                        caja.style.left=(correcionX + offsets.x_act - medidas.separacionActividad/2 + 2).toString() + 'px'; 
+                        caja.style.width=(offsets.x_anchoActividad * medidas.cantAct -2).toString() + 'px';
                         caja.style.backgroundColor=colorAgujero;
                     }else{
                         caja.textContent=tramo.codigo;
-                        caja.style.left=correcionX + offsets.x_act+(i_columna>medidas.cantAct-1?2:i_columna)*offsets.x_anchoActividad + 'px';
-                        caja.style.width=offsets.x_anchoActividad - medidas.separacionActividad + 'px';
+                        caja.style.left=(correcionX + offsets.x_act+(i_columna>medidas.cantAct-1?2:i_columna)*(offsets.x_anchoActividad -1)).toString() + 'px';
+                        caja.style.width=(offsets.x_anchoActividad - medidas.separacionActividad + 2).toString() + 'px';
 //                        var infoActividad = codigosActividad[tramo.codigo];
                         var infoActividad = actividades_codigos[tramo.codigo!];
                         if(infoActividad){

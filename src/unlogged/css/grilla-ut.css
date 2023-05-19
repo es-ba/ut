@@ -89,7 +89,7 @@
 
 .caja-fija{
     position:absolute;
-    border-bottom:1px solid green;
+    /*border-bottom:1px solid green;*/
     overflow:hidden;
     font-weight:bold;
     font-family:arial;
