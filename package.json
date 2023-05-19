@@ -11,7 +11,7 @@
     "dist"
   ],
   "dependencies": {
-    "dmencu": "^0.3.47"
+    "dmencu": "^0.3.48"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",

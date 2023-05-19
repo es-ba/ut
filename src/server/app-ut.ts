@@ -17,7 +17,7 @@ import { visitas_sup         } from './table-visitas_sup';
 import { hogares_sup         } from './table-hogares_sup';
 import { personas_sup        } from './table-personas_sup';
 */
-const APP_DM_VERSION="#23-05-17";
+const APP_DM_VERSION="#23-05-19";
 
 export type Constructor<T> = new(...args: any[]) => T;
 export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base:T){
