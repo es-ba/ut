@@ -52,8 +52,8 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "3", texto: "de 65 años de edad o más?"}
         ],
         rescate: [
-            {codigo: "11", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"},
-            {codigo: "51", texto: "si el cuidado es un trabajo remunerado a miembros de otro hogar"}
+            {codigo: "11", texto: "si el cuidado es un trabajo remunerado"},
+            {codigo: "51", texto: "si el cuidado es un trabajo no remunerado para otros hogares"}
         ]
     },
     "41":{
@@ -97,16 +97,16 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "":{
         pregunta: "¿Qué hizo?",
         opciones:[
-            {opcion:"1", texto: "trabajar para un patrón/a o cuenta propia", aclaracion: "(o viajar al... o buscar... trabajo)"},
-            {opcion:"2", texto: "trabajar para autoconsumo o uso propio del hogar"},
-            {opcion:"3", texto: "actividades para el hogar o la vivienda"},
-            {opcion:"4", texto: "cuidado a personas del hogar"},
-            {opcion:"5", texto: "ayuda a otros hogares o trabajo voluntario"},
-            {opcion:"6", texto: "aprendizaje o estudio", aclaracion: "incluye el viaje"},
-            {opcion:"7", texto: "vida social, eventos culturales, deporte"},
-            {opcion:"8", texto: "esparcimiento individual"},
-            {opcion:"9", texto: "aseo, salud, descanso, dormir y otros"},
-            {opcion:"0", texto: "viajes y traslados", aclaracion: "debe registrarse en la actividad relacionada"}
+            {opcion:"1", texto: "trabajar para un patrón/a o por cuenta propia, buscar trabajo o viajar para ir y volver al trabajo"},
+            {opcion:"2", texto: "trabajar para consumo o uso propio del hogar"},
+            {opcion:"3", texto: "trabajo doméstico no remunerado para el propio hogar"},
+            {opcion:"4", texto: "cuidado no remunerado a componentes del hogar"},
+            {opcion:"5", texto: "trabajo no remunerado para otros hogares, para la comunidad y voluntario"},
+            {opcion:"6", texto: "aprendizaje o estudio"},
+            {opcion:"7", texto: "convivencia social y actividades recreativas"},
+            {opcion:"8", texto: "uso de medios de comunicación"},
+            {opcion:"9", texto: "cuidado personal (aseo, salud, descanso, alimentación, sueño, etc.)"},
+            {opcion:"0", texto: "viajes y traslados"}
         ]
     },
     "1":{
@@ -117,8 +117,9 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "4", texto: "Viajar para ir y volver al trabajo"},
         ],
         rescate: [
-            {codigo: "2", texto: "si el trabajo es para autoconsumo o para uso propio del hogar"},
-            {codigo: "51", texto: "si cuida a personas de otro hogar de forma no remunerada"},
+            {codigo: "2", texto: "si el trabajo es para consumo o uso propio del hogar"},
+            {codigo: "51", texto: "si realiza trabajo no remunerado para otros hogares"},
+            {codigo: "54", texto: "si realiza trabajo no remunerado para la comunidad o voluntario"},
         ]
     },
     "3":{
@@ -133,15 +134,15 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "7", texto: "Cuidar mascotas y plantas"},
         ],
         rescate: [
-            {codigo: "4", texto: "si cuidó personas del hogar"},
-            {codigo: "2", texto: "si cultivó, crió o fabricó algo para el hogar"},
+            {codigo: "4", texto: "si realizó cuidado no remunerado a componentes del hogar"},
+            {codigo: "2", texto: "si trabajó para consumo o uso propio del hogar"},
         ]
     },
     "5":{
         pregunta: "¿Qué hizo?",
         opciones: [ 
             {opcion: "1", texto:"Ayuda a otros hogares (trabajo no remunerado para otros hogares)", aclaracion: "ej: cuidado a personas o tareas domésticas en otro hogar"},
-            {opcion: "4", texto:"Trabajo voluntario ", aclaracion: "en instituciones, comunidades, etc"},
+            {opcion: "4", texto:"Trabajo voluntario en instituciones sin fines de lucro o para la comunidad"},
         ]
     },
     "6":{
@@ -158,7 +159,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "12", texto: "Participar de celebraciones comunitarias, políticas o religiosas"},
             {opcion: "2", texto: "Eventos culturales y deportivos"},
             {opcion: "3", texto: "Actividades artísticas, juegos o entretenimientos"},
-            {opcion: "4", texto: "Deporte y ejercicio físico"},
+            {opcion: "4", texto: "Deporte o ejercicio físico"},
         ]
     },
     "71":{
@@ -186,7 +187,7 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
             {opcion: "14", texto:"Descanso, relajación, otras actividades personales"},
             {opcion: "21", texto:"Comer, beber, ir al baño"},
             {opcion: "22", texto:"Dormir"},
-            {opcion: "99", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+            {opcion: "99", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide especificar en “observaciones”)"},
         ]
     },
     "91":{
@@ -208,27 +209,26 @@ var preguntasActividad: Record<string, PreguntaActividad> = {
     "99":{
         pregunta: "¿Qué hizo?",
         opciones: [ 
-            {opcion: "9", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide anotar)"},
+            {opcion: "9", texto:"Realizar otras actividades", aclaracion: "Cualquier otra actividad que no esté comprendida en las categorías anteriores. (No olvide especificar en “observaciones”)"},
         ]
     },
     "0":{
-        pregunta: "las actividades viaje o traslado deben consignarse en los códigos de las actividades correspondientes",
+        pregunta: "_",
         opciones: [ 
         ],
         rescate: [
             {codigo: "14", texto: "viajar para ir y volver al trabajo"},
-            {codigo: "2", texto: "relacionado a trabajar para autoconsumo o uso propio del hogar"},
-            {codigo: "3", texto: "relacionado a actividades para el hogar o la vivienda"},
-            {codigo: "4", texto: "relacionado a cuidado a peronas del hogar"},
-            {codigo: "5", texto: "relacionado a ayuda a otros hogares o trabajo voluntario"},
-            {codigo: "62", texto: "traslados para aprendizaje y estudio"},
-            {codigo: "7", texto: "relacionado a vida social, eventos culturales, deporte"},
-            {codigo: "8", texto: "relacionado a esparcimiento individual"},
-            {codigo: "9", texto: "relacionado a aseo, salud, descanso, dormir y otros"},
+            {codigo: "2", texto: "relacionado a trabajar para consumo o uso propio del hogar"},
+            {codigo: "3", texto: "relacionado a trabajo doméstico no remunerado para el propio hogar"},
+            {codigo: "4", texto: "relacionado a cuidado no remunerado a componentes del hogar"},
+            {codigo: "5", texto: "relacionado a trabajo no remunerado para otros hogares, para la comunidad y voluntario"},
+            {codigo: "62", texto: "traslados para aprendizaje o estudio"},
+            {codigo: "7", texto: "relacionado a convivencia social y actividades recreativas"},
+            {codigo: "8", texto: "relacionado a uso de medios de comunicación"},
+            {codigo: "9", texto: "relacionado a cuidado personal (aseo, salud, descanso, alimentación, sueño, etc.)"},
         ]
     }
 }
-
 import * as jsToHtml from 'js-to-html';
 import * as TypedControls from 'typed-controls';
 import * as json4all from 'json4all';
@@ -362,9 +362,9 @@ class PantallaAyuda{
         if(preguntaActividad != null){
             var seccionContinuadora:HTMLElement[] = []
             var textoPregunta = valor ? preguntaActividad.pregunta : (
-                !tramo.desde ? "Hasta las " + this.gu.acomodo.cargadoHasta + ", ¿realizó alguna otra actividad? ¿cuál?" :
-                !tramo.hasta ? "Desde las " + tramo.desde + " ¿qué acividad realizó?" : 
-                "Desde las " + tramo.desde + " hasta las " + tramo.hasta + " ¿qué acividad realizó?"
+                !tramo.desde ? "Hasta las " + this.gu.acomodo.cargadoHasta + " de ayer, ¿realizó alguna otra actividad? ¿cuál?" :
+                !tramo.hasta ? "Desde las " + tramo.desde + " de ayer ¿qué acividad realizó?" : 
+                "Desde las " + tramo.desde + " hasta las " + tramo.hasta + " de ayer ¿qué acividad realizó?"
             )
             var elementoPregunta = html.p({class:"grilla-pregunta", $attrs:{"leer-pregunta":"si"}}, textoPregunta).create();
             if(!tramo.desde && this.gu.acomodo.cargadoHasta && !valor){
@@ -374,7 +374,7 @@ class PantallaAyuda{
                 });
                 continuadora.addEventListener('click', () => {
                     (tramo as TramoExtendido).inputs.desde.setTypedValue(this.gu.acomodo.cargadoHasta, true);
-                    elementoPregunta.textContent = "Desde las " + this.gu.acomodo.cargadoHasta + " ¿qué actividad realizó?"
+                    elementoPregunta.textContent = "Desde las " + this.gu.acomodo.cargadoHasta + " de ayer ¿qué actividad realizó?"
                     continuadora.style.visibility = "hidden";
                 })
                 seccionContinuadora.push(continuadora)
