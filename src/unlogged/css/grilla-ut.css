@@ -287,3 +287,16 @@ p[leer-pregunta=si]{
 .atencion-ayuda-diario{
     font-weight:bold;
 }
+
+.grilla-opcion .badge{
+    margin-right: 3px;
+    max-height: 18px;
+}
+
+/*Colores asistente de clasificación */
+.grilla-opcion-1 .badge{
+    background-color: #FF4 !important;
+    color: #000000 !important;
+}
+
+/*Fin colores asistente de clasificación */

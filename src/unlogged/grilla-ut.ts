@@ -337,9 +337,8 @@ class PantallaAyuda{
         document.body.appendChild(this.elemento);
     }
     mostrarOpcion(input:TypedControl<string>, valor:string, o:{opcion?:string, codigo?:string, texto:string, aclaracion?:string}, i_tramo:number){
-        var opcion = html.p({class:"grilla-opcion"}, [
-            html.span(o.codigo ?? o.opcion),
-            html.span(" - "),
+        var opcion = html.p({class:`grilla-opcion grilla-opcion-${o.codigo ?? (valor ?? "") + o.opcion} d-flex flex-row`}, [
+            html.span({class:"badge rounded-pill bg-dark"},o.codigo ?? o.opcion),
             html.span(o.texto),
             ...(o.aclaracion ? [
                 html.span([" ", html.small(o.aclaracion)])
