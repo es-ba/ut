@@ -294,9 +294,104 @@ p[leer-pregunta=si]{
 }
 
 /*Colores asistente de clasificación */
-.grilla-opcion-1 .badge{
-    background-color: #FF4 !important;
+.grilla-opcion-1 .badge,
+.grilla-opcion-11 .badge,
+.grilla-opcion-13 .badge,
+.grilla-opcion-14 .badge{
+    background-color: #96D8EC !important;
     color: #000000 !important;
 }
 
+.grilla-opcion-2 .badge{
+    background-color: #41A8D5 !important;
+    color: #000000 !important;
+}
+
+.grilla-opcion-3 .badge,
+.grilla-opcion-31 .badge,
+.grilla-opcion-32 .badge,
+.grilla-opcion-33 .badge,
+.grilla-opcion-34 .badge,
+.grilla-opcion-35 .badge,
+.grilla-opcion-36 .badge,
+.grilla-opcion-37 .badge,
+.grilla-opcion-34 .badge{
+    background-color: #A1CEAC !important;
+    color: #000000 !important;
+}
+
+.grilla-opcion-4 .badge,
+.grilla-opcion-41 .badge,
+.grilla-opcion-42 .badge,
+.grilla-opcion-43 .badge,
+.grilla-opcion-44 .badge,
+.grilla-opcion-411 .badge,
+.grilla-opcion-412 .badge,
+.grilla-opcion-413 .badge,
+.grilla-opcion-414 .badge,
+.grilla-opcion-419 .badge,
+.grilla-opcion-421 .badge,
+.grilla-opcion-422 .badge,
+.grilla-opcion-423 .badge,
+.grilla-opcion-429 .badge,
+.grilla-opcion-431 .badge,
+.grilla-opcion-432 .badge,
+.grilla-opcion-433 .badge,
+.grilla-opcion-439 .badge,
+.grilla-opcion-441 .badge,
+.grilla-opcion-442 .badge,
+.grilla-opcion-443 .badge,
+.grilla-opcion-449 .badge{
+    background-color: #D9E69B !important;
+    color: #000000 !important;
+}
+
+.grilla-opcion-5 .badge,
+.grilla-opcion-51 .badge,
+.grilla-opcion-54 .badge{
+    background-color: #52B9A6 !important;
+    color: #000000 !important;
+}
+
+.grilla-opcion-6 .badge,
+.grilla-opcion-61 .badge,
+.grilla-opcion-62 .badge{
+    background-color: #C89FC9 !important;
+    color: #000000 !important;
+}
+
+.grilla-opcion-7 .badge,
+.grilla-opcion-71 .badge,
+.grilla-opcion-72 .badge,
+.grilla-opcion-73 .badge,
+.grilla-opcion-74 .badge,
+.grilla-opcion-711 .badge,
+.grilla-opcion-712 .badge{
+    background-color: #513B58 !important;
+    color: #ffffff !important;
+}
+
+.grilla-opcion-8 .badge,
+.grilla-opcion-81 .badge,
+.grilla-opcion-82 .badge,
+.grilla-opcion-83 .badge,
+.grilla-opcion-84 .badge{
+    background-color: #9E7FA0 !important;
+    color: #ffffff !important;
+}
+
+.grilla-opcion-9 .badge,
+.grilla-opcion-91 .badge,
+.grilla-opcion-92 .badge,
+.grilla-opcion-99 .badge,
+.grilla-opcion-911 .badge,
+.grilla-opcion-912 .badge,
+.grilla-opcion-914 .badge,
+.grilla-opcion-919 .badge,
+.grilla-opcion-921 .badge,
+.grilla-opcion-922 .badge,
+.grilla-opcion-999 .badge{
+    background-color: #7C4783 !important;
+    color: #ffffff !important;
+}
 /*Fin colores asistente de clasificación */
