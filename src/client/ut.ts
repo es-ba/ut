@@ -42,12 +42,14 @@ myOwn.wScreens.generar_manual=async function(){
     var tabla_thead=html.tr(columnas.map(cl=>{return html.th(cl)})).create();
    
     var act_tbody=html.tbody(rActividades.map((actividad:Actividades_codigos)=>{
-        return(
+        var colorCod = actividad.color;
+        var borderColor = "border-color:"+ colorCod ;
+            return(
             html.tr([
-                html.td({class:"span codigo_act"}, actividad.codigo),
-                html.td({class:"detalle"}, [html.span({class:"destacado"}, actividad.texto),
+                html.td({class:"span codigo_act", style:"background-color:"+colorCod+';'+borderColor }, actividad.codigo),
+                html.td({class:"detalle", style:borderColor}, [html.span({class:"destacado"}, actividad.texto),
                     html.p(actividad.detalle),
-                ]), html.td([html.svg({class:"svg-actividades", viewbox:"0 0 132 132"},
+                ]), html.td({style:borderColor},[html.svg({class:"svg-actividades", viewbox:"0 0 132 132"},
                         [html.path({d:actividad.imagen_path})]
                 )])
             ])
