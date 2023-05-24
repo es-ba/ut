@@ -37,6 +37,12 @@ setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:F
         respuestas['msnombrei' as IdVariable] = respuestas['nombre' as IdVariable];
         respuestas['msedadi'as IdVariable] = respuestas['edad' as IdVariable];
     }
+    if(forPk.formulario == 'F:S1' as IdFormulario){
+        let {respuestas} = respuestasForPk(forPk);
+        let respondente = (respuestas.personas instanceof Array && respuestas.personas.length)?respuestas.personas[0]:null;
+        respuestas['nombrer' as IdVariable] = respondente?respondente['nombre' as IdVariable]:null;
+        respuestas['respond' as IdVariable] = respuestas['nombrer' as IdVariable]?1:null;
+    }
 })
 
 type DataFromGrillaUTArray = Respuestas[]
