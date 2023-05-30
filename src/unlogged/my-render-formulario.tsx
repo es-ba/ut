@@ -16,6 +16,16 @@ import { FormStructureState } from "row-validator";
 
 setCalcularVariablesEspecificasOperativo((respuestasRaiz:RespuestasRaiz, forPk:ForPk)=>{
     //ajustar variables
+    if(forPk.formulario == 'F:RE' as IdFormulario){
+        let respuestasHogares = respuestasRaiz['hogares'];
+        let cantHogares =respuestasHogares instanceof Array? respuestasHogares.length:0;
+        if (respuestasRaiz['contacto' as IdVariable]==2 && cantHogares == 0 ){
+            if (!respuestasHogares){
+                respuestasRaiz['hogares']=[];
+            }
+            respuestasRaiz['hogares' as IdUnidadAnalisis][0]={} as Respuestas;  
+        }
+    }
     if(forPk.formulario == 'F:S1_SUP' as IdFormulario){
         let hogar = forPk.hogar as number - 1;
         if(respuestasRaiz.hogares && respuestasRaiz.hogares[hogar]){
