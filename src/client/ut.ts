@@ -44,9 +44,14 @@ myOwn.wScreens.generar_manual=async function(){
     var act_tbody=html.tbody(rActividades.map((actividad:Actividades_codigos)=>{
         var colorCod = actividad.color;
         var borderColor = "border-color:"+ colorCod ;
-            return(
+        var colorOscuro= /^(7|8|9)/.test(`${actividad.codigo}`);
+        var colorText='';
+        if( colorOscuro ){
+            colorText='color: white;'
+        }
+        return(
             html.tr([
-                html.td({class:"span codigo_act", style:"background-color:"+colorCod+';'+borderColor }, actividad.codigo),
+                html.td({class:"span codigo_act", style:colorText+"background-color:"+colorCod+';'+borderColor }, actividad.codigo),
                 html.td({class:"detalle", style:borderColor}, [html.span({class:"destacado"}, actividad.texto),
                     html.p(actividad.detalle),
                 ]), html.td({style:borderColor},[html.svg({class:"svg-actividades", viewbox:"0 0 132 132"},
@@ -62,6 +67,5 @@ myOwn.wScreens.generar_manual=async function(){
     manual.appendChild(html.p().create());
     manual.appendChild(titulo);
     manual.appendChild(tabla);
-
-
-}; 
+    
+};
