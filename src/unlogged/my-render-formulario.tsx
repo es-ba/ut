@@ -2,14 +2,15 @@ import { IdFormulario, RespuestasRaiz, ForPk, IdVariable, Formulario, Libre, IdU
     Valor,
     Estructura,
     PlainForPk,
-    IdFin
+    IdFin,
+    CasoState
 } from "dmencu/dist/unlogged/unlogged/tipos";
 import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOperativo, respuestasForPk, 
-    registrarElemento, dispatchByPass, accion_registrar_respuesta
+    registrarElemento, dispatchByPass, accion_registrar_respuesta, accion_abrir_formulario
 } from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
 import * as React from "react";
-import { useDispatch } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux"; 
 import { dispatchers } from "dmencu/dist/unlogged/unlogged/redux-formulario";
 import { FormStructureState } from "row-validator";
 
@@ -56,6 +57,7 @@ setLibreDespliegue((props:{
     const {casillero, formulario, forPk, key} = props;
     const id = casillero.id_casillero!;
     const dispatch = useDispatch();
+    var {opciones} = useSelector((state:CasoState)=>({opciones:state.opciones}));
     if(id == 'MODULO_1'){
         registrarElemento({
             id,
@@ -107,6 +109,7 @@ setLibreDespliegue((props:{
                         
                     },
                     ()=>{
+                        dispatchByPass(accion_abrir_formulario,{forPk:opciones.pilaForPk[opciones.pilaForPk.length-1]});
                         dispatch(dispatchers.VOLVER_DE_FORMULARIO({magnitudRetroceso:1}))
                     }
                 );
