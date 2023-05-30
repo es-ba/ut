@@ -64,21 +64,15 @@ var esRealizada = (respuestas:Respuestas)=>{
                             }else{
                                 reah=2;
                             }
-                        /*                            
-                        }else if(resp_entrea_ind==1  &&  resp_reams_ind==2 ) { //generalizar
+                        }else{ // ver este caso 
                             reah=2;
-                        }else if(resp_entrea_ind==2  && ( resp_reams_ind==2 ||resp_resulcita_ind==2 || resp_resulcita_ind==3 )){
-                            reah =2;
-                        }else if(resp_entrea_ind==2 && resp_resulcita_ind==null){ //pendiente
-                            reah=3                               
                         }
-                        */
                     }else{ // ver este caso 
                         reah=3;
-                    }
-                }
+                    } 
+                } 
                 reahs.push(reah);
-            }
+            } //for
             if (reahs.every(rh=>rh==1)){
                 codRea = 1;
                 esRea = true;
