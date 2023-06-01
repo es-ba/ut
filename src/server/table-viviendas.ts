@@ -212,17 +212,6 @@ export function viviendas(context:TableContext):TableDefinition {
             "typeName": "text",
             "nullable": true
         },
-/* me parece que estas vars son de hogares_sup  */      
-        {
-            "name": "razon_7_1_sup",
-            "typeName": "bigint",
-            "nullable": true
-        },
-        {
-            "name": "razon_8_1_sup",
-            "typeName": "bigint",
-            "nullable": true
-        },
         {
             "name": "razon_9_1_sup",
             "typeName": "bigint",
@@ -233,14 +222,12 @@ export function viviendas(context:TableContext):TableDefinition {
             "typeName": "bigint",
             "nullable": true
         },
-//*/        
         {
             "name": "total_h_sup",
             "typeName": "bigint",
             "nullable": true
         },
         { name: "consistido"    , label:'consistido'            , typeName: 'timestamp'},
-
     ],
     "sql": {
         "isReferable": true

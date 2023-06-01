@@ -8,15 +8,16 @@ import {defConfig} from "./def-config"
 import {procedures} from "./procedures-ut"
 
 import { actividades_codigos } from './table-actividades_codigos';
-/* tablas ua
+/* tablas ua */
 import { viviendas           } from './table-viviendas';
 import { visitas             } from './table-visitas';
 import { hogares             } from './table-hogares';
 import { personas            } from './table-personas';
+import { actividades         } from './table-actividades';
 import { visitas_sup         } from './table-visitas_sup';
 import { hogares_sup         } from './table-hogares_sup';
 import { personas_sup        } from './table-personas_sup';
-*/
+
 const APP_DM_VERSION="#23-06-01";
 
 export type Constructor<T> = new(...args: any[]) => T;
@@ -101,16 +102,15 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
         super.prepareGetTables();
         this.getTableDefinition={
             ...this.getTableDefinition,
-            actividades_codigos
-            /* 
+            actividades_codigos,
             viviendas,
             visitas,
             hogares,
             personas,
+            actividades,
             visitas_sup,
             hogares_sup,
             personas_sup,
-            */
         }
         be.appendToTableDefinition('tem',function(tableDef:TableDefinition, _context?:TableContext){
             tableDef.hiddenColumns=tableDef.hiddenColumns?.filter(element => element !='semana');

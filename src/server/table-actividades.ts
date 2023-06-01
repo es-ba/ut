@@ -27,17 +27,22 @@ export function actividades(context:TableContext):TableDefinition {
             "typeName": "bigint",
             "nullable": false
         },
-        {  // ó actividad? en json vendrá codigo. Lo cambiamos? 
+        {
+            "name": "renglon",
+            "typeName": "bigint",
+            "nullable": false
+        },
+        {  
             "name": "codigo", 
             "typeName": "bigint",
             "nullable": true
         },
-        {
+        {//cambiar a text?
             "name": "desde",
             "typeName": "interval",
             "nullable": true
         },
-        {
+        {//cambiar a text?
             "name": "hasta",
             "typeName": "interval",
             "nullable": true
@@ -56,7 +61,7 @@ export function actividades(context:TableContext):TableDefinition {
         "vivienda",
         "hogar",
         "persona",
-        "codigo"
+        "renglon"
     ],
     "detailTables": [],
     "foreignKeys": [

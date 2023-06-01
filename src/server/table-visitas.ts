@@ -39,12 +39,12 @@ export function visitas(context:TableContext):TableDefinition {
         },
         {
             "name": "fecha",
-            "typeName": "date",
+            "typeName": "text",
             "nullable": true
         },
         {
             "name": "hora",
-            "typeName": "interval",
+            "typeName": "text",
             "nullable": true
         },
         {
