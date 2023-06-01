@@ -268,7 +268,7 @@ type Actividad = '1' | '411' | '412' | 'etc'
 type Tramo = {
     desde:Hora|null
     hasta:Hora|null
-    rescate:string|null
+    //rescate:string|null
     codigo:Actividad|null
     detalle:string|null
 }
@@ -285,7 +285,7 @@ type EstructuraTramo = {
     validador:(valor:Tramo[keyof Tramo], tramo:Tramo)=>boolean
     actualizaPlaceholder?:keyof Tramo
     tabindex?:boolean
-    rescate?:boolean
+    //rescate?:boolean
     titulo?:string
 }
 
@@ -422,7 +422,7 @@ function GrillaUt(
         //230213 rta_ud['var_'+variable_especial]=datos_matriz_json;
         //23/2/9 localStorage.setItem("ud_"+id_ud, JSON.stringify(rta_ud)); graba en el json del localstorage
     }
-    gu.renglonVacio=function(){ return {desde:null, hasta:null, codigo:null, detalle:null, rescate:null}; };
+    gu.renglonVacio=function(){ return {desde:null, hasta:null, codigo:null, detalle:null /*, rescate:null*/}; };
     var medidas={
         horas:12,
         renglonesHora:6,
@@ -713,10 +713,12 @@ function GrillaUt(
                     var valorAnterior=tramo[nombreVar];
                     tramo[nombreVar] = valorCompletado as any;
                     validarTramo();
+                    /*
                     if(valorAnterior != valorCompletado && tramo.rescatable && !infoCampo.rescate){
                         tramo.rescate = '1';
                         tramo.inputs!.rescate.setTypedValue(tramo.rescate);
                     }
+                    */
                     gu.acomodar();
                     gu.desplegar_izquierda('grilla-ut-zona-izquierda', corYtotal);
                     if(i_tramo===gu.tramos.length-1){
