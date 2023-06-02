@@ -349,7 +349,8 @@ export function hogares(context:TableContext):TableDefinition {
         }
     ],
     "sql": {
-        "isReferable": true
+        "isReferable": true,
+        skipEnance: true,
     },
     "primaryKey": [
         "operativo",

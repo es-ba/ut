@@ -230,7 +230,8 @@ export function viviendas(context:TableContext):TableDefinition {
         { name: "consistido"    , label:'consistido'            , typeName: 'timestamp'},
     ],
     "sql": {
-        "isReferable": true
+        "isReferable": true,
+        skipEnance: true,
     },
     "primaryKey": [
         "operativo",

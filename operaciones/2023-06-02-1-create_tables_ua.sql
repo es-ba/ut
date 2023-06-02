@@ -1,3 +1,5 @@
+-- reemplazar adecuadamente owner y, admin segun entorno
+
 set role to ut_owner;
 set search_path = "base";
 
@@ -459,16 +461,3 @@ create index "operativo,vivienda 4 hogares_sup IDX" ON "hogares_sup" ("operativo
 create index "operativo,vivienda,hogar 4 personas_sup IDX" ON "personas_sup" ("operativo", "vivienda", "hogar");
 create index "operativo,vivienda,hogar,persona 4 actividades IDX" ON "actividades" ("operativo", "vivienda", "hogar", "persona");
 create index "codigo 4 actividades IDX" ON "actividades" ("codigo");
-
-do $SQL_ENANCE$
- begin
-PERFORM enance_table('viviendas','operativo,vivienda');
-PERFORM enance_table('visitas','operativo,vivienda,visita');
-PERFORM enance_table('hogares','operativo,vivienda,hogar');
-PERFORM enance_table('personas','operativo,vivienda,hogar,persona');
-PERFORM enance_table('visitas_sup','operativo,vivienda,visita');
-PERFORM enance_table('hogares_sup','operativo,vivienda,hogar');
-PERFORM enance_table('personas_sup','operativo,vivienda,hogar,persona');
-PERFORM enance_table('actividades','operativo,vivienda,hogar,persona,renglon');
-end
-$SQL_ENANCE$;
