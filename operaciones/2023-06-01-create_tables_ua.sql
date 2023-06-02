@@ -1,3 +1,15 @@
+set role to ut_owner;
+set search_path = "base";
+
+drop table if exists actividades ;
+drop table if exists personas ;
+drop table if exists hogares ;
+drop table if exists visitas ;
+drop table if exists visitas_sup ;
+drop table if exists personas_sup ;
+drop table if exists hogares_sup ;
+drop table if exists viviendas ;
+
 create table "viviendas" (
   "operativo" text, 
   "vivienda" text, 
@@ -314,13 +326,12 @@ create table "personas_sup" (
 grant select, insert, update, delete, references on "personas_sup" to ut_admin;
 grant all on "personas_sup" to ut_owner;
 
-
 create table "actividades" (
   "operativo" text, 
   "vivienda" text, 
   "hogar" bigint, 
-  "persona" bigint, 
-  "renglon" bigint, 
+  "persona" bigint,
+  "renglon" bigint,
   "codigo" bigint, 
   "desde" interval, 
   "hasta" interval, 
@@ -330,6 +341,7 @@ create table "actividades" (
 grant select, insert, update, delete, references on "actividades" to ut_admin;
 grant all on "actividades" to ut_owner;
 
+-- conss
 alter table "viviendas" add constraint "operativo<>''" check ("operativo"<>'');
 alter table "viviendas" alter column "operativo" set not null;
 alter table "viviendas" add constraint "vivienda<>''" check ("vivienda"<>'');
@@ -429,7 +441,7 @@ alter table "actividades" alter column "hogar" set not null;
 alter table "actividades" alter column "persona" set not null;
 alter table "actividades" alter column "renglon" set not null;
 alter table "actividades" add constraint "detalle<>''" check ("detalle"<>'');
-
+-- FKs
 alter table "visitas" add constraint "visitas viviendas REL" foreign key ("operativo", "vivienda") references "viviendas" ("operativo", "vivienda")  on delete cascade on update cascade;
 alter table "hogares" add constraint "hogares viviendas REL" foreign key ("operativo", "vivienda") references "viviendas" ("operativo", "vivienda")  on delete cascade on update cascade;
 alter table "personas" add constraint "personas hogares REL" foreign key ("operativo", "vivienda", "hogar") references "hogares" ("operativo", "vivienda", "hogar")  on delete cascade on update cascade;
@@ -438,7 +450,7 @@ alter table "hogares_sup" add constraint "hogares_sup viviendas REL" foreign key
 alter table "personas_sup" add constraint "personas_sup hogares_sup REL" foreign key ("operativo", "vivienda", "hogar") references "hogares_sup" ("operativo", "vivienda", "hogar")  on delete cascade on update cascade;
 alter table "actividades" add constraint "actividades personas REL" foreign key ("operativo", "vivienda", "hogar", "persona") references "personas" ("operativo", "vivienda", "hogar", "persona")  on delete cascade on update cascade;
 alter table "actividades" add constraint "actividades actividades_codigos REL" foreign key ("codigo") references "actividades_codigos" ("codigo")  on update cascade;
-
+-- index
 create index "operativo,vivienda 4 visitas IDX" ON "visitas" ("operativo", "vivienda");
 create index "operativo,vivienda 4 hogares IDX" ON "hogares" ("operativo", "vivienda");
 create index "operativo,vivienda,hogar 4 personas IDX" ON "personas" ("operativo", "vivienda", "hogar");
@@ -448,6 +460,8 @@ create index "operativo,vivienda,hogar 4 personas_sup IDX" ON "personas_sup" ("o
 create index "operativo,vivienda,hogar,persona 4 actividades IDX" ON "actividades" ("operativo", "vivienda", "hogar", "persona");
 create index "codigo 4 actividades IDX" ON "actividades" ("codigo");
 
+do $SQL_ENANCE$
+ begin
 PERFORM enance_table('viviendas','operativo,vivienda');
 PERFORM enance_table('visitas','operativo,vivienda,visita');
 PERFORM enance_table('hogares','operativo,vivienda,hogar');
@@ -456,4 +470,5 @@ PERFORM enance_table('visitas_sup','operativo,vivienda,visita');
 PERFORM enance_table('hogares_sup','operativo,vivienda,hogar');
 PERFORM enance_table('personas_sup','operativo,vivienda,hogar,persona');
 PERFORM enance_table('actividades','operativo,vivienda,hogar,persona,renglon');
-
+end
+$SQL_ENANCE$;
