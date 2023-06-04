@@ -96,9 +96,9 @@ var esRealizada = (respuestas:Respuestas)=>{
 var esRealizadaSup=(respuestas:Respuestas)=>{
     var esReaSup = false;
     var codReaSup:number|null= null;
-    if(!respuestas['confir_tel_sup' as IdVariable] && !respuestas['sp1a' as IdVariable]){
+    if(/*!respuestas['confir_tel_sup' as IdVariable] && */!respuestas['modo_sup' as IdVariable]){
         return {codReaSup, esReaSup}
-    }else if( respuestas['confir_tel_sup' as IdVariable]==2 || respuestas['confir_dom_sup' as IdVariable]==2||respuestas['sp1a' as IdVariable]==2 ||respuestas['sp1b' as IdVariable]==2||respuestas['sp1c' as IdVariable]==2){
+    }else if( respuestas['confir_tel_sup' as IdVariable]==2 || respuestas['confir_dom_sup' as IdVariable]==2||respuestas['sp1_sup' as IdVariable]==3||respuestas['sp1_sup' as IdVariable]==4){
         codReaSup = 2;
         esReaSup = false;
     }else{
@@ -108,10 +108,10 @@ var esRealizadaSup=(respuestas:Respuestas)=>{
             for(let respuestasH of respuestasHs){
                 var reah:number;
                 var selec:number;
-                if(respuestasH['entrea_sup' ] == 2||respuestasH['spr1_sup']==2||respuestasH['sp4']==3||respuestasH['total_rango_sup']==0){
+                if(respuestasH['entrea_hog'] == 2||respuestasH['sp4']==3||respuestasH['spr2_sup']==2||respuestasH['total_rango_sup']==0||respuestasH['spr3_sup']==2){
                     reah=2;
                 }else{
-                    if(respuestasH['entrea_sup' ]){
+                    if(respuestasH['entrea_hog']){
                         reah = 1;
                     }else {
                         reah=3;
