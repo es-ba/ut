@@ -124,8 +124,8 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                 {name:'semana'               , typeName:'integer' , editable: false, inTable: false },
             );
             tableDef.sql!.from = tableDef.sql!.from!.replace(
-                'select ta.tarea, t.operativo, t.enc, t.area',
-                'select ta.tarea, t.operativo, t.enc, t.area, t.semana '
+                'select tt.tarea, t.operativo, t.enc, t.area',
+                'select tt.tarea, t.operativo, t.enc, t.area, t.semana '
             );
         })
         be.appendToTableDefinition('inconsistencias',function(tableDef:TableDefinition, context?:TableContext){
