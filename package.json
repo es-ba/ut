@@ -1,7 +1,7 @@
 {
   "name": "ut",
   "description": "Encuesta de Uso del Tiempo CABA",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "author": "Codenautas <codenautas@googlegroups.com>",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "dist"
   ],
   "dependencies": {
-    "dmencu": "^0.4.9"
+    "dmencu": "^0.4.10"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
