@@ -362,8 +362,8 @@ class PantallaAyuda{
             var seccionContinuadora:HTMLElement[] = []
             var textoPregunta = valor ? preguntaActividad.pregunta : (
                 !tramo.desde ? "Hasta las " + this.gu.acomodo.cargadoHasta + " de ayer, ¿realizó alguna otra actividad? ¿cuál?" :
-                !tramo.hasta ? "Desde las " + tramo.desde + " de ayer ¿qué acividad realizó?" : 
-                "Desde las " + tramo.desde + " hasta las " + tramo.hasta + " de ayer ¿qué acividad realizó?"
+                !tramo.hasta ? "Desde las " + tramo.desde + " de ayer ¿qué actividad realizó?" : 
+                "Desde las " + tramo.desde + " hasta las " + tramo.hasta + " de ayer ¿qué actividad realizó?"
             )
             var elementoPregunta = html.p({class:"grilla-pregunta", $attrs:{"leer-pregunta":"si"}}, textoPregunta).create();
             if(!tramo.desde && this.gu.acomodo.cargadoHasta && !valor){
