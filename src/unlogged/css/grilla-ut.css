@@ -62,8 +62,13 @@
 #cartel-rescate{
     font-family: Arial Narrow;
 }
-#boton-cerrar{
-    margin: 10px
+
+#grilla-ut-zona-derecha #boton-cerrar, #grilla-ut-zona-derecha #boton-manual-ayuda{
+    margin-top: 25px;
+}
+
+#grilla-ut-zona-derecha #boton-manual-ayuda{
+    margin-left: 10px;
 }
 /*
 .edit-desde{
