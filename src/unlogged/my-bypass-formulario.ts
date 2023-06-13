@@ -61,11 +61,15 @@ var esRealizada = (respuestas:Respuestas)=>{
                         if( resp_entrea_ind==1 ){ 
                             if(resp_fin1_ind==1){ 
                                 reah = 1    
-                            }else{
+                            }else if (resp_fin1_ind==2){
                                 reah=2;
-                            }
+                            }else {
+                                reah=3;
+                            }    
+                        }else if (resp_entrea_ind==2){
+                             reah=2;
                         }else{ // ver este caso 
-                            reah=2;
+                            reah=3;
                         }
                     }else{ // ver este caso 
                         reah=3;
