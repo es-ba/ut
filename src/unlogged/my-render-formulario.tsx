@@ -9,7 +9,7 @@ import {getDatosByPass, persistirDatosByPass, setCalcularVariablesEspecificasOpe
     registrarElemento, dispatchByPass, accion_registrar_respuesta, accion_abrir_formulario
 } from "dmencu/dist/unlogged/unlogged/bypass-formulario";
 import {setLibreDespliegue} from "dmencu/dist/unlogged/unlogged/render-formulario";
-import * as React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; 
 import { dispatchers } from "dmencu/dist/unlogged/unlogged/redux-formulario";
 import { FormStructureState } from "row-validator";
@@ -68,6 +68,16 @@ setLibreDespliegue((props:{
     const id = casillero.id_casillero!;
     const dispatch = useDispatch();
     var {opciones} = useSelector((state:CasoState)=>({opciones:state.opciones}));
+    useEffect(()=>{
+        var viewport = document.getElementsByName('viewport')[0];
+        if (screen.width < 768 && formulario.id_casillero == 'F:D') {
+            viewport.setAttribute('content','width=768, user-scalable=no');
+        }
+        return ()=>{
+            viewport.setAttribute('content','width=device-width, user-scalable=no');
+
+        }
+    })
     if(id == 'MODULO_1'){
         registrarElemento({
             id,
