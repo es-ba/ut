@@ -7,7 +7,7 @@ do $SQL_DUMP$
 ----
 set search_path = base, comun;
 ----
-drop table if exists "ut_2023_actividades_calculada";
+drop table if exists "ut_2023_actividades_calculada" cascade;
 drop table if exists "ut_2023_personas_sup_calculada";
 drop table if exists "ut_2023_personas_calculada";
 drop table if exists "ut_2023_hogares_sup_calculada";
@@ -29,7 +29,8 @@ create table "ut_2023_actividades_calculada" (
   "renglon" bigint,
   "desde_min" bigint, 
   "hasta_min" bigint, 
-  "cant_minutos_epi" bigint
+  "cant_minutos_epi" bigint,
+  "tiempo_epi" interval
 , primary key ("operativo", "vivienda", "hogar", "persona", "renglon")
 );
 grant select, insert, update, references on "ut_2023_actividades_calculada" to ut2023_admin;
@@ -267,7 +268,8 @@ BEGIN
     UPDATE ut_2023_actividades_calculada
         SET 
             desde_min = hora_a_minutos(actividades.desde),
-            hasta_min = hora_a_minutos(actividades.hasta)
+            hasta_min = hora_a_minutos(actividades.hasta),
+            tiempo_epi = actividades.hasta - actividades.desde
         FROM "actividades"  
         WHERE "actividades"."operativo"="ut_2023_actividades_calculada"."operativo" AND "actividades"."vivienda"="ut_2023_actividades_calculada"."vivienda" AND "actividades"."hogar"="ut_2023_actividades_calculada"."hogar" AND "actividades"."persona"="ut_2023_actividades_calculada"."persona" AND "actividades"."renglon"="ut_2023_actividades_calculada"."renglon" AND "actividades"."operativo"=p_operativo AND "actividades"."vivienda"=p_id_caso;
     UPDATE ut_2023_actividades_calculada
@@ -456,7 +458,7 @@ UPDATE operativos SET calculada=now()::timestamp(0) WHERE operativo='UT_2023';
 UPDATE tabla_datos SET generada=now()::timestamp(0) WHERE operativo='UT_2023' AND tipo='calculada';
 ----
 end;
-$SQL_DUMP$;--- boton calcular generado: Wed Jun 21 2023 15:51:17 GMT-0300 (hora estándar de Argentina)
+$SQL_DUMP$;--- boton calcular generado: Fri Jun 23 2023 13:30:45 GMT-0300 (hora estándar de Argentina)
 
 select update_varcal('UT_2023');
 
