@@ -35,14 +35,15 @@ begin
            -- raise notice 'entro a actualizar aleat % ',v_pre_sorteo;          
             update base.tem set supervision_aleatoria=1 where operativo=new.operativo and enc=new.enc ; 
           else --v_pre_sorteo=2            
-            select /*h.vivienda ,h.hogar, tel1, tel2, tel_ms, */
-               concat_ws(coalesce(tel1,''),coalesce(tel2,''),coalesce(tel_ms,'')) into  v_con_telefono
-             --  no_numerica(concat_ws(coalesce(tel1,''),coalesce(tel2,''),coalesce(tel_ms,''))) con_telefono         
+            select string_agg(case when concat_ws(';',tel1, tel2, tel_ms) = '' then null else concat_ws(';',tel1, tel2, tel_ms) end,';') into  v_con_telefono      
                from hogares h
                left join personas p on h.vivienda=p.vivienda and h.hogar=p.hogar and h.cr_num_miembro=p.persona
-               where h.vivienda=new.enc ;
-            if v_con_telefono <>''  then 
+               where h.vivienda=new.enc 
+               group by h.vivienda;
+            if v_con_telefono  is not null then 
                update base.tem set supervision_aleatoria=2 where operativo=new.operativo and enc=new.enc ; 
+            else 
+               update base.tem set supervision_aleatoria=null where operativo=new.operativo and enc=new.enc ;
             end if;
           end if;  
         else
