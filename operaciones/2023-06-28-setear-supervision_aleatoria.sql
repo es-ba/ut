@@ -37,8 +37,8 @@ begin
           else --v_pre_sorteo=2            
             select string_agg(case when concat_ws(';',tel1, tel2, tel_ms) = '' then null else concat_ws(';',tel1, tel2, tel_ms) end,';') into  v_con_telefono      
                from hogares h
-               left join personas p on h.vivienda=p.vivienda and h.hogar=p.hogar and h.cr_num_miembro=p.persona
-               where h.vivienda=new.enc 
+               left join personas p on h.operativo=p.operativo and h.vivienda=p.vivienda and h.hogar=p.hogar and h.cr_num_miembro=p.persona
+               where h.operativo=new.operativo and h.vivienda=new.enc 
                group by h.vivienda;
             if v_con_telefono  is not null then 
                update base.tem set supervision_aleatoria=2 where operativo=new.operativo and enc=new.enc ; 
