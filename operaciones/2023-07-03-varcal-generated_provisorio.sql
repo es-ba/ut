@@ -30,7 +30,9 @@ create table "ut_2023_actividades_calculada" (
   "desde_min" bigint, 
   "hasta_min" bigint, 
   "cant_minutos_epi" bigint,
-  "tiempo_epi" interval
+  "tiempo_epi" interval,
+  "d_cant_codigo_pegado" bigint, 
+  "d_cant_cod_simult" bigint
 , primary key ("operativo", "vivienda", "hogar", "persona", "renglon")
 );
 grant select, insert, update, references on "ut_2023_actividades_calculada" to ut2023_admin;
@@ -269,7 +271,9 @@ BEGIN
         SET 
             desde_min = hora_a_minutos(actividades.desde),
             hasta_min = hora_a_minutos(actividades.hasta),
-            tiempo_epi = actividades.hasta - actividades.desde
+            tiempo_epi = actividades.hasta - actividades.desde,
+            d_cant_codigo_pegado = cant_codigo_pegado_diario(null2zero(actividades.operativo), null2zero(actividades.vivienda), null2zero(actividades.hogar), null2zero(actividades.persona), null2zero(actividades.codigo), actividades.hasta),
+            d_cant_cod_simult = cant_codigos_simultaneos(null2zero(actividades.operativo), null2zero(actividades.vivienda), null2zero(actividades.hogar), null2zero(actividades.persona), null2zero(actividades.codigo), actividades.desde, actividades.hasta)
         FROM "actividades"  
         WHERE "actividades"."operativo"="ut_2023_actividades_calculada"."operativo" AND "actividades"."vivienda"="ut_2023_actividades_calculada"."vivienda" AND "actividades"."hogar"="ut_2023_actividades_calculada"."hogar" AND "actividades"."persona"="ut_2023_actividades_calculada"."persona" AND "actividades"."renglon"="ut_2023_actividades_calculada"."renglon" AND "actividades"."operativo"=p_operativo AND "actividades"."vivienda"=p_id_caso;
     UPDATE ut_2023_actividades_calculada
@@ -283,7 +287,7 @@ BEGIN
             cant_per = personas_agg.cant_per,
             cant_jefes = personas_agg.cant_jefes,
             cant_conyuges = personas_agg.cant_conyuges,
-            cant_per_0a13 = personas_agg.cant_per_0a13,
+            cant_per_0a13 = psersona_agg.cant_per_0a13,
             cant_per_14a64_no_selec = personas_agg.cant_per_14a64_no_selec,
             cant_per_65ymas_no_selec = personas_agg.cant_per_65ymas_no_selec,
             cant_per_dc1_1_no_selec = personas_agg.cant_per_dc1_1_no_selec
