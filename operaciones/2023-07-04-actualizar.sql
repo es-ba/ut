@@ -114,4 +114,4 @@ update tem te set t.tarea_proxima = 'finc'
 from (select * 
         from tareas_tem tt
         where operativo = 'UT_2023' and verificado = '1') as tt
-where te.operativo = tt.operativo and te.enc = tt.enc and  and te.tarea_actual = tt.tarea and  tarea_proxima is null;
+where te.operativo = tt.operativo and te.enc = tt.enc and te.tarea_actual = tt.tarea and  tarea_proxima is null;
