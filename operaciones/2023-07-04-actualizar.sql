@@ -111,7 +111,7 @@ insert into "estados_acciones" ("operativo", "estado", "eaccion", "condicion", "
 ('UT_2023', '0D', 'no_sup_presencial', 'habilitada and estado = ''0D'' and te.supervision_dirigida = 1', '0D', 'retroceso', 'encuesta_no_supervisar', null),
 ('UT_2023', '0D', 'no_sup_telef', 'habilitada and estado = ''0D'' and te.supervision_dirigida = 2', '0D', 'retroceso', 'encuesta_no_supervisar', null);
 
-update tem te set t.tarea_proxima = 'finc' 
+update tem te set tarea_proxima = 'finc' 
 from (select * 
         from tareas_tem tt
         where operativo = 'UT_2023' and verificado = '1') as tt
