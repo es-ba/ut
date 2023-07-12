@@ -117,4 +117,4 @@ from (select *
         where operativo = 'UT_2023' and verificado = '1') as tt
 where te.operativo = tt.operativo and te.enc = tt.enc and te.tarea_actual = tt.tarea and  tarea_proxima is null;
 
-update tareas_tem set ts_entrada = current_timestamp - INTERVAL '1 DAY' where operativo = 'UT_2023' and tarea = 'finc';
+update tareas_tem set ts_entrada = '2023-07-10 00:00:01' where operativo = 'UT_2023' and tarea = 'finc';
