@@ -1,4 +1,5 @@
 set search_path=base;
+set role ut2023_owner;
 
 alter table parametros add dias_finc integer not null default 5;
 alter table tareas_tem add column ts_entrada timestamp;
