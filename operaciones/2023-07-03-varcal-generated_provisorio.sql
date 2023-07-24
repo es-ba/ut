@@ -287,7 +287,7 @@ BEGIN
             cant_per = personas_agg.cant_per,
             cant_jefes = personas_agg.cant_jefes,
             cant_conyuges = personas_agg.cant_conyuges,
-            cant_per_0a13 = psersona_agg.cant_per_0a13,
+            cant_per_0a13 = personas_agg.cant_per_0a13,
             cant_per_14a64_no_selec = personas_agg.cant_per_14a64_no_selec,
             cant_per_65ymas_no_selec = personas_agg.cant_per_65ymas_no_selec,
             cant_per_dc1_1_no_selec = personas_agg.cant_per_dc1_1_no_selec
