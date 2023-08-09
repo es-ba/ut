@@ -1,4 +1,5 @@
 set search_path= base, comun;
+--cambiar owner y admin
 set role ut2023_owner;
 CREATE OR REPLACE VIEW actividades_cotas_vw
     AS
@@ -74,5 +75,8 @@ CREATE OR REPLACE VIEW actividades_ajustado_vw
         ORDER BY a.operativo, a.vivienda, a.hogar, a.persona, a.desde, a.hasta DESC, a.codigo;
 
 
+grant select on "actividades_cotas_vw"    to ut2023_admin;
+grant select on "simultaneidades_vw"      to ut2023_admin;
+grant select on "actividades_ajustado_vw" to ut2023_admin;
 
 
