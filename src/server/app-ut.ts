@@ -128,6 +128,17 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
                 'select tt.tarea, t.operativo, t.enc, t.area, t.semana '
             );
         })
+        be.appendToTableDefinition('tareas_tem_ingreso',function(tableDef:TableDefinition, _context?:TableContext){
+            tableDef.sql!.from = tableDef.sql!.from!.replace(
+                "'__implementar_en_operativo_final'",
+                `(select string_agg(case when concat_ws(';',tel1, tel2, tel_ms) = '' then null else concat_ws(';',tel1, tel2, tel_ms) end,';') 
+                    from hogares h 
+                    left join personas p on h.operativo = p.operativo and h.vivienda=p.vivienda and h.hogar=p.hogar and h.cr_num_miembro=p.persona
+                    where t.operativo = h.operativo and t.enc=h.vivienda --and tt.tarea=t.tarea_actual
+                    group by t.enc	
+                )`
+            );
+        })
         be.appendToTableDefinition('inconsistencias',function(tableDef:TableDefinition, context?:TableContext){
             tableDef.sql={...tableDef.sql, isTable:true};
             tableDef.editable=tableDef.editable || context?.puede?.encuestas.justificar;
