@@ -67,10 +67,10 @@ export const procedures : ProcedureDef[] = [
             {name:'enc'            ,references:'tem'       , typeName:'text'    },
             {name:'hogar'          ,references:'personas'  , typeName:'integer' },
             {name:'persona'        ,references:'personas'  , typeName:'integer', label:'persona cuyos datos de I1 hay que limpiar' },
-            {name:'nombre_persona'           , typeName:'text'   , label:'nombre de la persona cuyos datos del I1 hay que limpiar' },
-            {name:'confirma'                 , typeName:'boolean', defaultValue:false, label:'Confirma borrado de los datos del I1 de la persona? ' },
+            {name:'nombre_persona'        , typeName:'text'   , label:'nombre de la persona cuyos datos del I1 hay que limpiar' },
+            {name:'confirma'              , typeName:'boolean', defaultValue:false, label:'Confirma borrado de los datos del I1 de la persona? ' },
         ],
-        roles:['subcoordinador','coordinador','admin'],
+        roles:['coor_proc','procesamiento','admin'],
         progress:true,
         coreFunction:async function(context:ProcedureContext, params: CoreFunctionParameters){
             if (!params.confirma){
@@ -80,7 +80,7 @@ export const procedures : ProcedureDef[] = [
             const OPERATIVO = await getOperativoActual(context);
             // validar que no sea el seleccionado
             const seleccionado = (await context.client.query(`
-                SELECT case when con_dato(cr_num_miembro_ing) and cr_num_miembro_ing<=1 and cr_num_miembro_ing<=total_m then cr_num_miembro_ing else cr_num_miembro  end elegido
+                SELECT cr_num_miembro
                   FROM hogares h 
                   WHERE operativo=$1 and vivienda=$2 and hogar=$3 
             `,[OPERATIVO, params.enc, params.hogar]).fetchUniqueValue()).value;
@@ -97,7 +97,7 @@ export const procedures : ProcedureDef[] = [
             if (params.nombre_persona !== nombre_per) {
                     throw new Error('Error, no coincide el nombre de la persona a limpiar!');
             }
-
+            //revisar/agregar borrado del diario
             const listVarI1=(await context.client.query(`
                 with recursive subcasilleros(operativo, id_casillero) as (
                   select operativo, id_casillero, 0::bigint as depth
@@ -118,14 +118,19 @@ export const procedures : ProcedureDef[] = [
 
             var pos_hog:number=params.hogar-1;
             var pos_per:number=params.persona-1;
+            var keyActividades='actividades';
             var strUpdTem=`
               update tem set json_encuesta=jsonb_set(json_encuesta,'{hogares,${pos_hog},personas,${pos_per}}',
-                (json_encuesta#>('{hogares,${pos_hog},personas,${pos_per}}')) - ${listVarI1.jsonkeyborrado} )
+                (json_encuesta#>('{hogares,${pos_hog},personas,${pos_per}}')) - ${listVarI1.jsonkeyborrado}-quote_literal(${keyActividades}) )
                 where operativo=$1 and enc=$2
             `;
             await context.client.query(strUpdTem
               , [ OPERATIVO, params.enc]
             ).execute();
+            await context.client.query('delete from actividades where operativo=$1 and vivienda=$2 and hogar=$3 and persona=$4'
+                , [ OPERATIVO, params.enc, params.hogar, params.persona]
+              ).execute();
+  
             var strUpdPer=`
               update personas 
                 set ${listVarI1.setupd}
@@ -142,7 +147,7 @@ export const procedures : ProcedureDef[] = [
             )
             where enc=venc 
             */
-            return (`Listo. Limpieza realizada en la persona ${params.persona} del hogar ${params.hogar} encuesta ${params.enc}. Por favor consista la encuesta`)
+            return (`Listo. Limpieza realizada en la persona ${params.persona} del hogar ${params.hogar} encuesta ${params.enc}. Por favor abra la encuesta, registre el cambio en observaciones y justifique las inconsistencias de la encuesta`)
         }        
     },
     {
