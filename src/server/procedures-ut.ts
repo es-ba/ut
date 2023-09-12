@@ -101,32 +101,35 @@ export const procedures : ProcedureDef[] = [
             const listVarI1=(await context.client.query(`
                 with recursive subcasilleros(operativo, id_casillero) as (
                   select operativo, id_casillero, 0::bigint as depth
-                       FROM casilleros where operativo=$1 and id_casillero='F:I1'
+                       FROM casilleros where operativo=$1 and
+                         id_casillero in (select id_casillero from casilleros where operativo= $2 AND unidad_analisis='personas' and tipoc='F' and nombre!~*'personas')
                   union all
                     select c.operativo, c.id_Casillero, s.depth+1
                         from subcasilleros s inner join casilleros c 
                             on s.operativo = c.operativo and s.id_casillero = c.padre
                 ), x AS (select  s.*, cr.*
                     from subcasilleros s, lateral casilleros_recursivo(operativo, id_casillero) cr
-                    where s.operativo=$2 
+                    where s.operativo=$3
                     order by s.depth desc, orden_total desc
                 )
                 select string_agg(quote_literal(var_name), '-' order by orden_total) jsonKeyBorrado, string_agg (concat(var_name,'=null'),', ') setUpd   from casilleros c , x
                 where x.operativo=c.operativo and x.id_casillero=c.id_casillero
                     and c.var_name is not null
-                `,[OPERATIVO,OPERATIVO]).fetchUniqueRow()).row;
+                `,[OPERATIVO,OPERATIVO,OPERATIVO]).fetchUniqueRow()).row;
 
             var pos_hog:number=params.hogar-1;
             var pos_per:number=params.persona-1;
-            var keyActividades='actividades';
+            // AGREGO EN DURO LA UA HIJA DE PERSONAS
+           var keyActividades='actividades';
             var strUpdTem=`
               update tem set json_encuesta=jsonb_set(json_encuesta,'{hogares,${pos_hog},personas,${pos_per}}',
-                (json_encuesta#>('{hogares,${pos_hog},personas,${pos_per}}')) - ${listVarI1.jsonkeyborrado}-quote_literal(${keyActividades}) )
+                (json_encuesta#>('{hogares,${pos_hog},personas,${pos_per}}')) - ${listVarI1.jsonkeyborrado}-'${keyActividades}' )
                 where operativo=$1 and enc=$2
             `;
             await context.client.query(strUpdTem
               , [ OPERATIVO, params.enc]
             ).execute();
+
             await context.client.query('delete from actividades where operativo=$1 and vivienda=$2 and hogar=$3 and persona=$4'
                 , [ OPERATIVO, params.enc, params.hogar, params.persona]
               ).execute();
@@ -143,11 +146,11 @@ export const procedures : ProcedureDef[] = [
             /*
             UPDATE tem set json_encuesta=jsonb_set(json_encuesta,'{hogares,vhogar-1,personas,vpersona-1}',
             (json_encuesta#>('{hogares,vhogar-1,personas,vpersona-1}')) 
-            -'msi'-'msnombrei'-'msedadi'-'entreaind'-'movili'-'correoi'-'fecha_cita'-'hora_cita'-'resulcita'-'reams'-'telms'-'correoms'-'nacms'-'id_blaise'-'id_blaise_parseado'-'fin_1'-'fin_2'-'escif'-'fin_3'
+            -'msi'-'msnombrei'-'msedadi'-'entreaind'-'noreaind'-'ut9_esp'-'tel_ms'-'correo_ms'-'dia'-'ut1'-'ut2'-'ut3'-'d1'-'d2'-'ut4'-'fin_1'-'fin_2'-'ut3_esp'-'diario_sin_errores'-'diario_comenzado'-'modulo_1'
             )
             where enc=venc 
             */
-            return (`Listo. Limpieza realizada en la persona ${params.persona} del hogar ${params.hogar} encuesta ${params.enc}. Por favor abra la encuesta, registre el cambio en observaciones y justifique las inconsistencias de la encuesta`)
+            return (`Listo. Limpieza de I1 realizada en la persona ${params.persona} del hogar ${params.hogar} encuesta ${params.enc}. Por favor abra la encuesta, modifique observaciones, revise y justifique las inconsistencias`)
         }        
     },
     {
