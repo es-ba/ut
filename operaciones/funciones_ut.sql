@@ -41,7 +41,8 @@ AS $BODY$
         select count(distinct codigo)
             from actividades
             where operativo= p_ope and vivienda=p_viv and hogar=p_hog and persona=p_per and codigo is distinct from p_codigo
-                and (hasta>p_desde and hasta<=p_hasta or desde<p_hasta and desde>=p_desde or desde>=p_desde and hasta<=p_hasta)
+                and (hasta>p_desde and hasta<=p_hasta or desde<p_hasta and desde>=p_desde or desde>=p_desde and hasta<=p_hasta
+                or desde<=p_desde and hasta>=p_hasta)
         ;     
 $BODY$;
 
