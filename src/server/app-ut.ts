@@ -103,7 +103,9 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
     }
 
     getMenu(context:Context){
-        return super.getMenu(context);
+        let menu = super.getMenu(context);
+        menu.menu.push({menuType:'proc', name:'intercambiar_encuestas'})
+        return menu;
     }
     prepareGetTables(){
         var be=this;

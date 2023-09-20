@@ -167,5 +167,132 @@ export const procedures : ProcedureDef[] = [
             ).fetchAll(); 
             return result.rows;
         }    
-    }
+    },
+    {
+        action:'intercambiar_encuestas',
+        parameters:[
+            {name:'enc1'            ,references:'tem' , typeName:'text'    },
+            {name:'cantHog1'                          , typeName:'integer' },
+            {name:'enc2'                              , typeName:'text'    },
+            {name:'cantHog2'                          , typeName:'integer' },
+            {name:'confirma'                 , typeName:'boolean', defaultValue:false, label:'Confirma intercambio de los datos entre las encuestas? ' },
+        ],
+        roles:['coor_proc','procesamiento','admin'],
+        progress:true,
+        coreFunction:async function(context:ProcedureContext, params: CoreFunctionParameters){
+            /**
+             * Para controlar:
+             * - que las hogares, personas, etc estén intercambiadas 
+             *  * tanto en el json
+             *  * como en las TDs
+             * - cosas que se calculan por la app? cuales? (resumen_estado, rea y norea)
+             * 
+             * prueba manual
+             * enc1: 10202 (es rea, norea null)
+             * enc2: 10000 (rea 2, norea 8,)
+             */
+
+            if (!params.confirma){
+                throw new Error('No confirmó intercambio')
+            }
+            if ( !params.enc1 || !params.enc2)  {
+                throw new Error('Error, Falta ingresar un numero de encuesta!');
+            }
+            if ( params.enc1==params.enc2)  {
+                throw new Error('Error, enc1 y enc2 deben ser distintos!');
+            }
+            if (!params.cantHog1)  {
+                throw new Error('Error, Cantidad de Hogares de enc1, no esta ingresado!');
+            }
+            if (!params.cantHog2)  {
+                throw new Error('Error, Cantidad de Hogares de enc2, no esta ingresado!');
+            }
+            // CONTROLAR QUE NINGUNA DE LAS 2 encuestas ESTE CARGADA, ABIERTA FALTA
+            const OPERATIVO = await getOperativoActual(context);
+           
+            const cant_hogs=(await context.client.query(`
+                select vivienda, count(*)nh from hogares where operativo=$1 and (vivienda=$2 or vivienda=$3)
+                group by vivienda
+                `,[OPERATIVO, params.enc1, params.enc2]).fetchAll()).rows;
+                
+            var param_nh=[params.cantHog1,params.cantHog2];
+            cant_hogs.forEach((xe,i)=>{
+                if (param_nh[i] !== xe.nh) {
+                    const xmens=`Error, no coincide la cantidad de hogares de enc${i+1}`;
+                    throw new Error(xmens);
+                };
+            });    
+            
+            var regEnc=(await context.client.query(`
+            select enc, json_encuesta from tem where operativo=$1 and (enc =$2 or enc=$3) order by enc
+            `,[OPERATIVO, params.enc1, params.enc2]).fetchAll()).rows;
+            
+            if (regEnc.length!=2){
+                throw new Error('Error, No se encontraron 2 encuestas')    
+            }else{
+                // regEnc.forEach(async(xe,i)=>{
+                //     //actualiza json_encuesta
+                //     let otraEnc = regEnc[(i+1)%2]
+                    // await context.client.query(
+                    //     `update tem set 
+                    //         json_encuesta=$3
+                    //     where operativo=$1 and enc=$2`
+                    //     , [OPERATIVO, xe.enc, otraEnc.json_encuesta]
+                    // ).execute();
+                    // })
+                //limpia las TDs
+                await context.client.query(
+                    `delete from viviendas where operativo=$1 and (vivienda=$2 OR vivienda=$3)`
+                    , [OPERATIVO, regEnc[0].enc, regEnc[1].enc]
+                ).execute();
+
+                //simula guardado
+                let regEncIntercambiadas=(await context.client.query(`
+                    select enc, tarea_actual, json_encuesta from tem where operativo=$1 and (enc =$2 or enc=$3) order by enc
+                `,[OPERATIVO, params.enc1, params.enc2]).fetchAll()).rows;
+                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEncIntercambiadas[0].enc, regEncIntercambiadas[0].tarea_actual , regEncIntercambiadas[1].json_encuesta)
+                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEncIntercambiadas[1].enc, regEncIntercambiadas[1].tarea_actual , regEncIntercambiadas[0].json_encuesta)
+            }
+
+            return (`Listo. Intercambio realizado entre las encuestas  ${params.enc1} y ${params.enc2}. Por favor consista la encuesta`)
+        }
+    },
 ];
+// TODO ESTO YA ESTÁ EN DEMENCU
+// SIMULADO DE GUARDADO DESDE ENCUESTA 
+
+const getUAPrincipal = async (client:Client, operativo:string)=>
+    (await client.query(
+        `select unidad_analisis
+            from unidad_analisis
+            where operativo= $1 and principal
+        `
+        ,
+        [operativo]
+    ).fetchUniqueValue()).value
+
+export type IdEnc = 130031|130032;
+export type IdTarea = 'encu'|'recu'|'supe';
+
+var simularGuardadoDesdeEncuesta = async (context: ProcedureContext ,operativo: string, enc: IdEnc, tarea: IdTarea, json_encuesta:any )=>{
+    var be = context.be;
+    const UA_PRINCIPAL = await getUAPrincipal(context.client, operativo);
+    return await be.procedure.dm_forpkraiz_descargar.coreFunction(
+        context, 
+        {
+            operativo:operativo, 
+            persistentes:{
+                respuestas:{
+                    [UA_PRINCIPAL]: {
+                        [enc]: json_encuesta
+                    }
+                },
+                informacionHdr:{
+                    [enc]: {
+                        "tarea": {tarea}
+                    }
+                }
+            }
+        }
+    )
+}
