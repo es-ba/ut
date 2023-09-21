@@ -71,6 +71,7 @@ export const procedures : ProcedureDef[] = [
             {name:'confirma'              , typeName:'boolean', defaultValue:false, label:'Confirma borrado de los datos del I1 de la persona? ' },
         ],
         roles:['coor_proc','procesamiento','admin'],
+        definedIn:'ut',
         progress:true,
         coreFunction:async function(context:ProcedureContext, params: CoreFunctionParameters){
             if (!params.confirma){

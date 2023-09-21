@@ -101,7 +101,13 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
        //console.log('longitud ',menuControles.length)
        return menuControles
     }
-
+    /*
+    override getMenuLimpieza(context:Context){
+        var menuLimpieza =super.getMenuLimpieza(context);
+        menuLimpieza.push( {menuType:'proc', name:'Eliminar_Individual', proc: 'limpiar_individual'});
+        return menuLimpieza
+     }
+    */
     getMenu(context:Context){
         return super.getMenu(context);
     }
