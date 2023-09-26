@@ -186,10 +186,6 @@ export const procedures : ProcedureDef[] = [
              *  * tanto en el json
              *  * como en las TDs
              * - cosas que se calculan por la app? cuales? (resumen_estado, rea y norea)
-             * 
-             * prueba manual
-             * enc1: 10202 (es rea, norea null)
-             * enc2: 10000 (rea 2, norea 8,)
              */
 
             if (!params.confirma){
@@ -224,34 +220,21 @@ export const procedures : ProcedureDef[] = [
             });    
             
             var regEnc=(await context.client.query(`
-            select enc, json_encuesta from tem where operativo=$1 and (enc =$2 or enc=$3) order by enc
+            select enc, tarea_actual, json_encuesta from tem where operativo=$1 and (enc =$2 or enc=$3) order by enc
             `,[OPERATIVO, params.enc1, params.enc2]).fetchAll()).rows;
             
             if (regEnc.length!=2){
                 throw new Error('Error, No se encontraron 2 encuestas')    
             }else{
-                // regEnc.forEach(async(xe,i)=>{
-                //     //actualiza json_encuesta
-                //     let otraEnc = regEnc[(i+1)%2]
-                    // await context.client.query(
-                    //     `update tem set 
-                    //         json_encuesta=$3
-                    //     where operativo=$1 and enc=$2`
-                    //     , [OPERATIVO, xe.enc, otraEnc.json_encuesta]
-                    // ).execute();
-                    // })
-                //limpia las TDs
-                await context.client.query(
-                    `delete from viviendas where operativo=$1 and (vivienda=$2 OR vivienda=$3)`
-                    , [OPERATIVO, regEnc[0].enc, regEnc[1].enc]
-                ).execute();
+                // limpia las TDs  
+                // await context.client.query(
+                //     `delete from viviendas where operativo=$1 and (vivienda=$2 OR vivienda=$3)`
+                //     , [OPERATIVO, regEnc[0].enc, regEnc[1].enc]
+                // ).execute();
 
                 //simula guardado
-                let regEncIntercambiadas=(await context.client.query(`
-                    select enc, tarea_actual, json_encuesta from tem where operativo=$1 and (enc =$2 or enc=$3) order by enc
-                `,[OPERATIVO, params.enc1, params.enc2]).fetchAll()).rows;
-                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEncIntercambiadas[0].enc, regEncIntercambiadas[0].tarea_actual , regEncIntercambiadas[1].json_encuesta)
-                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEncIntercambiadas[1].enc, regEncIntercambiadas[1].tarea_actual , regEncIntercambiadas[0].json_encuesta)
+                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEnc[0].enc, regEnc[0].tarea_actual , regEnc[1].json_encuesta)
+                await simularGuardadoDesdeEncuesta(context, OPERATIVO, regEnc[1].enc, regEnc[1].tarea_actual , regEnc[0].json_encuesta)
             }
 
             return (`Listo. Intercambio realizado entre las encuestas  ${params.enc1} y ${params.enc2}. Por favor consista la encuesta`)
@@ -271,10 +254,8 @@ const getUAPrincipal = async (client:Client, operativo:string)=>
         [operativo]
     ).fetchUniqueValue()).value
 
-export type IdEnc = 130031|130032;
-export type IdTarea = 'encu'|'recu'|'supe';
 
-var simularGuardadoDesdeEncuesta = async (context: ProcedureContext ,operativo: string, enc: IdEnc, tarea: IdTarea, json_encuesta:any )=>{
+var simularGuardadoDesdeEncuesta = async (context: ProcedureContext ,operativo: string, enc: string, tarea: string, json_encuesta:any )=>{
     var be = context.be;
     const UA_PRINCIPAL = await getUAPrincipal(context.client, operativo);
     return await be.procedure.dm_forpkraiz_descargar.coreFunction(
@@ -289,7 +270,9 @@ var simularGuardadoDesdeEncuesta = async (context: ProcedureContext ,operativo: 
                 },
                 informacionHdr:{
                     [enc]: {
-                        "tarea": {tarea}
+                        tarea: {
+                            tarea
+                        }
                     }
                 }
             }
