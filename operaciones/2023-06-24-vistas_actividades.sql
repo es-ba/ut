@@ -66,6 +66,7 @@ CREATE OR REPLACE VIEW actividades_ajustado_vw
         sum(GREATEST(0, LEAST(s.cota_min_sup, ac.hasta_min) - GREATEST(s.cota_min, ac.desde_min))::numeric * 1.0 / s.cant_activ::numeric) AS ajustado_min,
         to_char((sum(GREATEST(0, LEAST(s.cota_min_sup, ac.hasta_min) - GREATEST(s.cota_min, ac.desde_min))::numeric * 1.0 / s.cant_activ::numeric) || ' minutes '::text)::interval, 'HH24:MI:SS'::text) AS ajustado,
         avg(s.cant_activ) AS simultaneidad_promedio_del_individuo,
+        max(s.cant_activ) AS simultaneidad_maxima
         sum(GREATEST(0, LEAST(s.cota_min_sup, ac.hasta_min) - GREATEST(s.cota_min, ac.desde_min))::numeric * 1.0 / s.cant_activ::numeric)::integer AS t_sin_simu_min,
         to_char((sum(GREATEST(0, LEAST(s.cota_min_sup, ac.hasta_min) - GREATEST(s.cota_min, ac.desde_min))::numeric * 1.0 / s.cant_activ::numeric) || ' minutes '::text)::interval, 'HH24:MI'::text) AS t_sin_simu_hm
         FROM simultaneidades_vw s
