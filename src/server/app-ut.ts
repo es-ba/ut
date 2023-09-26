@@ -94,20 +94,17 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             "background_color": coloresEntornos[miSufijo]
         }
     }
-  
     override getMenuControles(context:Context){
        var menuControles =super.getMenuControles(context);
        menuControles.push( {menuType:'table', name:'control por dias de carga', table: 'control_dias_carga'});
        //console.log('longitud ',menuControles.length)
        return menuControles
     }
-    /*
     override getMenuLimpieza(context:Context){
         var menuLimpieza =super.getMenuLimpieza(context);
         menuLimpieza.push( {menuType:'proc', name:'Eliminar_Individual', proc: 'limpiar_individual'});
         return menuLimpieza
      }
-    */
     getMenu(context:Context){
         return super.getMenu(context);
     }
