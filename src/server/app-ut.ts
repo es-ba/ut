@@ -104,11 +104,10 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
         var menuLimpieza =super.getMenuLimpieza(context);
         menuLimpieza.push( {menuType:'proc', name:'Eliminar_Individual', proc: 'limpiar_individual'});
         return menuLimpieza
-     }
+    }
+
     getMenu(context:Context){
-        let menu = super.getMenu(context);
-        menu.menu.push({menuType:'proc', name:'intercambiar_encuestas'})
-        return menu;
+        return super.getMenu(context);
     }
     prepareGetTables(){
         var be=this;
