@@ -18,6 +18,8 @@ import { visitas_sup         } from './table-visitas_sup';
 import { hogares_sup         } from './table-hogares_sup';
 import { personas_sup        } from './table-personas_sup';
 
+import { actividades_ajustado_vw} from './table-actividades_ajustado_vw';
+
 const APP_DM_VERSION="#23-06-14";
 
 export type Constructor<T> = new(...args: any[]) => T;
@@ -123,6 +125,7 @@ export function emergeAppUt<T extends Constructor<dmencu.AppAppDmEncuType>>(Base
             visitas_sup,
             hogares_sup,
             personas_sup,
+            actividades_ajustado_vw
         }
         be.appendToTableDefinition('tem',function(tableDef:TableDefinition, _context?:TableContext){
             tableDef.hiddenColumns=tableDef.hiddenColumns?.filter(element => element !='semana');

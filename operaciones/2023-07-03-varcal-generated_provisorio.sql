@@ -32,7 +32,9 @@ create table "ut_2023_actividades_calculada" (
   "cant_minutos_epi" bigint,
   "tiempo_epi" interval,
   "d_cant_codigo_pegado" bigint, 
-  "d_cant_cod_simult" bigint
+  "d_cant_cod_simult" bigint,
+  --"d_simult_maxima" bigint,
+  "t_sin_simult_min" bigint
 , primary key ("operativo", "vivienda", "hogar", "persona", "renglon")
 );
 grant select, insert, update, references on "ut_2023_actividades_calculada" to ut2023_admin;
@@ -277,11 +279,15 @@ BEGIN
             d_cant_codigo_pegado = cant_codigo_pegado_diario(null2zero(actividades.operativo), null2zero(actividades.vivienda), null2zero(actividades.hogar), null2zero(actividades.persona), null2zero(actividades.codigo), actividades.hasta),
             d_cant_cod_simult = cant_codigos_simultaneos(null2zero(actividades.operativo), null2zero(actividades.vivienda), null2zero(actividades.hogar), null2zero(actividades.persona), null2zero(actividades.codigo), actividades.desde, actividades.hasta)
         FROM "actividades"  
-        WHERE "actividades"."operativo"="ut_2023_actividades_calculada"."operativo" AND "actividades"."vivienda"="ut_2023_actividades_calculada"."vivienda" AND "actividades"."hogar"="ut_2023_actividades_calculada"."hogar" AND "actividades"."persona"="ut_2023_actividades_calculada"."persona" AND "actividades"."renglon"="ut_2023_actividades_calculada"."renglon" AND "actividades"."operativo"=p_operativo AND "actividades"."vivienda"=p_id_caso;
+        WHERE "actividades"."operativo"="ut_2023_actividades_calculada"."operativo" AND "actividades"."vivienda"="ut_2023_actividades_calculada"."vivienda" AND "actividades"."hogar"="ut_2023_actividades_calculada"."hogar" AND "actividades"."persona"="ut_2023_actividades_calculada"."persona" AND "actividades"."renglon"="ut_2023_actividades_calculada"."renglon" 
+          AND "actividades"."operativo"=p_operativo AND "actividades"."vivienda"=p_id_caso;
     UPDATE ut_2023_actividades_calculada
         SET 
-            cant_minutos_epi = null2zero(ut_2023_actividades_calculada.hasta_min) - null2zero(ut_2023_actividades_calculada.desde_min)
+            cant_minutos_epi = null2zero(ut_2023_actividades_calculada.hasta_min) - null2zero(ut_2023_actividades_calculada.desde_min),
+            t_sin_simult_min = null2zero(actividades_ajustado_vw.t_sin_simu_min)                        --,d_simult_maxima = null2zero(actividades_ajustado_vw.simultaneidad_maxima)            
+            --,d_simult_maxima = null2zero(actividades_ajustado_vw.simultaneidad_maxima)
         FROM "actividades" 
+          JOIN "actividades_ajustado_vw" ON "actividades"."operativo"="actividades_ajustado_vw"."operativo" AND "actividades"."vivienda"="actividades_ajustado_vw"."vivienda" AND "actividades"."hogar"="actividades_ajustado_vw"."hogar" AND "actividades"."persona"="actividades_ajustado_vw"."persona" AND "actividades"."renglon"="actividades_ajustado_vw"."renglon"  
         WHERE "actividades"."operativo"="ut_2023_actividades_calculada"."operativo" AND "actividades"."vivienda"="ut_2023_actividades_calculada"."vivienda" AND "actividades"."hogar"="ut_2023_actividades_calculada"."hogar" AND "actividades"."persona"="ut_2023_actividades_calculada"."persona" AND "actividades"."renglon"="ut_2023_actividades_calculada"."renglon" AND "actividades"."operativo"=p_operativo AND "actividades"."vivienda"=p_id_caso;
 
     UPDATE ut_2023_hogares_calculada
@@ -470,6 +476,7 @@ UPDATE tabla_datos SET generada=now()::timestamp(0) WHERE operativo='UT_2023' AN
 end;
 $SQL_DUMP$;--- boton calcular generado: Fri Jun 23 2023 13:30:45 GMT-0300 (hora estándar de Argentina)
 
+--reconstruir vistas antes de calcular
 select update_varcal('UT_2023');
 
 
