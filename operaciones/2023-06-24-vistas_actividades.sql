@@ -1,6 +1,9 @@
 set search_path= base, comun;
 --cambiar owner y admin
 set role ut2023_owner;
+drop view actividades_ajustado_vw;
+drop view simultaneidades_vw;
+drop view actividades_cotas_vw;
 CREATE OR REPLACE VIEW actividades_cotas_vw
     AS
     SELECT y.operativo, y.vivienda,

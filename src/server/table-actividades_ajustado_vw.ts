@@ -108,7 +108,8 @@ export function actividades_ajustado_vw(context:TableContext):TableDefinition {
     ],
     "sql": {
         isTable:false,
-        from :  `(select operativo, vivienda, hogar, persona,renglon, desde, hasta, desde_min, hasta_min, codigo codigoa, detalle, t_con_simu_hm, t_con_simu_min, ajustado_min, ajustado::interval ajustado, simultaneidad_promedio_del_individuo--, simultaneidad_maxima
+        from :  `(select operativo, vivienda, hogar, persona,renglon, desde, hasta, desde_min, hasta_min, codigo codigoa, detalle, ajustado_min, ajustado::interval ajustado, simultaneidad_promedio_del_individuo
+                --,t_con_simu_hm, t_con_simu_min, simultaneidad_maxima
             , t_sin_simu_min, t_sin_simu_hm::interval t_sin_simu_hm
             from actividades_ajustado_vw)`,        
         skipEnance: true,
