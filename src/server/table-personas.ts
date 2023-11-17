@@ -481,6 +481,21 @@ export function personas(context:TableContext):TableDefinition {
             "name": "modulo_1",
             "typeName": "bigint",
             "nullable": true
+        },
+        {
+            "name": "w_pers_caba",
+            "typeName": "integer",
+            "nullable": true
+        },
+        {
+            "name": "w_pers_sd",
+            "typeName": "integer",
+            "nullable": true
+        },
+        {
+            "name": "w_pers_lv",
+            "typeName": "integer",
+            "nullable": true
         }
     ],
     "sql": {
